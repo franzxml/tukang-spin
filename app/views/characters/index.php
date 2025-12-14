@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div id="character-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; margin-bottom: 80px;">
+    <div id="character-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; margin-bottom: 80px;">
         
         <?php 
             // Load the partial view for the initial load

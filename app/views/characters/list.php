@@ -1,7 +1,8 @@
 <?php 
 /**
  * Partial View: Character List Grid
- * Style: Genshin Impact Character Card (Vertical, Rarity Background)
+ * Style: Genshin Namecard UI (Horizontal Banner)
+ * Icon on Left, Info on Right, Decorative Background.
  */
 ?>
 
@@ -14,10 +15,10 @@
 
     <?php foreach ($data['characters'] as $char) : ?>
         <?php 
-            // Determine Rarity Class
+            // Determine Rarity Class for Background
             $rarityClass = ($char['rarity'] == 5) ? 'bg-rarity-5' : 'bg-rarity-4';
             
-            // Determine Element Color for Dot
+            // Element Color for Badge
             $elmColor = match($char['element']) {
                 'Pyro' => '#FF5C5C',
                 'Hydro' => '#4E7CFF',
@@ -30,32 +31,36 @@
             };
         ?>
 
-        <a href="<?= BASEURL; ?>/characters/detail/<?= $char['id']; ?>" class="genshin-card">
+        <a href="<?= BASEURL; ?>/characters/detail/<?= $char['id']; ?>" class="namecard-style">
             
-            <div class="genshin-bg-wrapper <?= $rarityClass; ?>">
-                
-                <img src="<?= $char['image_url']; ?>" alt="<?= $char['name']; ?>" class="char-image">
-                
-                <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); padding: 4px 8px; border-radius: 8px; color: #FFD700; font-size: 0.8rem; font-weight: 700; z-index: 2;">
-                    <?= $char['rarity']; ?> ★
-                </div>
+            <div class="namecard-bg <?= $rarityClass; ?>"></div>
+            
+            <div class="namecard-overlay"></div>
 
-                <div class="card-info">
-                    <h3 class="card-name"><?= $char['name']; ?></h3>
-                    
-                    <div class="card-meta">
-                        <span class="element-dot" style="background-color: <?= $elmColor; ?>;"></span>
-                        <span><?= $char['element']; ?></span>
-                        <span style="color: #d2d2d7;">|</span>
-                        <span><?= $char['weapon_type']; ?></span>
-                    </div>
-
-                    <div style="margin-top: 8px; font-size: 0.75rem; color: #86868b; text-transform: uppercase; letter-spacing: 0.5px;">
-                        <?= $char['role']; ?>
-                    </div>
-                </div>
-
+            <div class="namecard-avatar-container">
+                <img src="<?= $char['image_url']; ?>" alt="<?= $char['name']; ?>" class="namecard-avatar-img">
             </div>
+
+            <div class="namecard-info">
+                <h3 class="namecard-name"><?= $char['name']; ?></h3>
+                
+                <div class="namecard-meta">
+                    <span class="element-badge" style="background-color: <?= $elmColor; ?>20; border-color: <?= $elmColor; ?>; color: <?= $elmColor; ?>;">
+                        <?= $char['element']; ?>
+                    </span>
+                    
+                    <span><?= $char['weapon_type']; ?></span>
+                    
+                    <span style="color: #FFD700; margin-left: 5px; font-weight: 700;">
+                        <?= $char['rarity']; ?>★
+                    </span>
+                </div>
+                
+                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                    <?= $char['role']; ?>
+                </div>
+            </div>
+
         </a>
     <?php endforeach; ?>
 
