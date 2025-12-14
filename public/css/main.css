@@ -84,7 +84,7 @@ a {
     font-weight: 700;
     color: #000000; /* Plain Black */
     letter-spacing: -0.02em;
-    background: none; /* Remove previous gradient */
+    background: none;
     -webkit-text-fill-color: initial;
     display: inline-block;
 }
@@ -154,48 +154,81 @@ input:focus, select:focus, textarea:focus {
 .character-card {
     background-color: var(--bg-card);
     border-radius: 18px;
-    border: 1px solid var(--border-subtle); /* Clean border */
+    border: 1px solid var(--border-subtle);
     overflow: hidden;
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
 }
 
 .character-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Soft shadow */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     border-color: #000000;
 }
 
-/* Override for specific text in cards that might be hardcoded to white previously */
+/* Override for specific text in cards */
 strong {
     color: var(--text-primary) !important;
 }
 
-/* --- Footer --- */
+/* --- Footer (Split Layout) --- */
 
 .main-footer {
     margin-top: auto;
-    background-color: var(--bg-body);
+    background-color: var(--bg-panel); /* Slightly darker than body */
     border-top: 1px solid var(--border-subtle);
-    padding: 4rem 0 3rem 0;
-    text-align: center;
-    color: var(--text-secondary);
-}
-
-.social-links {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-}
-
-.social-links a {
-    color: var(--accent-blue);
-    font-weight: 500;
+    padding: 3rem 0;
     font-size: 0.9rem;
+    color: var(--text-primary);
 }
 
-.social-links a:hover {
-    text-decoration: underline;
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Footer Left: Developer Info & Socials */
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-dev-text {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.footer-socials {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-secondary);
+    transition: fill 0.2s, transform 0.2s;
+}
+
+.social-icon:hover {
+    fill: var(--text-primary); /* Darker on hover */
+    transform: translateY(-2px);
+}
+
+/* Footer Right: Quote */
+.footer-right {
+    text-align: right;
+    max-width: 400px;
+}
+
+.footer-quote {
+    font-family: serif; /* Elegant serif for quote */
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 1rem;
 }
 
 /* --- Utilities --- */
@@ -203,12 +236,11 @@ strong {
 .text-blue { color: var(--accent-blue); }
 .text-red { color: var(--accent-red); }
 
-/* Fix visibility for inline styles from previous dark mode code */
-/* Forces text inside light-colored containers to be readable */
+/* Overrides */
 div[style*="color: white"], strong[style*="color: white"] {
     color: var(--text-primary) !important;
 }
 
 div[style*="background: #202028"] {
-    background: #f0f0f0 !important; /* Lighter placeholder */
+    background: #e5e5ea !important; /* Proper placeholder gray */
 }
