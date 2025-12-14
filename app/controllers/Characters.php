@@ -1,151 +1,100 @@
 <?php
 
-/**
- * Class Characters
- *
- * Controller for handling character listing, creation, details, and updates.
- * Now manages Weapon equipping logic.
- *
- * @package App\Controllers
- */
 class Characters extends Controller
 {
-    /**
-     * Index: Display Roster
-     */
     public function index(): void
     {
-        $data['title'] = 'Character Roster';
-        
-        $characterModel = $this->model('CharacterModel');
-        $data['characters'] = $characterModel->getAllCharacters();
-
+        $data['title'] = 'Koleksi Karakter';
+        $data['characters'] = $this->model('CharacterModel')->getAllCharacters();
         $this->view('templates/header', $data);
         $this->view('characters/index', $data);
         $this->view('templates/footer');
     }
 
-    /**
-     * Detail: Show Profile
-     */
     public function detail(int $id): void
     {
-        $data['character'] = $this->model('CharacterModel')->getCharacterById($id);
+        $charModel = $this->model('CharacterModel');
+        $data['character'] = $charModel->getCharacterById($id);
 
         if (!$data['character']) {
-            Flasher::setFlash('Character', 'not found', 'danger');
+            Flasher::setFlash('Karakter', 'tidak ditemukan', 'danger');
             header('Location: ' . BASEURL . '/characters');
             exit;
         }
 
+        // Fetch compatible weapons for hover effect (excluding current)
+        $weaponType = $data['character']['weapon_type'];
+        $currentWeaponId = $data['character']['equipped_weapon_id'];
+        $data['alt_weapons'] = $charModel->getCompatibleWeapons($weaponType, $currentWeaponId);
+
         $data['title'] = $data['character']['name'] . ' Build';
-        
         $this->view('templates/header', $data);
         $this->view('characters/detail', $data);
         $this->view('templates/footer');
     }
 
-    /**
-     * Add: Show Create Form
-     */
     public function add(): void
     {
-        $data['title'] = 'Add New Character';
-        
-        // Load weapons for the dropdown
+        $data['title'] = 'Tambah Karakter';
         $data['weapons'] = $this->model('WeaponModel')->getAllWeapons();
+        $data['artifacts'] = $this->model('ArtifactModel')->getAllArtifacts(); // Load Artifacts
 
         $this->view('templates/header', $data);
         $this->view('characters/add', $data);
         $this->view('templates/footer');
     }
 
-    /**
-     * Store: Process Creation
-     */
-    public function store(): void
-    {
-        if ($this->model('CharacterModel')->addCharacter($_POST) > 0) {
-            Flasher::setFlash('Character', 'successfully added', 'success');
-            header('Location: ' . BASEURL . '/characters');
-            exit;
-        } else {
-            Flasher::setFlash('Character', 'failed to add', 'danger');
-            header('Location: ' . BASEURL . '/characters');
-            exit;
-        }
-    }
-
-    /**
-     * Edit: Show Update Form
-     */
     public function edit(int $id): void
     {
-        $data['title'] = 'Edit Character';
+        $data['title'] = 'Edit Karakter';
         $data['character'] = $this->model('CharacterModel')->getCharacterById($id);
-        
-        // Load weapons for the dropdown
         $data['weapons'] = $this->model('WeaponModel')->getAllWeapons();
+        $data['artifacts'] = $this->model('ArtifactModel')->getAllArtifacts(); // Load Artifacts
 
         $this->view('templates/header', $data);
         $this->view('characters/edit', $data);
         $this->view('templates/footer');
     }
 
-    /**
-     * Update: Process Changes
-     */
+    public function store(): void
+    {
+        if ($this->model('CharacterModel')->addCharacter($_POST) > 0) {
+            Flasher::setFlash('Karakter', 'berhasil ditambahkan', 'success');
+            header('Location: ' . BASEURL . '/characters');
+            exit;
+        } else {
+            Flasher::setFlash('Karakter', 'gagal ditambahkan', 'danger');
+            header('Location: ' . BASEURL . '/characters');
+            exit;
+        }
+    }
+
     public function update(): void
     {
         if ($this->model('CharacterModel')->updateCharacter($_POST) > 0) {
-            Flasher::setFlash('Character', 'successfully updated', 'success');
-            header('Location: ' . BASEURL . '/characters/detail/' . $_POST['id']); // Redirect to detail
+            Flasher::setFlash('Karakter', 'berhasil diperbarui', 'success');
+            header('Location: ' . BASEURL . '/characters/detail/' . $_POST['id']);
             exit;
         } else {
-            Flasher::setFlash('Character', 'updated (or no changes)', 'success');
+            Flasher::setFlash('Karakter', 'diperbarui (atau tidak ada perubahan)', 'success');
             header('Location: ' . BASEURL . '/characters/detail/' . $_POST['id']);
             exit;
         }
     }
 
-    /**
-     * Delete: Remove Character
-     */
     public function delete(int $id): void
     {
         if ($this->model('CharacterModel')->deleteCharacter($id) > 0) {
-            Flasher::setFlash('Character', 'successfully deleted', 'success');
-            header('Location: ' . BASEURL . '/characters');
-            exit;
-        } else {
-            Flasher::setFlash('Character', 'failed to delete', 'danger');
+            Flasher::setFlash('Karakter', 'berhasil dihapus', 'success');
             header('Location: ' . BASEURL . '/characters');
             exit;
         }
     }
 
-    /**
-     * Search (Fallback)
-     */
-    public function search(): void
-    {
-        $data['title'] = 'Search Results';
-        $keyword = $_POST['keyword'] ?? '';
-        $data['characters'] = $this->model('CharacterModel')->searchCharacters($keyword);
-        
-        $this->view('templates/header', $data);
-        $this->view('characters/index', $data);
-        $this->view('templates/footer');
-    }
-
-    /**
-     * AJAX Live Search
-     */
     public function liveSearch(): void
     {
         $input = json_decode(file_get_contents('php://input'), true);
-        $keyword = $input['keyword'] ?? '';
-        $data['characters'] = $this->model('CharacterModel')->searchCharacters($keyword);
+        $data['characters'] = $this->model('CharacterModel')->searchCharacters($input['keyword'] ?? '');
         $this->view('characters/list', $data);
     }
 }
