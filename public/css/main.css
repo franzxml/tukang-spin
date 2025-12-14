@@ -1,25 +1,24 @@
 /*
  * Main Stylesheet for Genpedia
- * Theme: Apple Human Interface (Light Mode) - Clean, Flat, & Minimal.
- * Colors: White backgrounds, Black text, Blue accents.
- * Typography: System Font Stack.
+ * Theme: Apple Human Interface (Light Mode).
+ * Approach: Mobile First Responsive Design.
  */
 
 :root {
-    /* Apple System Colors (Light Mode) */
-    --bg-body: #ffffff;       /* Pure White */
-    --bg-card: #ffffff;       /* White Cards */
-    --bg-panel: #f5f5f7;      /* Light Gray for backgrounds/inputs */
-    --bg-glass: rgba(255, 255, 255, 0.85); /* Frosty White */
+    /* Colors */
+    --bg-body: #ffffff;
+    --bg-card: #ffffff;
+    --bg-panel: #f5f5f7;
+    --bg-glass: rgba(255, 255, 255, 0.85);
     
-    --text-primary: #1d1d1f;  /* Apple Black/Dark Gray */
-    --text-secondary: #86868b; /* Apple Gray */
+    --text-primary: #1d1d1f;
+    --text-secondary: #86868b;
     
-    --accent-gold: #bf9b30;   /* Muted Gold */
-    --accent-blue: #0071e3;   /* Apple Classic Blue */
-    --accent-red: #ff3b30;    /* Apple Red */
+    --accent-gold: #bf9b30;
+    --accent-blue: #0071e3;
+    --accent-red: #ff3b30;
     
-    --border-subtle: #d2d2d7; /* Light border */
+    --border-subtle: #d2d2d7;
     
     /* Typography */
     --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -56,17 +55,17 @@ a {
     width: 90%;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 0 20px; /* Side padding for mobile */
 }
 
-/* --- Header (White & Glass) --- */
+/* --- Header (Mobile First) --- */
 
 .main-header {
     background-color: var(--bg-glass);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--border-subtle);
-    padding: 1.2rem 0;
+    padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -74,42 +73,52 @@ a {
 
 .nav-flex {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Stack vertically on mobile */
     align-items: center;
+    gap: 15px;
 }
 
-/* Branding: Plain Black */
 .brand-logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #000000; /* Plain Black */
+    color: #000000;
     letter-spacing: -0.02em;
-    background: none;
-    -webkit-text-fill-color: initial;
-    display: inline-block;
 }
 
-/* Navigation */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 40px;
+    gap: 20px; /* Tighter gap on mobile */
+    flex-wrap: wrap; /* Allow wrapping on very small screens */
+    justify-content: center;
 }
 
 .nav-links a {
     color: var(--text-secondary);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-    color: #000000; /* Black on hover */
+    color: #000000;
+}
+
+/* Desktop Media Query */
+@media (min-width: 768px) {
+    .nav-flex {
+        flex-direction: row; /* Horizontal on desktop */
+        justify-content: space-between;
+        gap: 0;
+    }
+
+    .nav-links {
+        gap: 40px;
+    }
 }
 
 /* --- UI Elements --- */
 
-/* Buttons: Pill Shaped */
 .btn-cta {
     display: inline-block;
     padding: 8px 20px;
@@ -131,22 +140,22 @@ a {
     transform: scale(0.98);
 }
 
-/* Inputs: Light Gray Background */
 input, select, textarea {
     font-family: var(--font-stack);
     font-size: 1rem;
-    background: var(--bg-panel); /* Light Gray */
+    background: var(--bg-panel);
     border: 1px solid transparent;
     border-radius: 10px;
     color: var(--text-primary);
     padding: 12px 16px;
+    width: 100%; /* Full width on mobile */
     transition: background 0.2s, box-shadow 0.2s;
 }
 
 input:focus, select:focus, textarea:focus {
     outline: none;
     background: white;
-    box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2); /* Blue ring */
+    box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
 }
 
 /* --- Cards --- */
@@ -165,16 +174,37 @@ input:focus, select:focus, textarea:focus {
     border-color: #000000;
 }
 
-/* Override for specific text in cards */
 strong {
     color: var(--text-primary) !important;
 }
 
-/* --- Footer (Split Layout) --- */
+/* --- Hero Section --- */
+
+.hero-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(rgba(25, 25, 32, 0.8), rgba(25, 25, 32, 0.9)), 
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    border-radius: 18px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-subtle);
+    color: white; /* Force white text for Hero only */
+}
+
+.hero-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+}
+
+/* --- Footer --- */
 
 .main-footer {
     margin-top: auto;
-    background-color: var(--bg-panel); /* Slightly darker than body */
+    background-color: var(--bg-panel);
     border-top: 1px solid var(--border-subtle);
     padding: 3rem 0;
     font-size: 0.9rem;
@@ -183,22 +213,31 @@ strong {
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Stack on mobile */
     align-items: center;
-    flex-wrap: wrap;
     gap: 20px;
+    text-align: center;
 }
 
-/* Footer Left: Developer Info & Socials */
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
 .footer-left {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-items: center; /* Center on mobile */
 }
 
-.footer-dev-text {
-    font-weight: 500;
-    color: var(--text-primary);
+@media (min-width: 768px) {
+    .footer-left {
+        align-items: flex-start;
+    }
 }
 
 .footer-socials {
@@ -214,18 +253,12 @@ strong {
 }
 
 .social-icon:hover {
-    fill: var(--text-primary); /* Darker on hover */
+    fill: var(--text-primary);
     transform: translateY(-2px);
 }
 
-/* Footer Right: Quote */
-.footer-right {
-    text-align: right;
-    max-width: 400px;
-}
-
 .footer-quote {
-    font-family: serif; /* Elegant serif for quote */
+    font-family: serif;
     font-style: italic;
     color: var(--text-secondary);
     font-size: 1rem;
@@ -236,11 +269,12 @@ strong {
 .text-blue { color: var(--accent-blue); }
 .text-red { color: var(--accent-red); }
 
-/* Overrides */
+/* Fix inline styles */
 div[style*="color: white"], strong[style*="color: white"] {
     color: var(--text-primary) !important;
 }
 
-div[style*="background: #202028"] {
-    background: #e5e5ea !important; /* Proper placeholder gray */
+/* Hero Exception */
+.hero-section div[style*="color: white"], .hero-section strong[style*="color: white"], .hero-section p {
+    color: white !important;
 }

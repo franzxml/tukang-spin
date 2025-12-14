@@ -9,7 +9,7 @@
     <div class="container footer-content">
         
         <div class="footer-left">
-            <p class="footer-dev-text">Genpedia dikembangkan oleh <strong>@franzxml</strong></p>
+            <p class="footer-dev-text">Genpedia, dikembangkan oleh <strong>@franzxml</strong></p>
             
             <div class="footer-socials">
                 <a href="https://instagram.com/franzxml" target="_blank" aria-label="Instagram">
