@@ -23,6 +23,10 @@
     
     --border-subtle: #d2d2d7;
     
+    /* Genshin Rarity Colors */
+    --rarity-5: linear-gradient(180deg, #cf7e28 0%, #dba654 100%); /* Gold */
+    --rarity-4: linear-gradient(180deg, #7a54a3 0%, #a256e1 100%); /* Purple */
+    
     /* Typography: Switch to Inter */
     --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -83,7 +87,7 @@ a {
 
 .brand-logo {
     font-size: 1.5rem;
-    font-weight: 800; /* Extra Bold */
+    font-weight: 800;
     color: #000000;
     letter-spacing: -0.04em;
 }
@@ -141,10 +145,9 @@ a {
     transform: scale(0.98);
 }
 
-/* Special White Button for Hero */
 .btn-white {
     background-color: #ffffff !important;
-    color: #000000 !important; /* Force Black Text */
+    color: #000000 !important;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
@@ -166,49 +169,46 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
 }
 
-/* --- Cards (Generic) --- */
+/* --- Hero Section (Shared Style) --- */
 
-.character-card {
-    background-color: var(--bg-card);
-    border-radius: 20px;
-    border: 1px solid var(--border-subtle);
-    overflow: hidden;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
-}
-
-.character-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    border-color: #000000;
-}
-
-strong {
-    color: var(--text-primary) !important;
-}
-
-/* --- Hero Section --- */
-
-.hero-section {
+.hero-section, .page-header-card {
     text-align: center;
     padding: 80px 20px;
     margin-top: 40px; 
     margin-bottom: 3rem;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
-                url('https://i.imgur.com/QJU6mHq.jpeg');
     background-size: cover;
     background-position: center;
     border-radius: 24px;
     border: 1px solid rgba(0,0,0,0.1);
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
 }
 
-.hero-section h1, 
-.hero-section p {
+/* Home Hero Specific */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
+                url('https://i.imgur.com/QJU6mHq.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Character Page Header Specific */
+.page-header-card {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
+                url('https://images4.alphacoders.com/113/1131970.jpg'); /* Generic Genshin Landscape */
+    background-size: cover;
+    background-position: center;
+    padding: 60px 20px;
+}
+
+.hero-section h1, .hero-section p,
+.page-header-card h1, .page-header-card p {
     color: #ffffff !important;
     text-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
 
-.hero-title {
+.hero-title, .page-title {
     font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: -0.03em;
@@ -232,7 +232,6 @@ strong {
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     position: relative;
     overflow: hidden;
-    
     background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
                 url('https://i.imgur.com/UsnWDAf.jpeg');
     background-size: cover;
@@ -270,6 +269,94 @@ strong {
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
     position: relative;
     z-index: 2;
+}
+
+/* --- GENSHIN CHARACTER CARDS --- */
+
+.genshin-card {
+    position: relative;
+    border-radius: 16px; /* Slightly tighter radius for game feel */
+    overflow: hidden;
+    height: 380px; /* Tall vertical card */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.1);
+    background-color: white;
+}
+
+.genshin-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+/* Rarity Backgrounds (Bottom Strip or Full) */
+.genshin-bg-wrapper {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    /* Default gray if not set */
+    background: linear-gradient(180deg, #e3e3e3 0%, #d0d0d0 100%); 
+}
+
+/* 5 Star Gradient */
+.bg-rarity-5 {
+    background: var(--rarity-5);
+}
+
+/* 4 Star Gradient */
+.bg-rarity-4 {
+    background: var(--rarity-4);
+}
+
+.char-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    transition: transform 0.4s ease;
+}
+
+.genshin-card:hover .char-image {
+    transform: scale(1.05);
+}
+
+.card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.card-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.card-meta {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Element Icons (Simulated with Color Dots) */
+.element-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
 }
 
 /* --- Footer --- */
@@ -343,4 +430,8 @@ strong {
 /* Overrides */
 div[style*="color: white"], strong[style*="color: white"] {
     color: var(--text-primary) !important;
+}
+
+.hero-section *, .page-header-card *, .stats-card * {
+    /* Color reset handled by specific selectors */
 }

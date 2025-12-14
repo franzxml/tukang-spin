@@ -5,21 +5,18 @@
         </div>
     </div>
 
-    <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px;">
+    <div class="page-header-card">
+        <h1 class="page-title">Daftar Karakter</h1>
+        <p>Kelola roster, lihat statistik build, dan atur tim Anda.</p>
         
-        <div>
-            <h2 style="color: var(--text-secondary);">Character Roster</h2>
-            <p style="color: #888; margin: 0;">Manage your owned characters and their meta roles.</p>
-        </div>
-        
-        <div style="display: flex; gap: 10px;" id="search-container">
-            <input type="text" id="keyword" placeholder="Search by Name..." autocomplete="off" style="padding: 8px 15px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); outline: none; width: 250px;">
-
-            <a href="<?= BASEURL; ?>/characters/add" class="btn-cta" style="font-size: 0.9rem; margin-top: 0; align-self: center;">+ Add New</a>
+        <div style="margin-top: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            <input type="text" id="keyword" placeholder="Cari nama karakter..." autocomplete="off" style="max-width: 300px; background: white; color: black; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            
+            <a href="<?= BASEURL; ?>/characters/add" class="btn-cta btn-white" style="color: black !important;">+ Tambah Baru</a>
         </div>
     </div>
 
-    <div id="character-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px;">
+    <div id="character-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; margin-bottom: 80px;">
         
         <?php 
             // Load the partial view for the initial load
