@@ -11,12 +11,14 @@
 <header class="main-header">
     <div class="container nav-flex">
         <a href="<?= BASEURL; ?>" class="brand-logo">Genpedia</a>
+        
         <nav>
             <ul class="nav-links">
                 <li><a href="<?= BASEURL; ?>">Beranda</a></li>
                 <li><a href="<?= BASEURL; ?>/characters">Karakter</a></li>
                 <li><a href="<?= BASEURL; ?>/weapons">Senjata</a></li>
-                <li><a href="<?= BASEURL; ?>/artifacts">Artefak</a></li> <li><a href="#">Tentang</a></li>
+                <li><a href="<?= BASEURL; ?>/artifacts">Artefak</a></li>
+                <li><a href="#">Tentang</a></li>
             </ul>
         </nav>
     </div>
