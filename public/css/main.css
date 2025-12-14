@@ -1,0 +1,123 @@
+/*
+ * Main Stylesheet for Genpedia
+ * * Implements a dark-themed UI inspired by Genshin Impact game menus.
+ * Uses CSS Variables for easy theming.
+ */
+
+:root {
+    --bg-primary: #1c1c22;    /* Deep dark blue/grey */
+    --bg-secondary: #262630;  /* Lighter panel background */
+    --text-primary: #ece5d8;  /* Off-white text */
+    --text-secondary: #d3bc8e; /* Gold/Beige for accents */
+    --accent-color: #4e7cff;  /* Element-like blue */
+    --border-color: #3b3b45;
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Layout Components --- */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- Header & Navigation --- */
+
+.main-header {
+    background-color: var(--bg-secondary);
+    border-bottom: 2px solid var(--text-secondary);
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-secondary);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text-secondary);
+}
+
+/* --- Content Areas --- */
+
+.hero-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(rgba(28, 28, 34, 0.8), rgba(28, 28, 34, 0.9)), 
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop'); /* Placeholder generic stars/nebula */
+    background-size: cover;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+
+.btn-cta {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--text-secondary);
+    color: var(--bg-primary);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* --- Footer --- */
+
+.main-footer {
+    margin-top: auto;
+    background-color: var(--bg-secondary);
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    color: #888;
+}

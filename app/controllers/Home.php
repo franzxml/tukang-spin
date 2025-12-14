@@ -4,6 +4,7 @@
  * Class Home
  *
  * The default controller for the Genpedia application.
+ * Handles the rendering of the homepage.
  *
  * @package App\Controllers
  */
@@ -11,13 +12,18 @@ class Home extends Controller
 {
     /**
      * The default method for the Home controller.
-     * Currently outputs a simple test message.
+     * Renders the header, index view, and footer.
      *
      * @return void
      */
     public function index(): void
     {
-        echo "<h1>Genpedia API is Running</h1>";
-        echo "<p>Welcome, Franzxml. The MVC core is active.</p>";
+        // Data to be passed to the views
+        $data['title'] = 'Dashboard';
+
+        // Load Views
+        $this->view('templates/header', $data);
+        $this->view('home/index', $data);
+        $this->view('templates/footer');
     }
 }
