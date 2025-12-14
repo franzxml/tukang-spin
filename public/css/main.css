@@ -1,14 +1,14 @@
 /*
  * Main Stylesheet for Genpedia
  * Theme: Apple Human Interface (Light Mode).
- * Style: Genshin Namecard UI (Horizontal Layout).
+ * Font: Inter (Premium, Clean, Modern).
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
     /* Colors */
-    --bg-body: #ffffff;
+    --bg-body: #fbfbfd;       /* Slightly off-white for body */
     --bg-card: #ffffff;
     --bg-panel: #f5f5f7;
     --bg-glass: rgba(255, 255, 255, 0.85);
@@ -23,7 +23,7 @@
     
     --border-subtle: #d2d2d7;
     
-    /* Genshin Rarity Gradients (Namecard Style) */
+    /* Genshin Rarity Gradients */
     --rarity-5: linear-gradient(90deg, #cf7e28 0%, #e0b46a 100%);
     --rarity-4: linear-gradient(90deg, #7a54a3 0%, #b070e6 100%);
     
@@ -196,8 +196,9 @@ strong {
 }
 
 .page-header-card {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
-                url('https://images4.alphacoders.com/113/1131970.jpg');
+    /* UPDATED IMAGE URL */
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), 
+                url('https://i.imgur.com/RiQ50u3.png');
     background-size: cover;
     background-position: center;
     padding: 60px 20px;
@@ -272,12 +273,12 @@ strong {
     z-index: 2;
 }
 
-/* --- NAMECARD LIST STYLE (New Implementation) --- */
+/* --- NAMECARD LIST STYLE --- */
 
 .namecard-style {
     display: flex;
     align-items: center;
-    height: 120px; /* Standard Namecard height */
+    height: 120px;
     border-radius: 16px;
     position: relative;
     overflow: hidden;
@@ -285,7 +286,6 @@ strong {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     background-color: var(--bg-card);
     border: 1px solid rgba(0,0,0,0.05);
-    text-decoration: none !important;
 }
 
 .namecard-style:hover {
@@ -294,7 +294,6 @@ strong {
     z-index: 10;
 }
 
-/* Background Layer (Namecard Image) */
 .namecard-bg {
     position: absolute;
     top: 0;
@@ -304,14 +303,12 @@ strong {
     z-index: 0;
     background-size: cover;
     background-position: center;
-    /* Default gradient if no image */
-    background: linear-gradient(90deg, #ccc 0%, #eee 100%);
+    background-color: #eee;
 }
 
-.bg-rarity-5 { background: var(--rarity-5); }
-.bg-rarity-4 { background: var(--rarity-4); }
+.bg-rarity-5 { background-image: var(--rarity-5); }
+.bg-rarity-4 { background-image: var(--rarity-4); }
 
-/* Dark Overlay for Text Readability */
 .namecard-overlay {
     position: absolute;
     top: 0;
@@ -319,16 +316,14 @@ strong {
     width: 100%;
     height: 100%;
     z-index: 1;
-    /* Gradient from left (dark) to right (transparent) */
-    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.1) 100%);
+    background: linear-gradient(90deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
 }
 
-/* Avatar Container (Left Side) */
 .namecard-avatar-container {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    margin-left: 20px; /* Spacing from left edge */
+    margin-left: 20px;
     z-index: 2;
     position: relative;
     border: 3px solid rgba(255,255,255,0.8);
@@ -344,7 +339,6 @@ strong {
     object-fit: cover;
 }
 
-/* Info Container (Right of Avatar) */
 .namecard-info {
     z-index: 2;
     margin-left: 20px;
@@ -382,6 +376,135 @@ strong {
     background: rgba(0,0,0,0.3);
     border: 1px solid rgba(255,255,255,0.3);
 }
+
+/* --- NEW DETAIL PAGE STYLES --- */
+
+.detail-header {
+    position: relative;
+    height: 300px;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: flex-end; /* Content at bottom */
+    padding: 40px;
+}
+
+.detail-header-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.detail-header-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+    z-index: 1;
+}
+
+.detail-profile {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.detail-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    object-fit: cover;
+    background: #fff;
+}
+
+.detail-title-block h1 {
+    color: white !important;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.detail-tags {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.detail-tag {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(5px);
+    color: white !important;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.gear-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.gear-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.gear-card h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.item-flex {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.item-thumb {
+    width: 80px;
+    height: 80px;
+    background: #f5f5f7;
+    border-radius: 12px;
+    padding: 5px;
+    object-fit: contain;
+    border: 1px solid #e5e5ea;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-label { color: var(--text-secondary); }
+.stat-val { font-weight: 600; color: var(--text-primary); }
 
 /* --- Footer --- */
 
@@ -456,7 +579,6 @@ div[style*="color: white"], strong[style*="color: white"] {
     color: var(--text-primary) !important;
 }
 
-/* Reset for Namecard Context */
-.namecard-style * {
-    /* Elements inside namecard handle their own colors */
+.hero-section *, .page-header-card *, .stats-card *, .detail-header * {
+    /* Color reset handled by specific selectors */
 }
