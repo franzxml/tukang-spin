@@ -3,7 +3,7 @@
     <p>Database pribadi untuk manajemen build Genshin Impact.</p>
     <p>Kelola tim, senjata, dan artefak Anda dengan efisiensi maksimal.</p>
     
-    <a href="<?= BASEURL; ?>/characters" class="btn-cta" style="margin-top: 25px; background: white; color: black;">Mulai Kelola</a>
+    <a href="<?= BASEURL; ?>/characters" class="btn-cta btn-white" style="margin-top: 25px;">Mulai Kelola</a>
 </section>
 
 <div class="stats-grid">

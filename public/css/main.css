@@ -1,8 +1,11 @@
 /*
  * Main Stylesheet for Genpedia
  * Theme: Apple Human Interface (Light Mode).
- * Approach: Mobile First Responsive Design.
+ * Font: Inter (Premium, Clean, Modern).
  */
+
+/* Import Inter Font for Premium Look */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
     /* Colors */
@@ -20,8 +23,8 @@
     
     --border-subtle: #d2d2d7;
     
-    /* Typography */
-    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* Typography: Switch to Inter */
+    --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -58,7 +61,7 @@ a {
     padding: 0 20px;
 }
 
-/* --- Header (Mobile First) --- */
+/* --- Header --- */
 
 .main-header {
     background-color: var(--bg-glass);
@@ -80,9 +83,9 @@ a {
 
 .brand-logo {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 800; /* Extra Bold */
     color: #000000;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em; /* Tighter for logo */
 }
 
 .nav-links {
@@ -110,7 +113,6 @@ a {
         justify-content: space-between;
         gap: 0;
     }
-
     .nav-links {
         gap: 40px;
     }
@@ -120,23 +122,30 @@ a {
 
 .btn-cta {
     display: inline-block;
-    padding: 8px 20px;
+    padding: 10px 24px;
     background-color: var(--accent-blue);
     color: white;
     border-radius: 980px;
-    font-weight: 500;
-    font-size: 0.9rem;
+    font-weight: 600;
+    font-size: 0.95rem;
     border: none;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: transform 0.1s, opacity 0.2s;
 }
 
 .btn-cta:hover {
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
 .btn-cta:active {
     transform: scale(0.98);
+}
+
+/* Special White Button for Hero */
+.btn-white {
+    background-color: #ffffff !important;
+    color: #000000 !important; /* Force Black Text */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 input, select, textarea {
@@ -144,7 +153,7 @@ input, select, textarea {
     font-size: 1rem;
     background: var(--bg-panel);
     border: 1px solid transparent;
-    border-radius: 10px;
+    border-radius: 12px;
     color: var(--text-primary);
     padding: 12px 16px;
     width: 100%;
@@ -161,7 +170,7 @@ input:focus, select:focus, textarea:focus {
 
 .character-card {
     background-color: var(--bg-card);
-    border-radius: 18px;
+    border-radius: 20px;
     border: 1px solid var(--border-subtle);
     overflow: hidden;
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
@@ -169,7 +178,7 @@ input:focus, select:focus, textarea:focus {
 
 .character-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     border-color: #000000;
 }
 
@@ -182,88 +191,90 @@ strong {
 .hero-section {
     text-align: center;
     padding: 80px 20px;
-    /* Added margin-top for spacing from header */
     margin-top: 40px; 
-    margin-bottom: 2rem;
-    /* Updated Background Image */
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+    margin-bottom: 3rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
                 url('https://i.imgur.com/QJU6mHq.jpeg');
     background-size: cover;
     background-position: center;
-    border-radius: 18px;
-    border: 1px solid var(--border-subtle);
-    color: white;
+    border-radius: 24px; /* Smoother rounding */
+    border: 1px solid rgba(0,0,0,0.1);
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
-.hero-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    color: white;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-
+/* Specific text targeting to avoid overriding button color */
+.hero-section h1, 
 .hero-section p {
-    color: rgba(255, 255, 255, 0.9) !important;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    color: #ffffff !important;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
 
-/* --- Stats Cards (New) --- */
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 800; /* Heavier font */
+    letter-spacing: -0.03em; /* Tighter tracking */
+    margin-bottom: 15px;
+}
+
+/* --- Stats Cards --- */
 
 .stats-grid {
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 20px;
+    gap: 25px;
+    /* Added Bottom Spacing */
+    margin-bottom: 100px;
 }
 
 .stats-card {
-    padding: 40px 30px;
-    border-radius: 18px;
-    border: 1px solid var(--border-subtle);
+    padding: 50px 30px;
+    border-radius: 24px;
+    border: 1px solid rgba(0,0,0,0.1);
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease;
     
-    /* Stats Background Image */
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)),
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
                 url('https://i.imgur.com/UsnWDAf.jpeg');
     background-size: cover;
-    background-position: center 20%; /* Adjusted position to see faces better */
+    background-position: center 25%;
 }
 
 .stats-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    transform: scale(1.02);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
 }
 
 .stats-card h3 {
-    color: rgba(255, 255, 255, 0.9) !important;
-    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-size: 1.1rem;
     text-transform: uppercase;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    letter-spacing: 0.05em;
     text-shadow: 0 2px 4px rgba(0,0,0,0.8);
     position: relative;
     z-index: 2;
 }
 
 .stats-card .stats-number {
-    font-size: 4rem;
-    font-weight: 800;
-    color: white !important;
+    font-size: 5rem;
+    font-weight: 800; /* Black weight */
+    color: #ffffff !important;
     line-height: 1;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    letter-spacing: -0.04em; /* Tight numbers */
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    margin: 10px 0;
     position: relative;
     z-index: 2;
 }
 
 .stats-card .stats-label {
-    color: rgba(255, 255, 255, 0.8) !important;
-    font-size: 0.9rem;
-    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1rem;
+    font-weight: 500;
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
     position: relative;
     z-index: 2;
@@ -275,7 +286,7 @@ strong {
     margin-top: auto;
     background-color: var(--bg-panel);
     border-top: 1px solid var(--border-subtle);
-    padding: 3rem 0;
+    padding: 4rem 0;
     font-size: 0.9rem;
     color: var(--text-primary);
 }
@@ -299,7 +310,7 @@ strong {
 .footer-left {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
 }
 
@@ -311,7 +322,7 @@ strong {
 
 .footer-socials {
     display: flex;
-    gap: 15px;
+    gap: 18px;
 }
 
 .social-icon {
@@ -322,28 +333,27 @@ strong {
 }
 
 .social-icon:hover {
-    fill: var(--text-primary);
+    fill: #000000;
     transform: translateY(-2px);
 }
 
 .footer-quote {
-    font-family: serif;
+    font-family: 'Times New Roman', serif; /* Classic serif contrast */
     font-style: italic;
     color: var(--text-secondary);
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 /* --- Utilities --- */
 .text-gold { color: var(--accent-gold); }
 .text-blue { color: var(--accent-blue); }
-.text-red { color: var(--accent-red); }
 
 /* Overrides */
 div[style*="color: white"], strong[style*="color: white"] {
     color: var(--text-primary) !important;
 }
 
-/* Hero & Stats Exception (Force White Text) */
 .hero-section *, .stats-card * {
-    color: white !important;
+    /* Reset default color inheritance within specific components */
+    /* Handled by specific selectors above */
 }
