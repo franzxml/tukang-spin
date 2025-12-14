@@ -1,0 +1,37 @@
+<div class="container">
+    <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+        <h2 style="color: var(--text-secondary);">Character Roster</h2>
+        <p style="color: #888;">Manage your owned characters and their meta roles.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px;">
+        
+        <?php foreach ($data['characters'] as $char) : ?>
+            <div style="background: var(--bg-secondary); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); transition: transform 0.2s;">
+                
+                <div style="height: 250px; overflow: hidden; position: relative;">
+                    <img src="<?= $char['image_url']; ?>" alt="<?= $char['name']; ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                    
+                    <span style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: gold; padding: 2px 8px; border-radius: 4px; font-weight: bold;">
+                        <?= $char['rarity']; ?>★
+                    </span>
+                </div>
+
+                <div style="padding: 15px;">
+                    <h3 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 5px;"><?= $char['name']; ?></h3>
+                    
+                    <div style="display: flex; gap: 10px; font-size: 0.85rem; margin-bottom: 10px;">
+                        <span style="color: var(--accent-color);"><?= $char['element']; ?></span>
+                        <span style="color: #888;">•</span>
+                        <span style="color: #ccc;"><?= $char['weapon_type']; ?></span>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; color: var(--text-secondary); text-align: center;">
+                        <?= $char['role']; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+
+    </div>
+</div>

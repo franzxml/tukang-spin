@@ -14,7 +14,8 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="<?= BASEURL; ?>">Home</a></li>
-                <li><a href="#">Characters</a></li> <li><a href="#">Weapons</a></li>    <li><a href="#">About</a></li>
+                <li><a href="<?= BASEURL; ?>/characters">Characters</a></li>
+                <li><a href="#">Weapons</a></li>    <li><a href="#">About</a></li>
             </ul>
         </nav>
     </div>
