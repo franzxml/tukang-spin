@@ -1,23 +1,25 @@
 /*
  * Main Stylesheet for Genpedia
- * Vibe: Apple Human Interface (Dark Mode) - Premium & Immersive.
- * Font: System Font Stack (San Francisco).
+ * Theme: Apple Human Interface (Light Mode) - Clean, Flat, & Minimal.
+ * Colors: White backgrounds, Black text, Blue accents.
+ * Typography: System Font Stack.
  */
 
 :root {
-    /* Apple System Colors (Dark Mode) */
-    --bg-body: #000000;       /* Pure Black for depth */
-    --bg-card: #1c1c1e;       /* System Gray 6 */
-    --bg-glass: rgba(28, 28, 30, 0.75); /* Translucent */
+    /* Apple System Colors (Light Mode) */
+    --bg-body: #ffffff;       /* Pure White */
+    --bg-card: #ffffff;       /* White Cards */
+    --bg-panel: #f5f5f7;      /* Light Gray for backgrounds/inputs */
+    --bg-glass: rgba(255, 255, 255, 0.85); /* Frosty White */
     
-    --text-primary: #f5f5f7;  /* SF White */
-    --text-secondary: #86868b; /* SF Gray (Subtitles) */
+    --text-primary: #1d1d1f;  /* Apple Black/Dark Gray */
+    --text-secondary: #86868b; /* Apple Gray */
     
-    --accent-gold: #bf9b30;   /* Muted Premium Gold (Genshin Vibe) */
-    --accent-blue: #0a84ff;   /* iOS Blue */
-    --accent-red: #ff453a;    /* iOS Red */
+    --accent-gold: #bf9b30;   /* Muted Gold */
+    --accent-blue: #0071e3;   /* Apple Classic Blue */
+    --accent-red: #ff3b30;    /* Apple Red */
     
-    --border-subtle: rgba(255, 255, 255, 0.1);
+    --border-subtle: #d2d2d7; /* Light border */
     
     /* Typography */
     --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -39,7 +41,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
-    letter-spacing: -0.01em; /* SF Text tightness */
+    letter-spacing: -0.01em;
 }
 
 a {
@@ -52,12 +54,12 @@ a {
 
 .container {
     width: 90%;
-    max-width: 1100px; /* Slightly tighter for reading focus */
+    max-width: 1100px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* --- Premium Header (Glassmorphism) --- */
+/* --- Header (White & Glass) --- */
 
 .main-header {
     background-color: var(--bg-glass);
@@ -76,109 +78,114 @@ a {
     align-items: center;
 }
 
-/* Logo: Gradient Text & Bold */
+/* Branding: Plain Black */
 .brand-logo {
-    font-size: 1.8rem;
-    font-weight: 800; /* Heavy weight */
-    letter-spacing: -0.03em;
-    background: linear-gradient(135deg, #ffffff 30%, var(--accent-gold) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000000; /* Plain Black */
+    letter-spacing: -0.02em;
+    background: none; /* Remove previous gradient */
+    -webkit-text-fill-color: initial;
     display: inline-block;
 }
 
-/* Nav: Larger & Spaced */
+/* Navigation */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 40px; /* More breathing room */
+    gap: 40px;
 }
 
 .nav-links a {
     color: var(--text-secondary);
     font-weight: 500;
-    font-size: 1.05rem; /* Larger size */
+    font-size: 0.95rem;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-    color: var(--text-primary);
+    color: #000000; /* Black on hover */
 }
 
 /* --- UI Elements --- */
 
-/* Apple-style Buttons */
+/* Buttons: Pill Shaped */
 .btn-cta {
     display: inline-block;
-    padding: 10px 22px;
+    padding: 8px 20px;
     background-color: var(--accent-blue);
     color: white;
-    border-radius: 980px; /* Pill shape */
-    font-weight: 600;
-    font-size: 0.95rem;
+    border-radius: 980px;
+    font-weight: 500;
+    font-size: 0.9rem;
     border: none;
     cursor: pointer;
-    transition: transform 0.1s, opacity 0.2s;
+    transition: opacity 0.2s;
 }
 
 .btn-cta:hover {
-    opacity: 0.9;
+    opacity: 0.85;
 }
 
 .btn-cta:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
 }
 
-/* Inputs: Clean & Minimal */
+/* Inputs: Light Gray Background */
 input, select, textarea {
     font-family: var(--font-stack);
     font-size: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px; /* Smooth corners */
+    background: var(--bg-panel); /* Light Gray */
+    border: 1px solid transparent;
+    border-radius: 10px;
     color: var(--text-primary);
-    padding: 12px;
-    transition: border-color 0.2s, background 0.2s;
+    padding: 12px 16px;
+    transition: background 0.2s, box-shadow 0.2s;
 }
 
 input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: var(--accent-blue);
-    background: rgba(255, 255, 255, 0.1);
+    background: white;
+    box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2); /* Blue ring */
 }
 
-/* --- Cards (Apple Style) --- */
+/* --- Cards --- */
 
 .character-card {
     background-color: var(--bg-card);
-    border-radius: 18px; /* Apple-style large radius */
-    border: 1px solid transparent; /* Prepare for hover */
+    border-radius: 18px;
+    border: 1px solid var(--border-subtle); /* Clean border */
     overflow: hidden;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
 }
 
 .character-card:hover {
-    transform: scale(1.02);
-    border-color: rgba(255,255,255,0.1);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Soft shadow */
+    border-color: #000000;
+}
+
+/* Override for specific text in cards that might be hardcoded to white previously */
+strong {
+    color: var(--text-primary) !important;
 }
 
 /* --- Footer --- */
 
 .main-footer {
     margin-top: auto;
-    background-color: var(--bg-body); /* Blend with body */
+    background-color: var(--bg-body);
     border-top: 1px solid var(--border-subtle);
-    padding: 3rem 0;
+    padding: 4rem 0 3rem 0;
     text-align: center;
     color: var(--text-secondary);
 }
 
 .social-links {
-    margin-top: 10px;
+    margin-top: 15px;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 25px;
 }
 
 .social-links a {
@@ -191,7 +198,17 @@ input:focus, select:focus, textarea:focus {
     text-decoration: underline;
 }
 
-/* Utility */
+/* --- Utilities --- */
 .text-gold { color: var(--accent-gold); }
 .text-blue { color: var(--accent-blue); }
 .text-red { color: var(--accent-red); }
+
+/* Fix visibility for inline styles from previous dark mode code */
+/* Forces text inside light-colored containers to be readable */
+div[style*="color: white"], strong[style*="color: white"] {
+    color: var(--text-primary) !important;
+}
+
+div[style*="background: #202028"] {
+    background: #f0f0f0 !important; /* Lighter placeholder */
+}
