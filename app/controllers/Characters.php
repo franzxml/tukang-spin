@@ -4,17 +4,14 @@
  * Class Characters
  *
  * Controller for handling character listing, creation, details, and updates.
- * Manages interactions between the View and the CharacterModel.
+ * Now manages Weapon equipping logic.
  *
  * @package App\Controllers
  */
 class Characters extends Controller
 {
     /**
-     * The default method.
-     * Fetches all characters and displays them in a grid view using partials.
-     *
-     * @return void
+     * Index: Display Roster
      */
     public function index(): void
     {
@@ -29,11 +26,7 @@ class Characters extends Controller
     }
 
     /**
-     * Displays the detailed view of a single character.
-     * Shows expanded metadata like stats and talents.
-     *
-     * @param int $id The character ID.
-     * @return void
+     * Detail: Show Profile
      */
     public function detail(int $id): void
     {
@@ -53,23 +46,22 @@ class Characters extends Controller
     }
 
     /**
-     * Displays the form to add a new character.
-     *
-     * @return void
+     * Add: Show Create Form
      */
     public function add(): void
     {
         $data['title'] = 'Add New Character';
         
+        // Load weapons for the dropdown
+        $data['weapons'] = $this->model('WeaponModel')->getAllWeapons();
+
         $this->view('templates/header', $data);
         $this->view('characters/add', $data);
         $this->view('templates/footer');
     }
 
     /**
-     * Processes the add character form submission.
-     *
-     * @return void
+     * Store: Process Creation
      */
     public function store(): void
     {
@@ -85,10 +77,39 @@ class Characters extends Controller
     }
 
     /**
-     * Deletes a character by ID.
-     *
-     * @param int $id The ID of the character to delete.
-     * @return void
+     * Edit: Show Update Form
+     */
+    public function edit(int $id): void
+    {
+        $data['title'] = 'Edit Character';
+        $data['character'] = $this->model('CharacterModel')->getCharacterById($id);
+        
+        // Load weapons for the dropdown
+        $data['weapons'] = $this->model('WeaponModel')->getAllWeapons();
+
+        $this->view('templates/header', $data);
+        $this->view('characters/edit', $data);
+        $this->view('templates/footer');
+    }
+
+    /**
+     * Update: Process Changes
+     */
+    public function update(): void
+    {
+        if ($this->model('CharacterModel')->updateCharacter($_POST) > 0) {
+            Flasher::setFlash('Character', 'successfully updated', 'success');
+            header('Location: ' . BASEURL . '/characters/detail/' . $_POST['id']); // Redirect to detail
+            exit;
+        } else {
+            Flasher::setFlash('Character', 'updated (or no changes)', 'success');
+            header('Location: ' . BASEURL . '/characters/detail/' . $_POST['id']);
+            exit;
+        }
+    }
+
+    /**
+     * Delete: Remove Character
      */
     public function delete(int $id): void
     {
@@ -104,51 +125,12 @@ class Characters extends Controller
     }
 
     /**
-     * Displays the form to edit an existing character.
-     *
-     * @param int $id The ID of the character to edit.
-     * @return void
-     */
-    public function edit(int $id): void
-    {
-        $data['title'] = 'Edit Character';
-        $data['character'] = $this->model('CharacterModel')->getCharacterById($id);
-
-        $this->view('templates/header', $data);
-        $this->view('characters/edit', $data);
-        $this->view('templates/footer');
-    }
-
-    /**
-     * Processes the update character form submission.
-     *
-     * @return void
-     */
-    public function update(): void
-    {
-        if ($this->model('CharacterModel')->updateCharacter($_POST) > 0) {
-            Flasher::setFlash('Character', 'successfully updated', 'success');
-            header('Location: ' . BASEURL . '/characters');
-            exit;
-        } else {
-            // Note: 0 rows affected might mean no data changed, but we treat it as success-ish
-            Flasher::setFlash('Character', 'updated (or no changes made)', 'success');
-            header('Location: ' . BASEURL . '/characters');
-            exit;
-        }
-    }
-
-    /**
-     * Handles the regular search request (Fallback for non-JS).
-     *
-     * @return void
+     * Search (Fallback)
      */
     public function search(): void
     {
         $data['title'] = 'Search Results';
-        
         $keyword = $_POST['keyword'] ?? '';
-        
         $data['characters'] = $this->model('CharacterModel')->searchCharacters($keyword);
         
         $this->view('templates/header', $data);
@@ -157,20 +139,13 @@ class Characters extends Controller
     }
 
     /**
-     * Handles the AJAX Live Search request.
-     * Returns ONLY the HTML partial of the character grid (list.php).
-     *
-     * @return void
+     * AJAX Live Search
      */
     public function liveSearch(): void
     {
-        // Get the JSON input from fetch API
         $input = json_decode(file_get_contents('php://input'), true);
         $keyword = $input['keyword'] ?? '';
-
         $data['characters'] = $this->model('CharacterModel')->searchCharacters($keyword);
-        
-        // Load ONLY the list partial view
         $this->view('characters/list', $data);
     }
 }

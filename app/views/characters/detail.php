@@ -45,6 +45,29 @@
                 </a>
             </div>
 
+            <h3 style="color: #888; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px;">Equipped Weapon</h3>
+            
+            <?php if (!empty($data['character']['weapon_name'])) : ?>
+                <div style="display: flex; gap: 20px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 30px;">
+                    <div style="width: 80px; height: 80px; background: #202028; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                         <img src="<?= $data['character']['weapon_image']; ?>" alt="Weapon" style="max-width: 100%; max-height: 100%;">
+                    </div>
+                    <div>
+                        <h4 style="color: var(--text-primary); margin: 0 0 5px 0;"><?= $data['character']['weapon_name']; ?></h4>
+                        <div style="font-size: 0.9rem; color: #ccc;">
+                            Base ATK: <strong style="color: white;"><?= $data['character']['weapon_atk']; ?></strong>
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--accent-color);">
+                            <?= $data['character']['weapon_substat']; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php else : ?>
+                <div style="padding: 20px; background: rgba(0,0,0,0.2); border-radius: 8px; margin-bottom: 30px; color: #666; font-style: italic;">
+                    No weapon equipped. <a href="<?= BASEURL; ?>/characters/edit/<?= $data['character']['id']; ?>">Equip one now.</a>
+                </div>
+            <?php endif; ?>
+
             <h3 style="color: #888; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px;">Core Stats</h3>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;">
                 
@@ -59,7 +82,7 @@
                 </div>
 
                 <div style="background: var(--bg-primary); padding: 15px; border-radius: 8px; text-align: center;">
-                    <div style="font-size: 0.8rem; color: #888;">Weapon</div>
+                    <div style="font-size: 0.8rem; color: #888;">Weapon Type</div>
                     <div style="font-size: 1.2rem; color: var(--text-primary);"><?= $data['character']['weapon_type']; ?></div>
                 </div>
 
@@ -67,22 +90,18 @@
 
             <h3 style="color: #888; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px;">Talents</h3>
             <div style="display: flex; gap: 15px; margin-bottom: 40px;">
-                
-                <div style="flex: 1; background: var(--bg-primary); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
-                    <span>Normal Attack</span>
+                <div style="flex: 1; background: var(--bg-primary); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between;">
+                    <span>Normal</span>
                     <span style="color: <?= ($data['character']['talent_na'] >= 9) ? '#4e7cff' : 'inherit'; ?>; font-weight: bold;"><?= $data['character']['talent_na']; ?></span>
                 </div>
-
-                <div style="flex: 1; background: var(--bg-primary); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
-                    <span>Skill (E)</span>
+                <div style="flex: 1; background: var(--bg-primary); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between;">
+                    <span>Skill</span>
                     <span style="color: <?= ($data['character']['talent_skill'] >= 9) ? '#4e7cff' : 'inherit'; ?>; font-weight: bold;"><?= $data['character']['talent_skill']; ?></span>
                 </div>
-
-                <div style="flex: 1; background: var(--bg-primary); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
-                    <span>Burst (Q)</span>
+                <div style="flex: 1; background: var(--bg-primary); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between;">
+                    <span>Burst</span>
                     <span style="color: <?= ($data['character']['talent_burst'] >= 9) ? '#4e7cff' : 'inherit'; ?>; font-weight: bold;"><?= $data['character']['talent_burst']; ?></span>
                 </div>
-
             </div>
 
             <?php if (!empty($data['character']['description'])) : ?>

@@ -46,6 +46,19 @@
                 </div>
             </div>
 
+            <div style="margin-bottom: 15px; background: rgba(78, 124, 255, 0.1); padding: 15px; border-radius: 4px; border: 1px solid var(--accent-color);">
+                <label style="display: block; margin-bottom: 5px; color: var(--accent-color); font-weight: bold;">Equip Weapon</label>
+                <select name="equipped_weapon_id" style="width: 100%; padding: 10px; background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;">
+                    <option value="">-- No Weapon Equipped --</option>
+                    <?php foreach ($data['weapons'] as $wep) : ?>
+                        <option value="<?= $wep['id']; ?>" <?= ($data['character']['equipped_weapon_id'] == $wep['id']) ? 'selected' : ''; ?>>
+                            [<?= $wep['type']; ?>] <?= $wep['name']; ?> (<?= $wep['rarity']; ?>★)
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <small style="color: #888;">Ensure the weapon type matches the character's weapon type.</small>
+            </div>
+
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 15px;">
                 <div>
                     <label style="display: block; margin-bottom: 5px;">Level</label>
@@ -78,7 +91,7 @@
             </div>
 
             <div style="margin-bottom: 15px;">
-                <label style="display: block; margin-bottom: 5px;">Image URL (Direct Link)</label>
+                <label style="display: block; margin-bottom: 5px;">Image URL</label>
                 <input type="url" name="image_url" value="<?= $data['character']['image_url']; ?>" required style="width: 100%; padding: 10px; background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 4px;">
             </div>
 
