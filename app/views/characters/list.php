@@ -1,8 +1,9 @@
 <?php 
 /**
  * Partial View: Character List Grid
- * This file renders only the character cards. 
+ * This file renders only the character cards loop. 
  * It is used by the Index view and the AJAX Search response.
+ * Updated to link to the detail page.
  */
 ?>
 
@@ -14,18 +15,20 @@
 <?php else : ?>
 
     <?php foreach ($data['characters'] as $char) : ?>
-        <div class="character-card" style="background: var(--bg-secondary); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column;">
+        <div class="character-card" style="background: var(--bg-secondary); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column; transition: transform 0.2s;">
             
-            <div style="height: 250px; overflow: hidden; position: relative;">
+            <a href="<?= BASEURL; ?>/characters/detail/<?= $char['id']; ?>" style="display: block; height: 250px; overflow: hidden; position: relative; text-decoration: none;">
                 <img src="<?= $char['image_url']; ?>" alt="<?= $char['name']; ?>" style="width: 100%; height: 100%; object-fit: cover;">
                 
                 <span style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: gold; padding: 2px 8px; border-radius: 4px; font-weight: bold;">
                     <?= $char['rarity']; ?>★
                 </span>
-            </div>
+            </a>
 
             <div style="padding: 15px; flex-grow: 1;">
-                <h3 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 5px;"><?= $char['name']; ?></h3>
+                <a href="<?= BASEURL; ?>/characters/detail/<?= $char['id']; ?>" style="text-decoration: none;">
+                    <h3 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 5px; transition: color 0.3s;"><?= $char['name']; ?></h3>
+                </a>
                 
                 <div style="display: flex; gap: 10px; font-size: 0.85rem; margin-bottom: 10px;">
                     <span style="color: var(--accent-color);"><?= $char['element']; ?></span>

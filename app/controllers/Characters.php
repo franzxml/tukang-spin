@@ -3,7 +3,8 @@
 /**
  * Class Characters
  *
- * Controller for handling character listing, creation, and details.
+ * Controller for handling character listing, creation, details, and updates.
+ * Manages interactions between the View and the CharacterModel.
  *
  * @package App\Controllers
  */
@@ -11,7 +12,7 @@ class Characters extends Controller
 {
     /**
      * The default method.
-     * Fetches all characters and displays them in a grid view.
+     * Fetches all characters and displays them in a grid view using partials.
      *
      * @return void
      */
@@ -24,6 +25,30 @@ class Characters extends Controller
 
         $this->view('templates/header', $data);
         $this->view('characters/index', $data);
+        $this->view('templates/footer');
+    }
+
+    /**
+     * Displays the detailed view of a single character.
+     * Shows expanded metadata like stats and talents.
+     *
+     * @param int $id The character ID.
+     * @return void
+     */
+    public function detail(int $id): void
+    {
+        $data['character'] = $this->model('CharacterModel')->getCharacterById($id);
+
+        if (!$data['character']) {
+            Flasher::setFlash('Character', 'not found', 'danger');
+            header('Location: ' . BASEURL . '/characters');
+            exit;
+        }
+
+        $data['title'] = $data['character']['name'] . ' Build';
+        
+        $this->view('templates/header', $data);
+        $this->view('characters/detail', $data);
         $this->view('templates/footer');
     }
 
@@ -106,6 +131,7 @@ class Characters extends Controller
             header('Location: ' . BASEURL . '/characters');
             exit;
         } else {
+            // Note: 0 rows affected might mean no data changed, but we treat it as success-ish
             Flasher::setFlash('Character', 'updated (or no changes made)', 'success');
             header('Location: ' . BASEURL . '/characters');
             exit;
@@ -113,14 +139,16 @@ class Characters extends Controller
     }
 
     /**
-     * Handles the regular search request (Fallback).
+     * Handles the regular search request (Fallback for non-JS).
      *
      * @return void
      */
     public function search(): void
     {
         $data['title'] = 'Search Results';
+        
         $keyword = $_POST['keyword'] ?? '';
+        
         $data['characters'] = $this->model('CharacterModel')->searchCharacters($keyword);
         
         $this->view('templates/header', $data);
@@ -130,20 +158,19 @@ class Characters extends Controller
 
     /**
      * Handles the AJAX Live Search request.
-     * Returns only the HTML partial of the character grid.
+     * Returns ONLY the HTML partial of the character grid (list.php).
      *
      * @return void
      */
     public function liveSearch(): void
     {
-        // Get the JSON input or POST data
-        // For simplicity with vanilla JS fetch API using POST:
+        // Get the JSON input from fetch API
         $input = json_decode(file_get_contents('php://input'), true);
         $keyword = $input['keyword'] ?? '';
 
         $data['characters'] = $this->model('CharacterModel')->searchCharacters($keyword);
         
-        // Load ONLY the list partial
+        // Load ONLY the list partial view
         $this->view('characters/list', $data);
     }
 }
