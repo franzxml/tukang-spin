@@ -85,7 +85,7 @@ a {
     font-size: 1.5rem;
     font-weight: 800; /* Extra Bold */
     color: #000000;
-    letter-spacing: -0.04em; /* Tighter for logo */
+    letter-spacing: -0.04em;
 }
 
 .nav-links {
@@ -166,7 +166,7 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
 }
 
-/* --- Cards --- */
+/* --- Cards (Generic) --- */
 
 .character-card {
     background-color: var(--bg-card);
@@ -197,12 +197,11 @@ strong {
                 url('https://i.imgur.com/QJU6mHq.jpeg');
     background-size: cover;
     background-position: center;
-    border-radius: 24px; /* Smoother rounding */
+    border-radius: 24px;
     border: 1px solid rgba(0,0,0,0.1);
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
-/* Specific text targeting to avoid overriding button color */
 .hero-section h1, 
 .hero-section p {
     color: #ffffff !important;
@@ -211,8 +210,8 @@ strong {
 
 .hero-title {
     font-size: 2.5rem;
-    font-weight: 800; /* Heavier font */
-    letter-spacing: -0.03em; /* Tighter tracking */
+    font-weight: 800;
+    letter-spacing: -0.03em;
     margin-bottom: 15px;
 }
 
@@ -222,7 +221,6 @@ strong {
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 25px;
-    /* Added Bottom Spacing */
     margin-bottom: 100px;
 }
 
@@ -234,17 +232,11 @@ strong {
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease;
     
     background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
                 url('https://i.imgur.com/UsnWDAf.jpeg');
     background-size: cover;
     background-position: center 25%;
-}
-
-.stats-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
 }
 
 .stats-card h3 {
@@ -261,10 +253,10 @@ strong {
 
 .stats-card .stats-number {
     font-size: 5rem;
-    font-weight: 800; /* Black weight */
+    font-weight: 800;
     color: #ffffff !important;
     line-height: 1;
-    letter-spacing: -0.04em; /* Tight numbers */
+    letter-spacing: -0.04em;
     text-shadow: 0 4px 15px rgba(0,0,0,0.5);
     margin: 10px 0;
     position: relative;
@@ -338,7 +330,7 @@ strong {
 }
 
 .footer-quote {
-    font-family: 'Times New Roman', serif; /* Classic serif contrast */
+    font-family: 'Times New Roman', serif;
     font-style: italic;
     color: var(--text-secondary);
     font-size: 1.1rem;
@@ -351,9 +343,4 @@ strong {
 /* Overrides */
 div[style*="color: white"], strong[style*="color: white"] {
     color: var(--text-primary) !important;
-}
-
-.hero-section *, .stats-card * {
-    /* Reset default color inheritance within specific components */
-    /* Handled by specific selectors above */
 }

@@ -9,8 +9,7 @@
 <div class="stats-grid">
     
     <div class="stats-card">
-        <h3>Total Karakter</h3>
-        <p class="stats-number">
+        <h3>Total Karakter Anda</h3> <p class="stats-number">
             <?= $data['total_characters']; ?>
         </p>
         <p class="stats-label">Terdaftar di database</p>
