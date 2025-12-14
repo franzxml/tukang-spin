@@ -1,6 +1,6 @@
 <div class="container">
     <div style="margin-bottom: 20px;">
-        <a href="<?= BASEURL; ?>/characters" style="color: #888; text-decoration: none;">&larr; Back to Roster</a>
+        <a href="<?= BASEURL; ?>/characters" style="color: #888; text-decoration: none;">&larr; Kembali ke Daftar</a>
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
@@ -41,34 +41,44 @@
                 </div>
                 
                 <a href="<?= BASEURL; ?>/characters/edit/<?= $data['character']['id']; ?>" class="btn-cta" style="background: transparent; border: 1px solid var(--text-secondary); color: var(--text-secondary);">
-                    Edit Data
+                    Ubah Data
                 </a>
             </div>
 
-            <h3 style="color: #888; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px;">Equipped Weapon</h3>
+            <h3 style="color: #888; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px;">Senjata</h3>
             
             <?php if (!empty($data['character']['weapon_name'])) : ?>
                 <div style="display: flex; gap: 20px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; margin-bottom: 30px;">
-                    <div style="width: 80px; height: 80px; background: #202028; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
-                         <img src="<?= $data['character']['weapon_image']; ?>" alt="Weapon" style="max-width: 100%; max-height: 100%;">
+                    <div style="width: 100px; height: 100px; background: #202028; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                         <img src="<?= $data['character']['weapon_image']; ?>" alt="Weapon" style="max-width: 90%; max-height: 90%; object-fit: contain;">
                     </div>
-                    <div>
-                        <h4 style="color: var(--text-primary); margin: 0 0 5px 0;"><?= $data['character']['weapon_name']; ?></h4>
-                        <div style="font-size: 0.9rem; color: #ccc;">
+                    <div style="flex-grow: 1;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h4 style="color: var(--text-primary); margin: 0 0 5px 0;"><?= $data['character']['weapon_name']; ?></h4>
+                            <span style="color: gold; font-weight: bold;"><?= $data['character']['weapon_rarity']; ?>★</span>
+                        </div>
+                        
+                        <div style="font-size: 0.9rem; color: #ccc; margin-bottom: 5px;">
                             Base ATK: <strong style="color: white;"><?= $data['character']['weapon_atk']; ?></strong>
                         </div>
                         <div style="font-size: 0.9rem; color: var(--accent-color);">
-                            <?= $data['character']['weapon_substat']; ?>
+                            <?= $data['character']['weapon_substat_type']; ?>: <strong><?= $data['character']['weapon_substat_value']; ?></strong>
                         </div>
+
+                        <?php if (!empty($data['character']['weapon_passive_name'])) : ?>
+                            <div style="margin-top: 8px; font-size: 0.85rem; color: #aaa; font-style: italic;">
+                                "<?= $data['character']['weapon_passive_name']; ?>"
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php else : ?>
                 <div style="padding: 20px; background: rgba(0,0,0,0.2); border-radius: 8px; margin-bottom: 30px; color: #666; font-style: italic;">
-                    No weapon equipped. <a href="<?= BASEURL; ?>/characters/edit/<?= $data['character']['id']; ?>">Equip one now.</a>
+                    Belum ada senjata. <a href="<?= BASEURL; ?>/characters/edit/<?= $data['character']['id']; ?>">Pasang senjata sekarang.</a>
                 </div>
             <?php endif; ?>
 
-            <h3 style="color: #888; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px;">Core Stats</h3>
+            <h3 style="color: #888; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px;">Statistik Utama</h3>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;">
                 
                 <div style="background: var(--bg-primary); padding: 15px; border-radius: 8px; text-align: center;">
@@ -77,18 +87,18 @@
                 </div>
 
                 <div style="background: var(--bg-primary); padding: 15px; border-radius: 8px; text-align: center;">
-                    <div style="font-size: 0.8rem; color: #888;">Constellation</div>
+                    <div style="font-size: 0.8rem; color: #888;">Konstelasi</div>
                     <div style="font-size: 1.5rem; color: var(--accent-color); font-weight: bold;">C<?= $data['character']['constellation']; ?></div>
                 </div>
 
                 <div style="background: var(--bg-primary); padding: 15px; border-radius: 8px; text-align: center;">
-                    <div style="font-size: 0.8rem; color: #888;">Weapon Type</div>
+                    <div style="font-size: 0.8rem; color: #888;">Tipe Senjata</div>
                     <div style="font-size: 1.2rem; color: var(--text-primary);"><?= $data['character']['weapon_type']; ?></div>
                 </div>
 
             </div>
 
-            <h3 style="color: #888; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px;">Talents</h3>
+            <h3 style="color: #888; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px;">Talenta (10/10/10)</h3>
             <div style="display: flex; gap: 15px; margin-bottom: 40px;">
                 <div style="flex: 1; background: var(--bg-primary); padding: 10px; border-radius: 6px; display: flex; justify-content: space-between;">
                     <span>Normal</span>
@@ -106,7 +116,7 @@
 
             <?php if (!empty($data['character']['description'])) : ?>
                 <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px; border-left: 3px solid var(--text-secondary);">
-                    <h4 style="color: var(--text-secondary); margin-bottom: 10px;">Notes</h4>
+                    <h4 style="color: var(--text-secondary); margin-bottom: 10px;">Catatan</h4>
                     <p style="color: #ccc; font-style: italic;"><?= nl2br($data['character']['description']); ?></p>
                 </div>
             <?php endif; ?>

@@ -4,7 +4,7 @@
  * Class CharacterModel
  *
  * Handles all database interactions for character-related data.
- * Updated to include relationship with Weapons table (JOIN).
+ * Updated to support the new weapon table structure (split sub-stats).
  *
  * @package App\Models
  */
@@ -43,13 +43,22 @@ class CharacterModel
 
     /**
      * Retrieves a single character by ID with weapon info.
+     * FIXED: Updated to select sub_stat_type and sub_stat_value instead of the deleted sub_stat column.
      *
      * @param int $id
      * @return mixed
      */
     public function getCharacterById(int $id): mixed
     {
-        $query = "SELECT c.*, w.name as weapon_name, w.image_url as weapon_image, w.base_atk as weapon_atk, w.sub_stat as weapon_substat, w.rarity as weapon_rarity, w.description as weapon_desc
+        $query = "SELECT c.*, 
+                         w.name as weapon_name, 
+                         w.image_url as weapon_image, 
+                         w.base_atk as weapon_atk, 
+                         w.sub_stat_type as weapon_substat_type, 
+                         w.sub_stat_value as weapon_substat_value, 
+                         w.rarity as weapon_rarity, 
+                         w.description as weapon_desc,
+                         w.passive_name as weapon_passive_name
                   FROM " . $this->table . " c
                   LEFT JOIN weapons w ON c.equipped_weapon_id = w.id
                   WHERE c.id = :id";
@@ -122,7 +131,6 @@ class CharacterModel
      */
     public function searchCharacters(string $keyword): array
     {
-        // Also JOIN here so search results still show weapon info if needed
         $query = "SELECT c.*, w.name as weapon_name 
                   FROM " . $this->table . " c
                   LEFT JOIN weapons w ON c.equipped_weapon_id = w.id
