@@ -2,7 +2,7 @@
     <div style="max-width: 700px; margin: 0 auto; background: var(--bg-secondary); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color);">
         <h2 style="color: var(--text-secondary); margin-bottom: 20px; text-align: center;">Tambah Senjata Baru</h2>
 
-        <form action="<?= BASEURL; ?>/weapons/store" method="POST">
+        <form action="<?= BASEURL; ?>/weapons/store" method="POST" autocomplete="off">
             
             <div style="margin-bottom: 15px;">
                 <label style="display: block; margin-bottom: 5px;">Nama Senjata</label>
@@ -13,10 +13,10 @@
                 <div style="flex: 1;">
                     <label style="display: block; margin-bottom: 5px;">Tipe Senjata</label>
                     <select name="type" required style="width: 100%; padding: 10px; background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 6px;">
-                        <option value="Sword">Sword (Pedang)</option>
+                        <option value="Sword">Sword</option>
                         <option value="Claymore">Claymore</option>
-                        <option value="Polearm">Polearm (Tombak)</option>
-                        <option value="Bow">Bow (Panah)</option>
+                        <option value="Polearm">Polearm</option>
+                        <option value="Bow">Bow</option>
                         <option value="Catalyst">Catalyst</option>
                     </select>
                 </div>
