@@ -1,24 +1,21 @@
 /*
  * Main Stylesheet for Genpedia
- * Vibe: Modern, Clean, Dark Mode, Gold Accents.
- * Font Family: Poppins (Uniform).
+ * Vibe: Premium System UI (San Francisco Style), Dark Mode.
+ * No external font downloads required (Performance optimized).
  */
-
-/* Import Google Fonts: Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
     /* Colors */
     --bg-primary: #191920;    /* Deep dark blue-grey */
     --bg-secondary: #22222b;  /* Lighter panel background */
-    --text-primary: #ece5d8;  /* Off-white text */
+    --text-primary: #f5f5f7;  /* Apple-style Off-white */
     --text-secondary: #d3bc8e; /* Genshin Gold */
-    --accent-color: #6a8dff;  /* Soft Blue */
-    --danger-color: #ff4e4e;  /* Red for Delete/Errors */
+    --accent-color: #2997ff;  /* Apple System Blue */
+    --danger-color: #ff453a;  /* Apple System Red */
     --border-color: #3b3b45;
     
-    /* Typography */
-    --font-main: 'Poppins', sans-serif;
+    /* Typography: The "San Francisco" Stack */
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 * {
@@ -32,11 +29,12 @@ body {
     color: var(--text-primary);
     font-family: var(--font-main);
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.5;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased; /* Critical for SF on Mac */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* --- Typography Overrides --- */
@@ -45,16 +43,17 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 0.5rem;
+    letter-spacing: -0.015em; /* Tighten headers slightly like SF Display */
 }
 
 a {
     color: var(--text-secondary);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: opacity 0.2s;
 }
 
 a:hover {
-    color: #ffe6b3;
+    opacity: 0.8;
 }
 
 /* --- Layout Components --- */
@@ -69,10 +68,14 @@ a:hover {
 /* --- Header & Navigation --- */
 
 .main-header {
-    background-color: var(--bg-secondary);
-    border-bottom: 1px solid rgba(211, 188, 142, 0.2);
+    background-color: rgba(34, 34, 43, 0.8); /* Glassmorphism effect */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 1rem 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .nav-flex {
@@ -82,23 +85,23 @@ a:hover {
 }
 
 .brand-logo {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 30px;
+    gap: 25px;
 }
 
 .nav-links a {
-    color: #a0a0aa;
+    color: #86868b; /* Apple muted text */
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .nav-links a:hover,
@@ -110,35 +113,35 @@ a:hover {
 
 .btn-cta {
     display: inline-block;
-    padding: 10px 24px;
+    padding: 8px 20px;
     background-color: var(--text-secondary);
     color: #1c1c22;
     border-radius: 6px;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.9rem;
     border: none;
     cursor: pointer;
-    transition: filter 0.2s, transform 0.1s;
+    transition: transform 0.1s, opacity 0.2s;
 }
 
 .btn-cta:hover {
-    filter: brightness(1.1);
-    color: #1c1c22;
+    opacity: 0.9;
 }
 
 .btn-cta:active {
-    transform: translateY(1px);
+    transform: scale(0.98);
 }
 
 input, select, textarea {
     font-family: var(--font-main);
     font-size: 0.95rem;
+    border-radius: 6px;
 }
 
 input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: var(--text-secondary) !important;
-    box-shadow: 0 0 0 3px rgba(211, 188, 142, 0.15);
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.2);
 }
 
 /* --- Hero Section --- */
@@ -146,31 +149,31 @@ input:focus, select:focus, textarea:focus {
 .hero-section {
     text-align: center;
     padding: 80px 20px;
-    background: linear-gradient(rgba(25, 25, 32, 0.85), rgba(25, 25, 32, 0.95)), 
+    background: linear-gradient(rgba(25, 25, 32, 0.8), rgba(25, 25, 32, 0.9)), 
                 url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 2rem;
     border: 1px solid var(--border-color);
 }
 
 .hero-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 700;
     margin-bottom: 10px;
-    color: var(--text-primary);
+    letter-spacing: -0.02em;
 }
 
 /* --- Cards --- */
 
 .character-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+    border: 1px solid var(--border-color);
 }
 
 .character-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transform: scale(1.02);
     border-color: var(--text-secondary) !important;
 }
 
@@ -182,12 +185,11 @@ input:focus, select:focus, textarea:focus {
     text-align: center;
     padding: 2rem 0;
     border-top: 1px solid var(--border-color);
-    font-size: 0.85rem;
-    color: #666;
+    font-size: 0.8rem;
+    color: #86868b;
 }
 
 /* --- Utility Classes --- */
 
 .text-gold { color: var(--text-secondary); }
-.text-muted { color: #888; }
-.delete-btn:hover { text-decoration: underline; }
+.text-muted { color: #86868b; }

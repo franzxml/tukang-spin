@@ -4,6 +4,7 @@
  * Class WeaponModel
  *
  * Handles database interactions for weapon-related data.
+ * Updated to support split sub-stats and explicit passive fields.
  *
  * @package App\Models
  */
@@ -36,14 +37,15 @@ class WeaponModel
 
     /**
      * Adds a new weapon.
+     * Now handles split sub-stats and passive name.
      *
      * @param array $data
      * @return int
      */
     public function addWeapon(array $data): int
     {
-        $query = "INSERT INTO weapons (name, type, rarity, base_atk, sub_stat, description, image_url)
-                  VALUES (:name, :type, :rarity, :base_atk, :sub_stat, :description, :image_url)";
+        $query = "INSERT INTO weapons (name, type, rarity, base_atk, sub_stat_type, sub_stat_value, passive_name, description, image_url)
+                  VALUES (:name, :type, :rarity, :base_atk, :sub_stat_type, :sub_stat_value, :passive_name, :description, :image_url)";
 
         $this->db->query($query);
         
@@ -51,8 +53,15 @@ class WeaponModel
         $this->db->bind('type', $data['type']);
         $this->db->bind('rarity', $data['rarity']);
         $this->db->bind('base_atk', $data['base_atk']);
-        $this->db->bind('sub_stat', htmlspecialchars($data['sub_stat']));
+        
+        // Split Sub-stats
+        $this->db->bind('sub_stat_type', htmlspecialchars($data['sub_stat_type']));
+        $this->db->bind('sub_stat_value', htmlspecialchars($data['sub_stat_value']));
+        
+        // Split Passive
+        $this->db->bind('passive_name', htmlspecialchars($data['passive_name']));
         $this->db->bind('description', htmlspecialchars($data['description'] ?? ''));
+        
         $this->db->bind('image_url', $data['image_url']);
 
         $this->db->execute();

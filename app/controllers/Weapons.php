@@ -4,6 +4,7 @@
  * Class Weapons
  *
  * Controller for handling weapon armory.
+ * Localized to Indonesian.
  *
  * @package App\Controllers
  */
@@ -14,7 +15,7 @@ class Weapons extends Controller
      */
     public function index(): void
     {
-        $data['title'] = 'Armory';
+        $data['title'] = 'Gudang Senjata';
         $data['weapons'] = $this->model('WeaponModel')->getAllWeapons();
 
         $this->view('templates/header', $data);
@@ -27,7 +28,7 @@ class Weapons extends Controller
      */
     public function add(): void
     {
-        $data['title'] = 'Forge Weapon';
+        $data['title'] = 'Tambah Senjata';
         
         $this->view('templates/header', $data);
         $this->view('weapons/add', $data);
@@ -40,11 +41,11 @@ class Weapons extends Controller
     public function store(): void
     {
         if ($this->model('WeaponModel')->addWeapon($_POST) > 0) {
-            Flasher::setFlash('Weapon', 'successfully forged', 'success');
+            Flasher::setFlash('Senjata', 'berhasil ditambahkan', 'success');
             header('Location: ' . BASEURL . '/weapons');
             exit;
         } else {
-            Flasher::setFlash('Weapon', 'failed to forge', 'danger');
+            Flasher::setFlash('Senjata', 'gagal ditambahkan', 'danger');
             header('Location: ' . BASEURL . '/weapons');
             exit;
         }
@@ -56,7 +57,7 @@ class Weapons extends Controller
     public function delete(int $id): void
     {
         if ($this->model('WeaponModel')->deleteWeapon($id) > 0) {
-            Flasher::setFlash('Weapon', 'dismantled', 'success');
+            Flasher::setFlash('Senjata', 'berhasil dihapus', 'success');
             header('Location: ' . BASEURL . '/weapons');
             exit;
         }
