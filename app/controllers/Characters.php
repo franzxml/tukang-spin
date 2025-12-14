@@ -113,21 +113,37 @@ class Characters extends Controller
     }
 
     /**
-     * Handles the search request.
+     * Handles the regular search request (Fallback).
      *
      * @return void
      */
     public function search(): void
     {
         $data['title'] = 'Search Results';
-        
-        // Retrieve keyword from POST or set to empty string
         $keyword = $_POST['keyword'] ?? '';
-        
         $data['characters'] = $this->model('CharacterModel')->searchCharacters($keyword);
         
         $this->view('templates/header', $data);
         $this->view('characters/index', $data);
         $this->view('templates/footer');
+    }
+
+    /**
+     * Handles the AJAX Live Search request.
+     * Returns only the HTML partial of the character grid.
+     *
+     * @return void
+     */
+    public function liveSearch(): void
+    {
+        // Get the JSON input or POST data
+        // For simplicity with vanilla JS fetch API using POST:
+        $input = json_decode(file_get_contents('php://input'), true);
+        $keyword = $input['keyword'] ?? '';
+
+        $data['characters'] = $this->model('CharacterModel')->searchCharacters($keyword);
+        
+        // Load ONLY the list partial
+        $this->view('characters/list', $data);
     }
 }
