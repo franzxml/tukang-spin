@@ -59,4 +59,23 @@ class Characters extends Controller
             exit;
         }
     }
+
+    /**
+     * Deletes a character by ID.
+     *
+     * @param int $id The ID of the character to delete.
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        if ($this->model('CharacterModel')->deleteCharacter($id) > 0) {
+            Flasher::setFlash('Character', 'successfully deleted', 'success');
+            header('Location: ' . BASEURL . '/characters');
+            exit;
+        } else {
+            Flasher::setFlash('Character', 'failed to delete', 'danger');
+            header('Location: ' . BASEURL . '/characters');
+            exit;
+        }
+    }
 }

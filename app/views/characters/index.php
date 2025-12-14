@@ -14,10 +14,10 @@
         <a href="<?= BASEURL; ?>/characters/add" class="btn-cta" style="font-size: 0.9rem;">+ Add Character</a>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px;">
         
         <?php foreach ($data['characters'] as $char) : ?>
-            <div style="background: var(--bg-secondary); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); transition: transform 0.2s;">
+            <div style="background: var(--bg-secondary); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column;">
                 
                 <div style="height: 250px; overflow: hidden; position: relative;">
                     <img src="<?= $char['image_url']; ?>" alt="<?= $char['name']; ?>" style="width: 100%; height: 100%; object-fit: cover;">
@@ -27,7 +27,7 @@
                     </span>
                 </div>
 
-                <div style="padding: 15px;">
+                <div style="padding: 15px; flex-grow: 1;">
                     <h3 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 5px;"><?= $char['name']; ?></h3>
                     
                     <div style="display: flex; gap: 10px; font-size: 0.85rem; margin-bottom: 10px;">
@@ -39,6 +39,16 @@
                     <div style="background: rgba(0,0,0,0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; color: var(--text-secondary); text-align: center;">
                         <?= $char['role']; ?>
                     </div>
+                </div>
+
+                <div style="padding: 10px 15px; background: rgba(0,0,0,0.2); border-top: 1px solid var(--border-color); display: flex; justify-content: space-between;">
+                    <a href="<?= BASEURL; ?>/characters/edit/<?= $char['id']; ?>" style="color: #aaa; text-decoration: none; font-size: 0.9rem; transition: color 0.2s;">Edit</a>
+                    
+                    <a href="<?= BASEURL; ?>/characters/delete/<?= $char['id']; ?>" 
+                       style="color: #ff4e4e; text-decoration: none; font-size: 0.9rem;"
+                       onclick="return confirm('Are you sure you want to delete <?= $char['name']; ?>?');">
+                        Delete
+                    </a>
                 </div>
             </div>
         <?php endforeach; ?>
