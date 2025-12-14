@@ -1,23 +1,24 @@
 /*
  * Main Stylesheet for Genpedia
- * Vibe: Mature, Dark Mode, Gold Accents, High Contrast Data.
+ * Vibe: Modern, Clean, Dark Mode, Gold Accents.
+ * Font Family: Poppins (Uniform).
  */
 
-/* Import Google Fonts: Cinzel (Headers) & Inter (Body) */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+/* Import Google Fonts: Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
     /* Colors */
-    --bg-primary: #191920;    /* Deep dark blue-grey (More muted) */
+    --bg-primary: #191920;    /* Deep dark blue-grey */
     --bg-secondary: #22222b;  /* Lighter panel background */
     --text-primary: #ece5d8;  /* Off-white text */
     --text-secondary: #d3bc8e; /* Genshin Gold */
-    --accent-color: #6a8dff;  /* Slightly desaturated blue for maturity */
+    --accent-color: #6a8dff;  /* Soft Blue */
+    --danger-color: #ff4e4e;  /* Red for Delete/Errors */
     --border-color: #3b3b45;
     
     /* Typography */
-    --font-heading: 'Cinzel', serif;
-    --font-body: 'Inter', sans-serif;
+    --font-main: 'Poppins', sans-serif;
 }
 
 * {
@@ -29,22 +30,31 @@
 body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    font-family: var(--font-body);
+    font-family: var(--font-main);
     font-weight: 400;
     line-height: 1.6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased; /* Crisp text on Mac */
+    -webkit-font-smoothing: antialiased;
 }
 
 /* --- Typography Overrides --- */
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
     font-weight: 600;
     color: var(--text-primary);
-    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #ffe6b3;
 }
 
 /* --- Layout Components --- */
@@ -60,9 +70,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-header {
     background-color: var(--bg-secondary);
-    border-bottom: 1px solid rgba(211, 188, 142, 0.2); /* Subtle gold border */
-    padding: 1.2rem 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    border-bottom: 1px solid rgba(211, 188, 142, 0.2);
+    padding: 1rem 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .nav-flex {
@@ -72,14 +82,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .brand-logo {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-secondary);
-    text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: 0 2px 10px rgba(211, 188, 142, 0.2);
+    letter-spacing: 1px;
 }
 
 .nav-links {
@@ -89,15 +96,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-links a {
-    font-family: var(--font-heading);
     color: #a0a0aa;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    position: relative;
+    font-weight: 500;
+    font-size: 0.95rem;
 }
 
 .nav-links a:hover,
@@ -105,40 +106,24 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
 }
 
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--text-secondary);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
 /* --- Buttons & Inputs --- */
 
 .btn-cta {
     display: inline-block;
     padding: 10px 24px;
-    background-color: var(--text-secondary); /* Gold */
+    background-color: var(--text-secondary);
     color: #1c1c22;
-    text-decoration: none;
-    border-radius: 2px; /* Sharper corners for maturity */
-    font-family: var(--font-heading);
-    font-weight: 700;
+    border-radius: 6px;
+    font-weight: 600;
     font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
     transition: filter 0.2s, transform 0.1s;
 }
 
 .btn-cta:hover {
     filter: brightness(1.1);
+    color: #1c1c22;
 }
 
 .btn-cta:active {
@@ -146,14 +131,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 input, select, textarea {
-    font-family: var(--font-body);
+    font-family: var(--font-main);
     font-size: 0.95rem;
 }
 
 input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--text-secondary) !important;
-    box-shadow: 0 0 0 2px rgba(211, 188, 142, 0.1);
+    box-shadow: 0 0 0 3px rgba(211, 188, 142, 0.15);
 }
 
 /* --- Hero Section --- */
@@ -165,20 +150,19 @@ input:focus, select:focus, textarea:focus {
                 url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-bottom: 2rem;
     border: 1px solid var(--border-color);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .hero-title {
-    font-size: 3rem;
-    margin-bottom: 15px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
     color: var(--text-primary);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-/* --- Cards & Panels --- */
+/* --- Cards --- */
 
 .character-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -186,7 +170,7 @@ input:focus, select:focus, textarea:focus {
 
 .character-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     border-color: var(--text-secondary) !important;
 }
 
@@ -200,10 +184,10 @@ input:focus, select:focus, textarea:focus {
     border-top: 1px solid var(--border-color);
     font-size: 0.85rem;
     color: #666;
-    font-family: var(--font-body);
 }
 
 /* --- Utility Classes --- */
 
 .text-gold { color: var(--text-secondary); }
 .text-muted { color: #888; }
+.delete-btn:hover { text-decoration: underline; }
