@@ -19,7 +19,6 @@ class Characters extends Controller
     {
         $data['title'] = 'Character Roster';
         
-        // Instantiate the model and get data
         $characterModel = $this->model('CharacterModel');
         $data['characters'] = $characterModel->getAllCharacters();
 
@@ -74,6 +73,42 @@ class Characters extends Controller
             exit;
         } else {
             Flasher::setFlash('Character', 'failed to delete', 'danger');
+            header('Location: ' . BASEURL . '/characters');
+            exit;
+        }
+    }
+
+    /**
+     * Displays the form to edit an existing character.
+     *
+     * @param int $id The ID of the character to edit.
+     * @return void
+     */
+    public function edit(int $id): void
+    {
+        $data['title'] = 'Edit Character';
+        $data['character'] = $this->model('CharacterModel')->getCharacterById($id);
+
+        $this->view('templates/header', $data);
+        $this->view('characters/edit', $data);
+        $this->view('templates/footer');
+    }
+
+    /**
+     * Processes the update character form submission.
+     *
+     * @return void
+     */
+    public function update(): void
+    {
+        if ($this->model('CharacterModel')->updateCharacter($_POST) > 0) {
+            Flasher::setFlash('Character', 'successfully updated', 'success');
+            header('Location: ' . BASEURL . '/characters');
+            exit;
+        } else {
+            // Even if 0 rows affected (data same as before), we consider it handled.
+            // But usually, we check strictly. For now, let's redirect.
+            Flasher::setFlash('Character', 'updated (or no changes made)', 'success');
             header('Location: ' . BASEURL . '/characters');
             exit;
         }
