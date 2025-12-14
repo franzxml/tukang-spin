@@ -1,7 +1,17 @@
 <div class="container">
-    <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
-        <h2 style="color: var(--text-secondary);">Character Roster</h2>
-        <p style="color: #888;">Manage your owned characters and their meta roles.</p>
+    <div class="row">
+        <div class="col-lg-12">
+            <?php Flasher::flash(); ?>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h2 style="color: var(--text-secondary);">Character Roster</h2>
+            <p style="color: #888; margin: 0;">Manage your owned characters and their meta roles.</p>
+        </div>
+        
+        <a href="<?= BASEURL; ?>/characters/add" class="btn-cta" style="font-size: 0.9rem;">+ Add Character</a>
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px;">

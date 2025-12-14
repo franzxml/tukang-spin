@@ -31,7 +31,7 @@ class CharacterModel
      */
     public function getAllCharacters(): array
     {
-        $this->db->query('SELECT * FROM ' . $this->table);
+        $this->db->query('SELECT * FROM ' . $this->table . ' ORDER BY created_at DESC'); // Show newest first
         return $this->db->resultSet();
     }
 
@@ -46,5 +46,29 @@ class CharacterModel
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id = :id');
         $this->db->bind('id', $id);
         return $this->db->single();
+    }
+
+    /**
+     * Adds a new character to the database.
+     *
+     * @param array $data The POST data containing character details.
+     * @return int Returns the number of affected rows (1 if success).
+     */
+    public function addCharacter(array $data): int
+    {
+        $query = "INSERT INTO characters (name, element, weapon_type, rarity, role, image_url)
+                  VALUES (:name, :element, :weapon_type, :rarity, :role, :image_url)";
+
+        $this->db->query($query);
+        $this->db->bind('name', htmlspecialchars($data['name'])); // Basic sanitization
+        $this->db->bind('element', $data['element']);
+        $this->db->bind('weapon_type', $data['weapon_type']);
+        $this->db->bind('rarity', $data['rarity']);
+        $this->db->bind('role', htmlspecialchars($data['role']));
+        $this->db->bind('image_url', $data['image_url']);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
     }
 }

@@ -3,7 +3,7 @@
 /**
  * Class Characters
  *
- * Controller for handling character listing and details.
+ * Controller for handling character listing, creation, and details.
  *
  * @package App\Controllers
  */
@@ -26,5 +26,37 @@ class Characters extends Controller
         $this->view('templates/header', $data);
         $this->view('characters/index', $data);
         $this->view('templates/footer');
+    }
+
+    /**
+     * Displays the form to add a new character.
+     *
+     * @return void
+     */
+    public function add(): void
+    {
+        $data['title'] = 'Add New Character';
+        
+        $this->view('templates/header', $data);
+        $this->view('characters/add', $data);
+        $this->view('templates/footer');
+    }
+
+    /**
+     * Processes the add character form submission.
+     *
+     * @return void
+     */
+    public function store(): void
+    {
+        if ($this->model('CharacterModel')->addCharacter($_POST) > 0) {
+            Flasher::setFlash('Character', 'successfully added', 'success');
+            header('Location: ' . BASEURL . '/characters');
+            exit;
+        } else {
+            Flasher::setFlash('Character', 'failed to add', 'danger');
+            header('Location: ' . BASEURL . '/characters');
+            exit;
+        }
     }
 }
