@@ -1,7 +1,8 @@
 <?php 
 /**
  * Partial View: Character List Grid
- * Uses 'namecard_url' for background image.
+ * Style: Genshin Namecard UI (Horizontal Banner)
+ * Icon on Left, Info on Right, Decorative Background.
  */
 ?>
 
