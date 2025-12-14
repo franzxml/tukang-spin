@@ -55,7 +55,7 @@ a {
     width: 90%;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 20px; /* Side padding for mobile */
+    padding: 0 20px;
 }
 
 /* --- Header (Mobile First) --- */
@@ -73,7 +73,7 @@ a {
 
 .nav-flex {
     display: flex;
-    flex-direction: column; /* Stack vertically on mobile */
+    flex-direction: column;
     align-items: center;
     gap: 15px;
 }
@@ -88,8 +88,8 @@ a {
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px; /* Tighter gap on mobile */
-    flex-wrap: wrap; /* Allow wrapping on very small screens */
+    gap: 20px;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -104,10 +104,9 @@ a {
     color: #000000;
 }
 
-/* Desktop Media Query */
 @media (min-width: 768px) {
     .nav-flex {
-        flex-direction: row; /* Horizontal on desktop */
+        flex-direction: row;
         justify-content: space-between;
         gap: 0;
     }
@@ -148,7 +147,7 @@ input, select, textarea {
     border-radius: 10px;
     color: var(--text-primary);
     padding: 12px 16px;
-    width: 100%; /* Full width on mobile */
+    width: 100%;
     transition: background 0.2s, box-shadow 0.2s;
 }
 
@@ -182,22 +181,92 @@ strong {
 
 .hero-section {
     text-align: center;
-    padding: 60px 20px;
-    background: linear-gradient(rgba(25, 25, 32, 0.8), rgba(25, 25, 32, 0.9)), 
-                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop');
+    padding: 80px 20px;
+    /* Added margin-top for spacing from header */
+    margin-top: 40px; 
+    margin-bottom: 2rem;
+    /* Updated Background Image */
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+                url('https://i.imgur.com/QJU6mHq.jpeg');
     background-size: cover;
     background-position: center;
     border-radius: 18px;
-    margin-bottom: 2rem;
     border: 1px solid var(--border-subtle);
-    color: white; /* Force white text for Hero only */
+    color: white;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .hero-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 10px;
     color: white;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.hero-section p {
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* --- Stats Cards (New) --- */
+
+.stats-grid {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 20px;
+}
+
+.stats-card {
+    padding: 40px 30px;
+    border-radius: 18px;
+    border: 1px solid var(--border-subtle);
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    
+    /* Stats Background Image */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)),
+                url('https://i.imgur.com/UsnWDAf.jpeg');
+    background-size: cover;
+    background-position: center 20%; /* Adjusted position to see faces better */
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.stats-card h3 {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    position: relative;
+    z-index: 2;
+}
+
+.stats-card .stats-number {
+    font-size: 4rem;
+    font-weight: 800;
+    color: white !important;
+    line-height: 1;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 2;
+}
+
+.stats-card .stats-label {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    position: relative;
+    z-index: 2;
 }
 
 /* --- Footer --- */
@@ -213,7 +282,7 @@ strong {
 
 .footer-content {
     display: flex;
-    flex-direction: column; /* Stack on mobile */
+    flex-direction: column;
     align-items: center;
     gap: 20px;
     text-align: center;
@@ -231,7 +300,7 @@ strong {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: center; /* Center on mobile */
+    align-items: center;
 }
 
 @media (min-width: 768px) {
@@ -269,12 +338,12 @@ strong {
 .text-blue { color: var(--accent-blue); }
 .text-red { color: var(--accent-red); }
 
-/* Fix inline styles */
+/* Overrides */
 div[style*="color: white"], strong[style*="color: white"] {
     color: var(--text-primary) !important;
 }
 
-/* Hero Exception */
-.hero-section div[style*="color: white"], .hero-section strong[style*="color: white"], .hero-section p {
+/* Hero & Stats Exception (Force White Text) */
+.hero-section *, .stats-card * {
     color: white !important;
 }
