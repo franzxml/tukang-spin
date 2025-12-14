@@ -120,4 +120,20 @@ class CharacterModel
 
         return $this->db->rowCount();
     }
+
+    /**
+     * Search characters by name.
+     *
+     * @param string $keyword The keyword to search for.
+     * @return array The list of matching characters.
+     */
+    public function searchCharacters(string $keyword): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE name LIKE :keyword";
+        
+        $this->db->query($query);
+        $this->db->bind('keyword', "%$keyword%");
+        
+        return $this->db->resultSet();
+    }
 }

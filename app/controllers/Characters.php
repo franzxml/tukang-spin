@@ -106,11 +106,28 @@ class Characters extends Controller
             header('Location: ' . BASEURL . '/characters');
             exit;
         } else {
-            // Even if 0 rows affected (data same as before), we consider it handled.
-            // But usually, we check strictly. For now, let's redirect.
             Flasher::setFlash('Character', 'updated (or no changes made)', 'success');
             header('Location: ' . BASEURL . '/characters');
             exit;
         }
+    }
+
+    /**
+     * Handles the search request.
+     *
+     * @return void
+     */
+    public function search(): void
+    {
+        $data['title'] = 'Search Results';
+        
+        // Retrieve keyword from POST or set to empty string
+        $keyword = $_POST['keyword'] ?? '';
+        
+        $data['characters'] = $this->model('CharacterModel')->searchCharacters($keyword);
+        
+        $this->view('templates/header', $data);
+        $this->view('characters/index', $data);
+        $this->view('templates/footer');
     }
 }
