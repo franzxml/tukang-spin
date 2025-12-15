@@ -8,7 +8,8 @@
 .hero-section {
     background-color: var(--bg-panel);
     border-radius: 28px;
-    margin-top: 40px;
+    /* FIX: Reduce top margin significantly on mobile (was 40px) to close the gap */
+    margin-top: 15px; 
     margin-bottom: 40px;
     overflow: hidden;
     display: flex;
@@ -17,7 +18,6 @@
 }
 
 .hero-text {
-    /* FIX: Reduce padding for mobile (was 40px 30px) to reduce gap with image */
     padding: 25px 20px; 
     flex: 1;
     display: flex;
@@ -61,7 +61,6 @@
     flex: 1;
     display: flex; 
     flex-direction: column;
-    /* FIX: Reduce min-height on mobile to avoid excessive scrolling (was 300px) */
     min-height: 250px; 
     padding: 0;
     margin: 0;
@@ -82,11 +81,12 @@
         flex-direction: row; /* Desktop: Text Left, Image Right */
         text-align: left;
         min-height: 480px;
+        /* Restore larger margin for desktop to maintain breathability */
+        margin-top: 40px;
     }
 
     .hero-text {
         align-items: flex-start;
-        /* Restore larger padding for desktop */
         padding: 60px; 
     }
 
