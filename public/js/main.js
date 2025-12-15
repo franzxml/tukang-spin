@@ -3,7 +3,7 @@
  * Features:
  * 1. Instant Hover-Intent Navigation (SPA) with Prefetching.
  * 2. Sliding Navigation Marker.
- * 3. Dynamic content handling.
+ * 3. Dynamic content handling (Ghost-free transitions).
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -14,11 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- State Management ---
     let hoverTimeout;
-    const HOVER_DELAY = 50; // Dipercepat: Hampir instan tapi cukup untuk cegah glitch
+    const HOVER_DELAY = 50; 
     let isAnimating = false;
-    
-    // Cache menyimpan Promise, bukan string HTML mentah.
-    // Ini memungkinkan kita me-request data SEBELUM kita membutuhkannya.
     const pageCache = {}; 
 
     // --- DOM Elements ---
@@ -26,11 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-links a');
     const marker = document.querySelector('.nav-marker');
 
-    /**
-     * Starts fetching the page content immediately.
-     * Returns a Promise that resolves to the HTML content.
-     * @param {string} url 
-     */
     function prefetchPage(url) {
         if (!pageCache[url]) {
             pageCache[url] = fetch(url)
@@ -53,23 +45,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(err => {
                     console.error('Prefetch failed:', err);
-                    delete pageCache[url]; // Hapus dari cache jika gagal
+                    delete pageCache[url]; 
                     throw err;
                 });
         }
         return pageCache[url];
     }
 
-    /**
-     * Navigate to URL using cached/prefetched data
-     */
     async function navigateTo(url, pushToHistory = true) {
         if (url === window.location.href || isAnimating) return;
 
         isAnimating = true;
 
         try {
-            // Kita tunggu Promise yang (seharusnya) sudah dimulai saat 'mouseenter'
             const pageData = await prefetchPage(url);
 
             if (pushToHistory) {
@@ -81,51 +69,43 @@ document.addEventListener('DOMContentLoaded', function() {
             performTransition(pageData.html);
 
         } catch (error) {
-            // Fallback ke load biasa jika fetch error
             window.location.href = url;
         } finally {
-            setTimeout(() => { isAnimating = false; }, 300); // Sesuaikan dengan durasi animasi CSS
+            setTimeout(() => { isAnimating = false; }, 400); 
         }
     }
 
     function performTransition(htmlContent) {
         if (!mainContainer) return;
 
-        // Snapshot konten lama
+        // 1. Snapshot konten lama & Ubah jadi Absolute (Float)
+        // Ini kunci agar konten baru tidak terdorong ke bawah
         const oldContent = document.createElement('div');
-        oldContent.className = 'view-wrapper view-visible';
+        oldContent.className = 'view-exit'; // Class baru di layout.css
+        
         while (mainContainer.firstChild) {
             oldContent.appendChild(mainContainer.firstChild);
         }
         mainContainer.appendChild(oldContent);
 
-        // Siapkan konten baru
+        // 2. Siapkan konten baru
         const newContent = document.createElement('div');
-        newContent.className = 'view-wrapper view-hidden';
+        newContent.className = 'view-wrapper view-visible'; // Langsung trigger animasi masuk
         newContent.innerHTML = htmlContent;
         mainContainer.appendChild(newContent);
 
-        // Force Reflow
-        void newContent.offsetWidth;
-
-        // Animasi Masuk (CSS handle sisanya)
-        requestAnimationFrame(() => {
-            oldContent.style.opacity = '0';
-            // Sedikit delay agar old content hilang dulu visualnya
-            newContent.className = 'view-wrapper view-visible';
-        });
-
-        // Cleanup DOM
+        // 3. Cleanup DOM setelah animasi selesai
         setTimeout(() => {
             oldContent.remove();
-            // Unwrap untuk menjaga struktur DOM bersih
+            
+            // Unwrap konten baru agar DOM tetap bersih (tidak bersarang)
             while (newContent.firstChild) {
                 mainContainer.appendChild(newContent.firstChild);
             }
             newContent.remove();
             
             reattachDynamicEvents();
-        }, 300); // 300ms sesuai CSS layout.css
+        }, 300); // 300ms sesuai durasi transisi CSS
     }
 
     function updateActiveMenu(currentUrl) {
@@ -149,7 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function reattachDynamicEvents() {
-        // Re-attach Live Search
         const keywordInput = document.getElementById('keyword');
         const gridContainer = document.getElementById('character-grid');
 
@@ -174,14 +153,11 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('mouseenter', (e) => {
             moveIndicator(e.target);
             
-            // 1. PREFETCH LANGSUNG! Jangan tunggu timer.
-            // Ini kunci agar loading terasa instan.
             const targetUrl = link.href;
             if (targetUrl !== window.location.href) {
                 prefetchPage(targetUrl);
             }
 
-            // 2. Set timer untuk navigasi visual
             hoverTimeout = setTimeout(() => {
                 navigateTo(targetUrl);
             }, HOVER_DELAY);
@@ -204,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
         navigateTo(window.location.href, false);
     });
 
-    // Init
     const activeLink = document.querySelector('.nav-links a.active');
     if (activeLink) {
         moveIndicator(activeLink);
@@ -213,7 +188,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     reattachDynamicEvents();
 
-    // Global Delete Delegation
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('delete-btn')) {
             const name = e.target.getAttribute('data-name');
