@@ -8,7 +8,7 @@
 .hero-section {
     background-color: var(--bg-panel);
     border-radius: 28px;
-    margin-top: 5px; 
+    margin-top: 5px; /* Mobile margin */
     margin-bottom: 40px;
     overflow: hidden;
     display: flex;
@@ -87,7 +87,7 @@
     .hero-section {
         flex-direction: row;
         text-align: left;
-        /* FIX: Change rigid 480px to 350px. Allows card to shrink if content is small (flexible) */
+        /* Flexible height for Hero as well */
         min-height: 350px;
         margin-top: 40px;
     }
@@ -186,8 +186,8 @@
     .stats-card-split {
         flex-direction: row-reverse; 
         text-align: left;
-        /* FIX: Change rigid 480px to 350px to match Hero flexibility */
-        min-height: 350px;
+        /* FIX: Change to 'auto' so height strictly follows content */
+        min-height: auto; 
     }
 
     .stats-content {
