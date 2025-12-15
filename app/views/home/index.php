@@ -1,3 +1,9 @@
+<div class="row">
+    <div class="col-lg-12">
+        <?php Flasher::flash(); ?>
+    </div>
+</div>
+
 <section class="hero-section">
     <div class="hero-text">
         <h1 class="hero-title">Selamat Datang di Genpedia.</h1>
