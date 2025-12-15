@@ -22,6 +22,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: var(--bg-panel); /* Ensure text bg is solid */
 }
 
 .hero-title {
@@ -56,15 +57,20 @@
 
 .hero-visual {
     flex: 1;
-    background-color: #eeeeee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    /* REMOVED: background-color: #eeeeee; (Causes grey gaps) */
+    /* REMOVED: align-items & justify-content center (Causes spacing) */
+    
+    /* FIX: Use flex to eliminate inline gaps */
+    display: flex; 
+    flex-direction: column;
     min-height: 300px;
+    padding: 0;
+    margin: 0;
 }
 
 .hero-img {
+    /* FIX: Block display + 100% dimensions ensures full coverage */
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -171,8 +177,6 @@
     object-fit: cover;
     object-position: 25% center;
     transition: transform 0.5s ease;
-    
-    /* FIX MOBILE: Force zoom and shift to center the character */
     transform: scale(1.35) translateX(10%);
 }
 
@@ -207,7 +211,6 @@
     }
     
     .stats-img {
-        /* RESET DESKTOP: Remove the forced zoom, let object-position handle it */
         transform: none;
     }
 }
