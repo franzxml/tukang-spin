@@ -19,10 +19,12 @@
     <div class="stats-card-split">
         <div class="stats-content">
             <h3 class="stats-title">Koleksi Karakter</h3>
-            <div class="stats-number-wrapper">
-                <span class="stats-number"><?= $data['total_characters']; ?></span>
-                <span class="stats-unit">Hero</span>
+            
+            <div class="stats-metric">
+                <span class="metric-value"><?= $data['total_characters']; ?></span>
+                <span class="metric-label">Hero Terdaftar</span>
             </div>
+            
             <p class="stats-desc">Karakter yang telah Anda daftarkan dan kelola di database Genpedia.</p>
         </div>
         

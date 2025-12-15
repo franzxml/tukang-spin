@@ -2,7 +2,7 @@
  * Main Stylesheet for Genpedia
  * Theme: Apple Human Interface (Light Mode).
  * Font: Inter (Premium, Clean, Modern).
- * Features: Consistent Split Layouts (Hero & Stats).
+ * Features: Consistent Split Layouts, Normalized Typography.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -283,18 +283,18 @@ strong {
     }
 }
 
-/* --- Stats Section (Split Design) --- */
+/* --- Stats Section (Updated Split Design) --- */
 
 .stats-section {
     margin-bottom: 100px;
 }
 
 .stats-card-split {
-    background-color: var(--bg-panel); /* Same light gray base */
+    background-color: var(--bg-panel);
     border-radius: 28px;
     overflow: hidden;
     display: flex;
-    flex-direction: column; /* Stacked on Mobile */
+    flex-direction: column; /* Stack on Mobile */
     text-align: center;
 }
 
@@ -308,7 +308,7 @@ strong {
 }
 
 .stats-title {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-secondary);
     text-transform: uppercase;
@@ -316,25 +316,26 @@ strong {
     margin-bottom: 10px;
 }
 
-.stats-number-wrapper {
+/* New Normal Typography */
+.stats-metric {
     margin-bottom: 15px;
     display: flex;
-    align-items: baseline;
-    gap: 10px;
+    align-items: center; /* Vertical center align */
+    gap: 12px;
 }
 
-.stats-number {
-    font-size: 5rem;
-    font-weight: 800;
+.metric-value {
+    font-size: 2.5rem; /* Reduced from 5rem for a balanced look */
+    font-weight: 700;
     color: var(--text-primary);
-    letter-spacing: -0.04em;
     line-height: 1;
+    letter-spacing: -0.02em;
 }
 
-.stats-unit {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-secondary);
+.metric-label {
+    font-size: 1.1rem; /* Standard readable size */
+    font-weight: 500;
+    color: var(--text-primary);
 }
 
 .stats-desc {
@@ -356,6 +357,10 @@ strong {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* * Key fix: Center the image content within the container.
+     * Prevents the subject from hugging the left edge too tightly.
+     */
+    object-position: center center;
     transition: transform 0.5s ease;
 }
 
@@ -363,16 +368,13 @@ strong {
     transform: scale(1.03);
 }
 
-/* Desktop Split Layout for Stats */
+/* Desktop Stats Layout */
 @media (min-width: 900px) {
     .stats-card-split {
-        flex-direction: row-reverse; /* Image Left, Text Right (Alternating look) */
+        flex-direction: row-reverse; /* Image Left, Text Right */
         text-align: left;
         min-height: 400px;
     }
-
-    /* Alternatively, remove reverse if you want Image Right like Hero */
-    /* flex-direction: row; */
 
     .stats-content {
         align-items: flex-start;
