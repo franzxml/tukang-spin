@@ -27,7 +27,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* Referensi Jarak Atas */
+    gap: 15px;
 }
 
 @media (min-width: 768px) {
@@ -69,11 +69,18 @@
     color: var(--text-secondary);
     font-weight: 500;
     font-size: 0.9rem;
+    text-decoration: none;
+    
+    /* Active State Styling */
+    padding-bottom: 5px; /* Jarak antara teks dan garis */
+    border-bottom: 2px solid transparent; /* Garis transparan (invisible) secara default */
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
     color: #000000;
+    border-bottom-color: #000000; /* Munculkan garis hitam saat aktif/hover */
 }
 
 /* --- Footer --- */
@@ -81,8 +88,7 @@
     margin-top: auto;
     background-color: var(--bg-panel);
     border-top: 1px solid var(--border-subtle);
-    /* Reduced padding to be more compact */
-    padding: 3rem 0; 
+    padding: 3rem 0;
     font-size: 0.9rem;
     color: var(--text-primary);
 }
@@ -91,8 +97,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* FIX: Reduce gap to 15px to match Header (.nav-flex) */
-    gap: 15px; 
+    gap: 15px;
     text-align: center;
 }
 
@@ -107,8 +112,7 @@
 .footer-left {
     display: flex;
     flex-direction: column;
-    /* FIX: Reduce gap to 15px to match Header consistency */
-    gap: 15px; 
+    gap: 15px;
     align-items: center;
 }
 

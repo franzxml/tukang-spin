@@ -1,3 +1,7 @@
+<?php
+// Deteksi URL saat ini untuk menentukan menu yang aktif
+$uri = $_SERVER['REQUEST_URI'];
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -17,10 +21,30 @@
         
         <nav>
             <ul class="nav-links">
-                <li><a href="<?= BASEURL; ?>">Beranda</a></li>
-                <li><a href="<?= BASEURL; ?>/characters">Karakter</a></li>
-                <li><a href="<?= BASEURL; ?>/weapons">Senjata</a></li>
-                <li><a href="<?= BASEURL; ?>/artifacts">Artefak</a></li>
+                <li>
+                    <a href="<?= BASEURL; ?>" 
+                       class="<?= (strpos($uri, '/characters') === false && strpos($uri, '/weapons') === false && strpos($uri, '/artifacts') === false) ? 'active' : ''; ?>">
+                       Beranda
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= BASEURL; ?>/characters" 
+                       class="<?= (strpos($uri, '/characters') !== false) ? 'active' : ''; ?>">
+                       Karakter
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= BASEURL; ?>/weapons" 
+                       class="<?= (strpos($uri, '/weapons') !== false) ? 'active' : ''; ?>">
+                       Senjata
+                    </a>
+                </li>
+                <li>
+                    <a href="<?= BASEURL; ?>/artifacts" 
+                       class="<?= (strpos($uri, '/artifacts') !== false) ? 'active' : ''; ?>">
+                       Artefak
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
