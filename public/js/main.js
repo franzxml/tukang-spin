@@ -1,200 +1,242 @@
 /**
  * Main JavaScript for Genpedia
- * Features:
- * 1. Sliding Navigation Marker
- * 2. Full Page Content Preview (AJAX/Fetch) on Hover
- * 3. Live Search & Utilities
+ * * Features implemented:
+ * 1. Hover-Intent Navigation (SPA-like transitions).
+ * 2. Sliding Navigation Marker logic.
+ * 3. Dynamic content fetching and URL updating (History API).
+ * 4. DOM Clean-up to maintain performance.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     
     // --- Configuration ---
-    // Detect base URL dynamically
     const pathArray = window.location.pathname.split('/');
-    // Assuming structure is /genpedia/public/...
-    // Adjust index if folder structure is different
     const baseURL = window.location.origin + '/' + pathArray[1] + '/public';
 
-    // --- 1. View Manager (Content Swap Logic) ---
+    // --- State Management ---
+    let hoverTimeout;
+    const HOVER_DELAY = 150; // Waktu tunggu (ms) sebelum pindah halaman (biar tidak "kaget" saat lewat doang)
+    let isAnimating = false;
+    const pageCache = {}; // Cache untuk menyimpan HTML agar navigasi kedua kali instan
+
+    // --- DOM Elements ---
     const mainContainer = document.querySelector('main.container');
-    const pageCache = {}; // Cache to store fetched HTML
-
-    // Setup: Wrap existing content to preserve state
-    if (mainContainer) {
-        // Create wrapper for original content if it doesn't exist
-        if (!document.getElementById('original-view')) {
-            const originalWrapper = document.createElement('div');
-            originalWrapper.id = 'original-view';
-            originalWrapper.className = 'view-wrapper view-visible';
-            
-            // Move all current children into wrapper
-            while (mainContainer.firstChild) {
-                originalWrapper.appendChild(mainContainer.firstChild);
-            }
-            mainContainer.appendChild(originalWrapper);
-
-            // Create wrapper for preview content (Hidden by default)
-            const previewWrapper = document.createElement('div');
-            previewWrapper.id = 'preview-view';
-            previewWrapper.className = 'view-wrapper view-hidden';
-            mainContainer.appendChild(previewWrapper);
-        }
-    }
-
-    const originalView = document.getElementById('original-view');
-    const previewView = document.getElementById('preview-view');
-    let fetchController = null; // To abort stale requests
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const marker = document.querySelector('.nav-marker');
 
     /**
-     * Fetches page content and updates the preview view.
-     * @param {string} url - The URL to fetch.
+     * Core Function: Navigate to URL without refreshing
+     * @param {string} url - Target URL
+     * @param {boolean} pushToHistory - Whether to update browser URL bar
      */
-    async function loadPreview(url) {
-        // If same as current page, do nothing (handled by resetView now)
-        if (url === window.location.href) return;
+    async function navigateTo(url, pushToHistory = true) {
+        // Jangan navigasi jika sedang di URL yang sama atau sedang animasi
+        if (url === window.location.href || isAnimating) return;
 
-        // Check Cache first
-        if (pageCache[url]) {
-            renderPreview(pageCache[url]);
-            return;
-        }
+        isAnimating = true;
 
-        // Fetch from network
         try {
-            if (fetchController) fetchController.abort(); // Cancel previous
-            fetchController = new AbortController();
+            // 1. Dapatkan Konten Baru (Cache First)
+            let newContentHTML = '';
 
-            const response = await fetch(url, { signal: fetchController.signal });
-            if (!response.ok) throw new Error('Network response was not ok');
-            
-            const text = await response.text();
-            
-            // Parse HTML to extract <main> content only
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(text, 'text/html');
-            const mainContent = doc.querySelector('main.container').innerHTML;
+            if (pageCache[url]) {
+                newContentHTML = pageCache[url];
+            } else {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network error');
+                
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                
+                // Ambil isi <main> dan <title>
+                const newMain = doc.querySelector('main.container');
+                const newTitle = doc.querySelector('title').innerText;
+                
+                if (!newMain) throw new Error('Invalid page structure');
 
-            // Cache and Render
-            pageCache[url] = mainContent;
-            renderPreview(mainContent);
+                newContentHTML = newMain.innerHTML;
+                
+                // Update Title & Cache
+                document.title = newTitle;
+                pageCache[url] = newContentHTML;
+            }
+
+            // 2. Update URL Browser (Penting agar tombol Back berfungsi)
+            if (pushToHistory) {
+                window.history.pushState({ path: url }, '', url);
+            }
+
+            // 3. Update Menu Aktif & Marker
+            updateActiveMenu(url);
+
+            // 4. Lakukan Transisi Visual (Cross-fade / Slide)
+            performTransition(newContentHTML);
 
         } catch (error) {
-            if (error.name !== 'AbortError') {
-                console.error('Preview fetch failed:', error);
-            }
+            console.error('Navigation failed:', error);
+            // Fallback: Jika fetch gagal, load biasa
+            window.location.href = url; 
+        } finally {
+            // Reset flag setelah delay aman
+            setTimeout(() => { isAnimating = false; }, 600);
         }
     }
 
-    function renderPreview(htmlContent) {
-        if (!previewView || !originalView) return;
-        
-        // Inject content
-        previewView.innerHTML = htmlContent;
-        
-        // Swap visibility
-        originalView.classList.replace('view-visible', 'view-hidden');
-        previewView.classList.replace('view-hidden', 'view-visible');
-    }
+    /**
+     * Handles the visual transition between old and new content
+     * @param {string} htmlContent - The new HTML string to inject
+     */
+    function performTransition(htmlContent) {
+        if (!mainContainer) return;
 
-    function resetView() {
-        if (!previewView || !originalView) return;
-
-        // Swap back to original content
-        previewView.classList.replace('view-visible', 'view-hidden');
-        originalView.classList.replace('view-hidden', 'view-visible');
+        // Bungkus konten lama agar bisa dianimasikan keluar
+        const oldContent = document.createElement('div');
+        oldContent.className = 'view-wrapper view-visible'; // Class ada di layout.css
         
-        // Clear preview content after transition to avoid ID conflicts
+        // Pindahkan anak-anak mainContainer ke oldContent
+        while (mainContainer.firstChild) {
+            oldContent.appendChild(mainContainer.firstChild);
+        }
+        mainContainer.appendChild(oldContent);
+
+        // Siapkan konten baru
+        const newContent = document.createElement('div');
+        newContent.className = 'view-wrapper view-hidden'; // Mulai dari hidden
+        newContent.innerHTML = htmlContent;
+        mainContainer.appendChild(newContent);
+
+        // Trigger Reflow
+        void newContent.offsetWidth;
+
+        // Jalankan Animasi
+        // 1. Konten lama fade out
+        oldContent.style.opacity = '0';
+        oldContent.style.transform = 'translateY(-10px)'; // Sedikit naik saat hilang
+
+        // 2. Konten baru masuk (Slide Up dari layout.css @keyframes pageEnter)
+        // Kita ganti class view-hidden jadi view-visible untuk memicu animasi CSS
         setTimeout(() => {
-            if (previewView.classList.contains('view-hidden')) {
-                previewView.innerHTML = ''; 
-            }
-        }, 200);
+            newContent.className = 'view-wrapper view-visible';
+            
+            // Bersihkan DOM setelah animasi selesai (agar tidak menumpuk div)
+            setTimeout(() => {
+                oldContent.remove();
+                // Unwrap: Pindahkan isi newContent kembali ke mainContainer langsung
+                // Ini penting agar event listener global tetap jalan normal
+                while (newContent.firstChild) {
+                    mainContainer.appendChild(newContent.firstChild);
+                }
+                newContent.remove();
+                
+                // Re-attach event listeners untuk konten baru (Search, Delete btn, dll)
+                reattachDynamicEvents();
+            }, 500); // Sesuaikan dengan durasi animasi CSS
+        }, 50);
     }
 
+    /**
+     * Updates the active class on navigation links and moves the marker
+     */
+    function updateActiveMenu(currentUrl) {
+        navLinks.forEach(link => {
+            // Cek apakah href link cocok dengan URL sekarang
+            if (link.href === currentUrl) {
+                link.classList.add('active');
+                moveIndicator(link);
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
 
-    // --- 2. Navigation Interaction ---
-    const marker = document.querySelector('.nav-marker');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const activeLink = document.querySelector('.nav-links a.active');
-    const navContainer = document.querySelector('.nav-links');
-
+    /**
+     * Moves the sliding underline marker
+     */
     function moveIndicator(element) {
         if (element && marker) {
             const parentRect = element.closest('.nav-links').getBoundingClientRect();
             const elementRect = element.getBoundingClientRect();
+            
             marker.style.width = elementRect.width + 'px';
             marker.style.left = (elementRect.left - parentRect.left) + 'px';
         }
     }
 
-    // Initialize Marker
-    if (activeLink) {
-        moveIndicator(activeLink);
-        setTimeout(() => moveIndicator(activeLink), 100);
+    /**
+     * Re-attaches necessary event listeners for dynamic content
+     * (Called after every page navigation)
+     */
+    function reattachDynamicEvents() {
+        // 1. Live Search Logic
+        const keywordInput = document.getElementById('keyword');
+        const gridContainer = document.getElementById('character-grid');
+
+        if (keywordInput && gridContainer) {
+            // Remove old listener first (clone node trick) or just add fresh
+            // Simple approach: Add new listener (Garbage collector handles old nodes removed from DOM)
+            keywordInput.addEventListener('keyup', function() {
+                const keyword = this.value;
+                fetch(baseURL + '/characters/liveSearch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ keyword: keyword })
+                })
+                .then(res => res.text())
+                .then(html => gridContainer.innerHTML = html)
+                .catch(err => console.error(err));
+            });
+        }
     }
 
-    // Event Listeners
+    // --- Event Listeners Setup ---
+
+    // 1. Navigation Hover Logic
     navLinks.forEach(link => {
         link.addEventListener('mouseenter', (e) => {
-            // Move Marker
+            // Pindahkan marker visual dulu biar responsif
             moveIndicator(e.target);
+
+            // Tunggu sebentar (HOVER_DELAY), kalau user masih di situ, baru pindah halaman
+            hoverTimeout = setTimeout(() => {
+                navigateTo(link.href);
+            }, HOVER_DELAY);
+        });
+
+        link.addEventListener('mouseleave', () => {
+            // Batalkan navigasi jika user cuma lewat cepat
+            clearTimeout(hoverTimeout);
             
-            const targetUrl = link.href;
-            
-            // BUG FIX: Check if we are hovering the link of the CURRENT page
-            if (targetUrl !== window.location.href) {
-                // If different page, load preview
-                loadPreview(targetUrl);
-            } else {
-                // If current page, restore original view (fix for "stuck" preview)
-                resetView();
-            }
+            // Kembalikan marker ke halaman yang aktif sekarang
+            const activeLink = document.querySelector('.nav-links a.active');
+            if (activeLink) moveIndicator(activeLink);
+        });
+
+        // Handle Klik manual (biar gak full reload)
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            clearTimeout(hoverTimeout);
+            navigateTo(link.href);
         });
     });
 
-    if (navContainer) {
-        navContainer.addEventListener('mouseleave', () => {
-            // Reset Marker to Active Link
-            if (activeLink) {
-                moveIndicator(activeLink);
-            } else {
-                marker.style.width = '0';
-            }
-
-            // Reset View (Hide Preview)
-            resetView();
-        });
-    }
-
-    // Recalculate marker on resize
-    window.addEventListener('resize', () => {
-        if (activeLink) moveIndicator(activeLink);
+    // 2. Handle Browser Back/Forward Buttons
+    window.addEventListener('popstate', () => {
+        navigateTo(window.location.href, false); // false = jangan push history lagi
     });
 
-
-    // --- 3. Internal Logic (Search, Delete) ---
-    // Note: These listeners attach to the *original* DOM.
-    
-    const keywordInput = document.getElementById('keyword');
-    const gridContainer = document.getElementById('character-grid');
-
-    if (keywordInput && gridContainer) {
-        keywordInput.addEventListener('keyup', function() {
-            const keyword = this.value;
-            fetch(baseURL + '/characters/liveSearch', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ keyword: keyword })
-            })
-            .then(response => response.text())
-            .then(html => {
-                gridContainer.innerHTML = html;
-            })
-            .catch(error => console.error('Error fetching data:', error));
-        });
+    // 3. Initialize Marker on Load
+    const activeLink = document.querySelector('.nav-links a.active');
+    if (activeLink) {
+        moveIndicator(activeLink);
+        setTimeout(() => moveIndicator(activeLink), 100); // Double check for font loading
     }
 
-    // Event Delegation for dynamic delete buttons
+    // 4. Initial Event Attachment
+    reattachDynamicEvents();
+
+    // 5. Global Event Delegation (Delete Buttons)
+    // Ini aman ditaruh sekali saja karena nempel di document
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('delete-btn')) {
             const name = e.target.getAttribute('data-name');
@@ -202,6 +244,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
             }
         }
+    });
+
+    // 6. Resize Handler
+    window.addEventListener('resize', () => {
+        const currentActive = document.querySelector('.nav-links a.active');
+        if (currentActive) moveIndicator(currentActive);
     });
 
 });
