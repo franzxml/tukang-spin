@@ -27,7 +27,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 15px; /* Referensi Jarak Atas */
 }
 
 @media (min-width: 768px) {
@@ -81,7 +81,8 @@
     margin-top: auto;
     background-color: var(--bg-panel);
     border-top: 1px solid var(--border-subtle);
-    padding: 4rem 0;
+    /* Reduced padding to be more compact */
+    padding: 3rem 0; 
     font-size: 0.9rem;
     color: var(--text-primary);
 }
@@ -90,8 +91,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Jarak antara Blok Kiri (Teks+Ikon) dan Blok Kanan (Quote) */
-    gap: 20px; 
+    /* FIX: Reduce gap to 15px to match Header (.nav-flex) */
+    gap: 15px; 
     text-align: center;
 }
 
@@ -106,8 +107,8 @@
 .footer-left {
     display: flex;
     flex-direction: column;
-    /* FIX: Samakan jarak ini (20px) dengan gap footer-content agar konsisten */
-    gap: 20px; 
+    /* FIX: Reduce gap to 15px to match Header consistency */
+    gap: 15px; 
     align-items: center;
 }
 
