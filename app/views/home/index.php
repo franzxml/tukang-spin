@@ -11,7 +11,11 @@
     </div>
 
     <div class="hero-visual">
-        <img src="https://i.imgur.com/QJU6mHq.jpeg" alt="Genshin Impact Visual" class="hero-img">
+        <img src="https://i.imgur.com/QJU6mHq.jpeg" 
+             alt="Genshin Impact Visual" 
+             class="hero-img"
+             fetchpriority="high"
+             decoding="async">
     </div>
 </section>
 
@@ -22,14 +26,18 @@
             
             <div class="stats-metric">
                 <span class="metric-value"><?= $data['total_characters']; ?></span>
-                <span class="metric-label">Terdaftar</span>
+                <span class="metric-label">Hero Terdaftar</span>
             </div>
             
             <p class="stats-desc">Karakter yang telah Anda daftarkan dan kelola di database Genpedia.</p>
         </div>
         
         <div class="stats-visual">
-            <img src="https://i.imgur.com/UsnWDAf.jpeg" alt="Character Collection" class="stats-img">
+            <img src="https://i.imgur.com/UsnWDAf.jpeg" 
+                 alt="Character Collection" 
+                 class="stats-img"
+                 loading="lazy"
+                 decoding="async">
         </div>
     </div>
 </section>

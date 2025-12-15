@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $data['title']; ?> | Genpedia</title>
+    
+    <link rel="preconnect" href="https://i.imgur.com">
+    
     <link rel="stylesheet" href="<?= BASEURL; ?>/css/main.css">
 </head>
 <body>
