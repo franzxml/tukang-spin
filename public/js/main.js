@@ -1,9 +1,9 @@
 /**
  * Main JavaScript for Genpedia
  * Features:
- * 1. Instant Hover-Intent Navigation (SPA) with Prefetching.
+ * 1. Instant Hover-Intent Navigation (SPA) with Queueing logic.
  * 2. Sliding Navigation Marker.
- * 3. Dynamic content handling (Ghost-free transitions).
+ * 3. Dynamic content handling without layout trashing.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let hoverTimeout;
     const HOVER_DELAY = 50; 
     let isAnimating = false;
+    
+    // QUEUE SYSTEM: Untuk menyimpan tujuan berikutnya jika animasi sedang berjalan
+    let pendingNavigation = null; 
+
     const pageCache = {}; 
 
     // --- DOM Elements ---
@@ -23,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-links a');
     const marker = document.querySelector('.nav-marker');
 
+    /**
+     * Prefetch page content immediately
+     */
     function prefetchPage(url) {
         if (!pageCache[url]) {
             pageCache[url] = fetch(url)
@@ -45,17 +52,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(err => {
                     console.error('Prefetch failed:', err);
-                    delete pageCache[url]; 
+                    delete pageCache[url];
                     throw err;
                 });
         }
         return pageCache[url];
     }
 
+    /**
+     * Navigate to URL with Queue Support
+     */
     async function navigateTo(url, pushToHistory = true) {
-        if (url === window.location.href || isAnimating) return;
+        // Jika sedang animasi, masukkan request ke antrean (Queue)
+        // Ini memperbaiki bug "tidak kedetect" saat hover cepat
+        if (isAnimating) {
+            pendingNavigation = { url, pushToHistory };
+            return;
+        }
+
+        // Cek apakah URL sama (kecuali ada di antrean, kita force cek nanti)
+        if (url === window.location.href) return;
 
         isAnimating = true;
+        pendingNavigation = null; // Reset antrean karena kita mulai proses baru
 
         try {
             const pageData = await prefetchPage(url);
@@ -69,43 +88,56 @@ document.addEventListener('DOMContentLoaded', function() {
             performTransition(pageData.html);
 
         } catch (error) {
-            window.location.href = url;
+            console.error('Navigation error:', error);
+            window.location.href = url; // Fallback
         } finally {
-            setTimeout(() => { isAnimating = false; }, 400); 
+            // Tunggu animasi CSS selesai (300ms) + buffer sedikit
+            setTimeout(() => {
+                isAnimating = false;
+                
+                // CEK ANTREAN: Apakah user pindah ke menu lain saat kita sedang animasi?
+                if (pendingNavigation) {
+                    const next = pendingNavigation;
+                    // Eksekusi navigasi yang tertunda
+                    if (next.url !== window.location.href) {
+                        navigateTo(next.url, next.pushToHistory);
+                    }
+                }
+            }, 350); 
         }
     }
 
     function performTransition(htmlContent) {
         if (!mainContainer) return;
 
-        // 1. Snapshot konten lama & Ubah jadi Absolute (Float)
-        // Ini kunci agar konten baru tidak terdorong ke bawah
+        // Snapshot konten lama
         const oldContent = document.createElement('div');
-        oldContent.className = 'view-exit'; // Class baru di layout.css
-        
+        oldContent.className = 'view-exit'; 
         while (mainContainer.firstChild) {
             oldContent.appendChild(mainContainer.firstChild);
         }
         mainContainer.appendChild(oldContent);
 
-        // 2. Siapkan konten baru
+        // Konten baru
         const newContent = document.createElement('div');
-        newContent.className = 'view-wrapper view-visible'; // Langsung trigger animasi masuk
+        newContent.className = 'view-wrapper view-visible';
         newContent.innerHTML = htmlContent;
         mainContainer.appendChild(newContent);
 
-        // 3. Cleanup DOM setelah animasi selesai
+        // Force Reflow
+        void newContent.offsetWidth;
+
+        // Cleanup DOM
         setTimeout(() => {
             oldContent.remove();
             
-            // Unwrap konten baru agar DOM tetap bersih (tidak bersarang)
             while (newContent.firstChild) {
                 mainContainer.appendChild(newContent.firstChild);
             }
             newContent.remove();
             
             reattachDynamicEvents();
-        }, 300); // 300ms sesuai durasi transisi CSS
+        }, 300); 
     }
 
     function updateActiveMenu(currentUrl) {
@@ -133,7 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const gridContainer = document.getElementById('character-grid');
 
         if (keywordInput && gridContainer) {
-            keywordInput.addEventListener('keyup', function() {
+            // Clone node to strip old listeners avoids duplication
+            const newInput = keywordInput.cloneNode(true);
+            keywordInput.parentNode.replaceChild(newInput, keywordInput);
+            
+            newInput.addEventListener('keyup', function() {
                 const keyword = this.value;
                 fetch(baseURL + '/characters/liveSearch', {
                     method: 'POST',
@@ -144,6 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(html => gridContainer.innerHTML = html)
                 .catch(err => console.error(err));
             });
+            // Focus balik ke input jika perlu (opsional)
+            newInput.focus(); 
         }
     }
 
@@ -165,6 +203,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         link.addEventListener('mouseleave', () => {
             clearTimeout(hoverTimeout);
+            
+            // Kembalikan marker ke menu yang sedang AKTIF (bukan yang di-queue)
+            // agar visual konsisten dengan halaman yang sedang tampil
             const activeLink = document.querySelector('.nav-links a.active');
             if (activeLink) moveIndicator(activeLink);
         });
@@ -180,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navigateTo(window.location.href, false);
     });
 
+    // Init Marker
     const activeLink = document.querySelector('.nav-links a.active');
     if (activeLink) {
         moveIndicator(activeLink);
