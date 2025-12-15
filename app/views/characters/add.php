@@ -1,6 +1,6 @@
 <div class="container">
     
-    <div class="form-card" style="padding: 0; overflow: hidden; max-width: 720px;">
+    <div class="form-card" style="padding: 0; overflow: hidden;">
         
         <div style="height: 240px; overflow: hidden; position: relative;">
             <img src="<?= BASEURL; ?>/img/home/mizuki-hotspring.jpg" 
@@ -29,24 +29,25 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Role Utama</label>
-                            <input type="text" name="role" placeholder="Contoh: Off-field DPS / Buffer" required>
+                            <input type="text" name="role" placeholder="Contoh: Off-field DPS" required>
                         </div>
                     </div>
 
                     <div class="form-grid-2">
                         <div class="form-group">
                             <label class="form-label">Elemen</label>
-                            <select name="element" required>
-                                <option value="" disabled selected>Pilih Elemen...</option>
-                                <option value="Pyro">Pyro (Api)</option>
-                                <option value="Hydro">Hydro (Air)</option>
-                                <option value="Anemo">Anemo (Angin)</option>
-                                <option value="Electro">Electro (Listrik)</option>
-                                <option value="Dendro">Dendro (Tumbuhan)</option>
-                                <option value="Cryo">Cryo (Es)</option>
-                                <option value="Geo">Geo (Tanah)</option>
-                            </select>
+                            <input list="elements_list" name="element" placeholder="Pilih atau ketik..." required>
+                            <datalist id="elements_list">
+                                <option value="Pyro">
+                                <option value="Hydro">
+                                <option value="Anemo">
+                                <option value="Electro">
+                                <option value="Dendro">
+                                <option value="Cryo">
+                                <option value="Geo">
+                            </datalist>
                         </div>
+
                         <div class="form-group">
                             <label class="form-label">Tingkat Kelangkaan</label>
                             <div class="segmented-control">
@@ -65,14 +66,14 @@
 
                     <div class="form-group">
                         <label class="form-label">Tipe Senjata</label>
-                        <select name="weapon_type" required>
-                            <option value="" disabled selected>Pilih Senjata...</option>
-                            <option value="Sword">Sword (Pedang)</option>
-                            <option value="Claymore">Claymore (Pedang Besar)</option>
-                            <option value="Polearm">Polearm (Tombak)</option>
-                            <option value="Bow">Bow (Panah)</option>
-                            <option value="Catalyst">Catalyst (Buku)</option>
-                        </select>
+                        <input list="weapon_types" name="weapon_type" placeholder="Pilih atau ketik..." required>
+                        <datalist id="weapon_types">
+                            <option value="Sword">
+                            <option value="Claymore">
+                            <option value="Polearm">
+                            <option value="Bow">
+                            <option value="Catalyst">
+                        </datalist>
                     </div>
                 </div>
 
@@ -83,7 +84,7 @@
                         <div class="form-group">
                             <label class="form-label">Senjata (Opsional)</label>
                             <select name="equipped_weapon_id">
-                                <option value="">-- Tidak Dipasang --</option>
+                                <option value="">Tidak dipasang</option>
                                 <?php foreach ($data['weapons'] as $wep) : ?>
                                     <option value="<?= $wep['id']; ?>">
                                         <?= $wep['name']; ?> (<?= $wep['rarity']; ?>★)
@@ -94,7 +95,7 @@
                         <div class="form-group">
                             <label class="form-label">Set Artefak (Opsional)</label>
                             <select name="equipped_artifact_set_id">
-                                <option value="">-- Tidak Dipasang --</option>
+                                <option value="">Tidak dipasang</option>
                                 <?php foreach ($data['artifacts'] as $art) : ?>
                                     <option value="<?= $art['id']; ?>">
                                         <?= $art['name']; ?>
@@ -107,37 +108,45 @@
                     <div class="form-group">
                         <label class="form-label">Statistik Utama Artefak</label>
                         <div class="form-grid-3">
-                            <select name="art_sands">
-                                <option value="" disabled selected>Sands (Jam)</option>
-                                <option value="ATK%">ATK%</option>
-                                <option value="HP%">HP%</option>
-                                <option value="DEF%">DEF%</option>
-                                <option value="ER">Energy Recharge</option>
-                                <option value="EM">Elemental Mastery</option>
-                            </select>
-                            <select name="art_goblet">
-                                <option value="" disabled selected>Goblet (Gelas)</option>
-                                <option value="Pyro DMG">Pyro DMG</option>
-                                <option value="Hydro DMG">Hydro DMG</option>
-                                <option value="Anemo DMG">Anemo DMG</option>
-                                <option value="Electro DMG">Electro DMG</option>
-                                <option value="Dendro DMG">Dendro DMG</option>
-                                <option value="Cryo DMG">Cryo DMG</option>
-                                <option value="Geo DMG">Geo DMG</option>
-                                <option value="Physical DMG">Physical DMG</option>
-                                <option value="ATK%">ATK%</option>
-                                <option value="HP%">HP%</option>
-                                <option value="EM">EM</option>
-                            </select>
-                            <select name="art_circlet">
-                                <option value="" disabled selected>Circlet (Topi)</option>
-                                <option value="Crit Rate">Crit Rate</option>
-                                <option value="Crit DMG">Crit DMG</option>
-                                <option value="Healing Bonus">Healing Bonus</option>
-                                <option value="EM">EM</option>
-                                <option value="ATK%">ATK%</option>
-                                <option value="HP%">HP%</option>
-                            </select>
+                            <div>
+                                <select name="art_sands">
+                                    <option value="" disabled selected>Sands</option>
+                                    <option value="ATK%">ATK%</option>
+                                    <option value="HP%">HP%</option>
+                                    <option value="DEF%">DEF%</option>
+                                    <option value="Energy Recharge">Energy Recharge</option>
+                                    <option value="Elemental Mastery">Elemental Mastery</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <select name="art_goblet">
+                                    <option value="" disabled selected>Goblet</option>
+                                    <option value="Pyro DMG">Pyro DMG</option>
+                                    <option value="Hydro DMG">Hydro DMG</option>
+                                    <option value="Anemo DMG">Anemo DMG</option>
+                                    <option value="Electro DMG">Electro DMG</option>
+                                    <option value="Dendro DMG">Dendro DMG</option>
+                                    <option value="Cryo DMG">Cryo DMG</option>
+                                    <option value="Geo DMG">Geo DMG</option>
+                                    <option value="Physical DMG">Physical DMG</option>
+                                    <option value="ATK%">ATK%</option>
+                                    <option value="HP%">HP%</option>
+                                    <option value="Elemental Mastery">Elemental Mastery</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <select name="art_circlet">
+                                    <option value="" disabled selected>Circlet</option>
+                                    <option value="Crit Rate">Crit Rate</option>
+                                    <option value="Crit DMG">Crit DMG</option>
+                                    <option value="Healing Bonus">Healing Bonus</option>
+                                    <option value="Elemental Mastery">Elemental Mastery</option>
+                                    <option value="ATK%">ATK%</option>
+                                    <option value="HP%">HP%</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -151,8 +160,12 @@
                             <input type="number" name="level" value="90" min="1" max="90">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Konstelasi (C0-C6)</label>
-                            <input type="number" name="constellation" value="0" min="0" max="6">
+                            <label class="form-label">Konstelasi</label>
+                            <select name="constellation">
+                                <?php for($i=0; $i<=6; $i++): ?>
+                                    <option value="<?= $i; ?>">C<?= $i; ?></option>
+                                <?php endfor; ?>
+                            </select>
                         </div>
                     </div>
 
@@ -160,16 +173,31 @@
                         <label class="form-label">Level Talenta</label>
                         <div class="form-grid-3">
                             <div>
-                                <input type="number" name="talent_na" value="1" min="1" max="10" placeholder="Normal">
-                                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block; text-align: center;">Normal Attack</small>
+                                <select name="talent_na">
+                                    <option value="" disabled>NA</option>
+                                    <?php for($i=1; $i<=13; $i++): ?>
+                                        <option value="<?= $i; ?>" <?= ($i==1)?'selected':''; ?>><?= $i; ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block; text-align: center;">Normal</small>
                             </div>
                             <div>
-                                <input type="number" name="talent_skill" value="1" min="1" max="13" placeholder="Skill">
-                                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block; text-align: center;">Elem. Skill</small>
+                                <select name="talent_skill">
+                                    <option value="" disabled>Skill</option>
+                                    <?php for($i=1; $i<=13; $i++): ?>
+                                        <option value="<?= $i; ?>" <?= ($i==1)?'selected':''; ?>><?= $i; ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block; text-align: center;">Skill</small>
                             </div>
                             <div>
-                                <input type="number" name="talent_burst" value="1" min="1" max="13" placeholder="Burst">
-                                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block; text-align: center;">Elem. Burst</small>
+                                <select name="talent_burst">
+                                    <option value="" disabled>Burst</option>
+                                    <?php for($i=1; $i<=13; $i++): ?>
+                                        <option value="<?= $i; ?>" <?= ($i==1)?'selected':''; ?>><?= $i; ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                                <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 4px; display: block; text-align: center;">Burst</small>
                             </div>
                         </div>
                     </div>

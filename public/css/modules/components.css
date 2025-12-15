@@ -1,28 +1,35 @@
 /*
  * Module: Components
  * Contains: Buttons, Inputs, Form Elements, and Segmented Controls.
+ * Follows Apple Human Interface Guidelines for a clean, modern aesthetic.
  */
 
 /* --- Buttons --- */
+
+/**
+ * .btn-cta
+ * Primary Call-to-Action button.
+ * Uses flexbox for centering content and icons.
+ */
 .btn-cta {
-    display: inline-flex; /* Changed to flex for centering */
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     padding: 14px 28px;
     background-color: var(--accent-blue);
     color: white;
-    border-radius: 12px; /* Apple style is slightly less rounded on standard buttons now */
+    border-radius: 12px;
     font-weight: 600;
     font-size: 1rem;
     border: none;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-decoration: none;
     line-height: 1.2;
 }
 
 .btn-cta:hover {
-    background-color: #0077ED; /* Slightly lighter blue */
+    background-color: #0077ED; /* Lighter blue on hover */
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
 }
@@ -32,20 +39,33 @@
     box-shadow: none;
 }
 
+/**
+ * .btn-secondary
+ * Secondary action button style (e.g., Cancel).
+ * Subtle background with dark text.
+ */
 .btn-secondary {
-    background-color: rgba(0,0,0,0.05) !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
     color: var(--text-primary) !important;
 }
 
 .btn-secondary:hover {
-    background-color: rgba(0,0,0,0.1) !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
 }
 
+/**
+ * .btn-black
+ * High-contrast button style (e.g., Primary actions on light backgrounds).
+ */
 .btn-black {
     background-color: #1d1d1f !important;
     color: #ffffff !important;
 }
 
+/**
+ * .link-cta
+ * Text-only link style with accent color.
+ */
 .link-cta {
     color: var(--accent-blue);
     font-weight: 500;
@@ -56,15 +76,23 @@
     text-decoration: underline;
 }
 
-/* --- Form Layout (Apple Style) --- */
+/* --- Form Layouts --- */
+
+/**
+ * .form-card
+ * The main container for forms.
+ * Features a floating card design with soft shadows.
+ * Updated to have flexible height and proper spacing from header/footer.
+ */
 .form-card {
     max-width: 720px;
-    margin: 0 auto 40px auto;
+    margin: 40px auto 60px auto; /* Added margin-top to avoid header overlap */
     background: var(--bg-card);
     padding: 40px;
     border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08); /* Soft, premium shadow */
-    border: 1px solid rgba(0,0,0,0.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    height: auto; /* Flexible height based on content */
 }
 
 .form-header {
@@ -79,6 +107,10 @@
     color: var(--text-primary);
 }
 
+/**
+ * .form-section
+ * logical grouping of form fields with a bottom border separator.
+ */
 .form-section {
     margin-bottom: 30px;
     padding-bottom: 30px;
@@ -99,6 +131,9 @@
     margin-bottom: 20px;
 }
 
+/**
+ * Grid Layouts for Form Groups
+ */
 .form-grid-2 {
     display: grid;
     grid-template-columns: 1fr;
@@ -112,8 +147,12 @@
 }
 
 @media (min-width: 600px) {
-    .form-grid-2 { grid-template-columns: 1fr 1fr; }
-    .form-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+    .form-grid-3 {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
 
 .form-group {
@@ -128,32 +167,56 @@
     color: var(--text-primary);
 }
 
-/* --- Inputs --- */
-input, select, textarea {
+/* --- Inputs & Controls --- */
+
+/**
+ * Global Input Styling
+ * Applies to text inputs, selects, and textareas.
+ * Removes default browser styling for a custom look.
+ */
+input,
+select,
+textarea {
     font-family: var(--font-stack);
     font-size: 1rem;
-    background: var(--bg-panel); /* Light gray background */
-    border: 1px solid transparent; /* No border initially */
+    background: var(--bg-panel);
+    border: 1px solid transparent;
     border-radius: 12px;
     color: var(--text-primary);
-    padding: 14px 16px; /* Larger padding */
+    padding: 14px 16px;
     width: 100%;
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-    -webkit-appearance: none; /* Remove default styling */
+    -webkit-appearance: none;
+    appearance: none;
 }
 
-input:hover, select:hover, textarea:hover {
-    background: #eaeaec; /* Slightly darker on hover */
+input:hover,
+select:hover,
+textarea:hover {
+    background: #eaeaec;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
     outline: none;
     background: white;
     border-color: var(--accent-blue);
     box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
 }
 
-/* Custom Select Arrow */
+/**
+ * Textarea Specifics
+ * Disables manual resizing to maintain layout integrity.
+ */
+textarea {
+    resize: none;
+}
+
+/**
+ * Custom Select Arrow
+ * Replaces default dropdown arrow with a custom SVG.
+ */
 select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -161,7 +224,12 @@ select {
     padding-right: 40px;
 }
 
-/* --- Segmented Control (Apple Style Radio) --- */
+/* --- Segmented Control --- */
+
+/**
+ * .segmented-control
+ * A radio-button replacement that looks like a toggle switch.
+ */
 .segmented-control {
     display: flex;
     background: var(--bg-panel);
@@ -188,10 +256,10 @@ select {
     z-index: 2;
 }
 
-/* State Checked: Mirip tombol putih melayang */
+/* Checked state: White card with shadow */
 .segmented-control input[type="radio"]:checked + .segmented-label {
     background: white;
     color: var(--text-primary);
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
