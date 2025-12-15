@@ -11,8 +11,7 @@
 <header class="main-header">
     <div class="container nav-flex">
         <a href="<?= BASEURL; ?>" class="brand-logo">
-            <img src="https://i.imgur.com/2h7Ucqp.png" alt="Genpedia Icon">
-            Genpedia
+            <img src="https://i.imgur.com/2h7Ucqp.png" alt="Genpedia Logo">
         </a>
         
         <nav>
