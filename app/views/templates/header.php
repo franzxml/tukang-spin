@@ -10,7 +10,10 @@
 
 <header class="main-header">
     <div class="container nav-flex">
-        <a href="<?= BASEURL; ?>" class="brand-logo">Genpedia</a>
+        <a href="<?= BASEURL; ?>" class="brand-logo">
+            <img src="https://i.imgur.com/2h7Ucqp.png" alt="Genpedia Icon">
+            Genpedia
+        </a>
         
         <nav>
             <ul class="nav-links">
@@ -18,7 +21,7 @@
                 <li><a href="<?= BASEURL; ?>/characters">Karakter</a></li>
                 <li><a href="<?= BASEURL; ?>/weapons">Senjata</a></li>
                 <li><a href="<?= BASEURL; ?>/artifacts">Artefak</a></li>
-                </ul>
+            </ul>
         </nav>
     </div>
 </header>
