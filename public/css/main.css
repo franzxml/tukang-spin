@@ -2,14 +2,14 @@
  * Main Stylesheet for Genpedia
  * Theme: Apple Human Interface (Light Mode).
  * Font: Inter (Premium, Clean, Modern).
- * Features: Seamless Namecards, Responsive Grid.
+ * Features: Seamless Namecards, Responsive Grid, Split Hero.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
     /* Colors */
-    --bg-body: #fbfbfd;
+    --bg-body: #ffffff;
     --bg-card: #ffffff;
     --bg-panel: #f5f5f7;
     --bg-glass: rgba(255, 255, 255, 0.85);
@@ -127,7 +127,7 @@ a {
 
 .btn-cta {
     display: inline-block;
-    padding: 10px 24px;
+    padding: 12px 24px;
     background-color: var(--accent-blue);
     color: white;
     border-radius: 980px;
@@ -135,7 +135,7 @@ a {
     font-size: 0.95rem;
     border: none;
     cursor: pointer;
-    transition: transform 0.1s, opacity 0.2s;
+    transition: transform 0.1s, opacity 0.2s, background-color 0.2s;
 }
 
 .btn-cta:hover {
@@ -149,7 +149,22 @@ a {
 .btn-white {
     background-color: #ffffff !important;
     color: #000000 !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.btn-black {
+    background-color: #1d1d1f !important;
+    color: #ffffff !important;
+}
+
+.link-cta {
+    color: var(--accent-blue);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.link-cta:hover {
+    text-decoration: underline;
 }
 
 input, select, textarea {
@@ -174,53 +189,129 @@ strong {
     color: var(--text-primary) !important;
 }
 
-/* --- Header Cards --- */
+/* --- Hero Section (New Split Design) --- */
 
-.hero-section, .page-header-card {
+.hero-section {
+    background-color: var(--bg-panel); /* Light/Whitened background */
+    border-radius: 28px;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column-reverse; /* Image on top on mobile, text bottom */
+    text-align: center;
+}
+
+.hero-text {
+    padding: 40px 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary) !important; /* Black text */
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    text-shadow: none; /* Removed shadow for clean look */
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    text-shadow: none;
+}
+
+.hero-description {
+    font-size: 1rem;
+    color: var(--text-secondary) !important;
+    margin-bottom: 30px;
+    max-width: 400px;
+    line-height: 1.6;
+    text-shadow: none;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.hero-visual {
+    flex: 1;
+    background-color: #eeeeee; /* Placeholder bg if image loads slowly */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.hero-section:hover .hero-img {
+    transform: scale(1.03);
+}
+
+/* Desktop Split Layout */
+@media (min-width: 900px) {
+    .hero-section {
+        flex-direction: row; /* Split: Text Left, Image Right */
+        text-align: left;
+        min-height: 480px;
+    }
+
+    .hero-text {
+        align-items: flex-start; /* Align text to left */
+        padding: 60px;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .hero-description {
+        margin-left: 0;
+    }
+}
+
+/* --- Page Header (Legacy for other pages) --- */
+
+.page-header-card {
     text-align: center;
     padding: 60px 20px;
     margin-top: 40px; 
     margin-bottom: 3rem;
-    background-size: cover;
-    background-position: center;
-    border-radius: 24px;
-    border: 1px solid rgba(0,0,0,0.1);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
-                url('https://i.imgur.com/QJU6mHq.jpeg');
-    background-size: cover;
-    background-position: center;
-}
-
-.page-header-card {
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), 
                 url('https://i.imgur.com/RiQ50u3.png');
     background-size: cover;
     background-position: center;
+    border-radius: 24px;
+    color: white;
 }
 
-.hero-section h1, .hero-section p,
 .page-header-card h1, .page-header-card p {
     color: #ffffff !important;
     text-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
 
-.hero-title, .page-title {
+.page-title {
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.03em;
     margin-bottom: 15px;
-}
-
-@media (min-width: 768px) {
-    .hero-title, .page-title {
-        font-size: 2.5rem;
-    }
 }
 
 /* --- Stats Cards --- */
@@ -345,22 +436,16 @@ strong {
     margin-left: 15px;
     z-index: 2;
     position: relative;
-    
-    /* Seamless: No border, no background */
     background: transparent;
     border: none;
     border-radius: 0; 
     box-shadow: none; 
-    
     overflow: visible; 
     flex-shrink: 0;
-    
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-/* REMOVED: hover transform on avatar container */
 
 @media (min-width: 768px) {
     .namecard-avatar-container {
@@ -374,7 +459,6 @@ strong {
     width: 100%;
     height: 100%;
     object-fit: contain; 
-    /* Pop-out effect with shadow, static scale */
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
     transform: scale(1.1); 
 }
