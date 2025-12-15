@@ -5,13 +5,15 @@
  * 2. Sliding Navigation Marker.
  * 3. Dynamic content handling.
  * 4. Fixed: Removed autofocus on page load.
+ * 5. Fixed: Live Search Base URL logic for Virtual Hosts.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     
     // --- Configuration ---
-    const pathArray = window.location.pathname.split('/');
-    const baseURL = window.location.origin + '/' + pathArray[1] + '/public';
+    // FIX: Ambil Base URL langsung dari link logo agar akurat di Localhost maupun Virtual Host
+    const logoLink = document.querySelector('.brand-logo');
+    const baseURL = logoLink ? logoLink.href.replace(/\/+$/, '') : window.location.origin;
 
     // --- State Management ---
     let hoverTimeout;
@@ -169,18 +171,20 @@ document.addEventListener('DOMContentLoaded', function() {
             
             newInput.addEventListener('keyup', function() {
                 const keyword = this.value;
+                
+                // FIX: Gunakan baseURL yang sudah diperbaiki
                 fetch(baseURL + '/characters/liveSearch', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ keyword: keyword })
                 })
-                .then(res => res.text())
+                .then(res => {
+                    if (!res.ok) throw new Error('Live search failed');
+                    return res.text();
+                })
                 .then(html => gridContainer.innerHTML = html)
                 .catch(err => console.error(err));
             });
-            
-            // REMOVED: newInput.focus(); 
-            // Baris ini dihapus agar keyboard tidak otomatis muncul di mobile
         }
     }
 
