@@ -38,17 +38,17 @@
     }
 }
 
-/* Updated Brand Logo Styling (Image Only) */
+/* Updated Brand Logo Styling */
 .brand-logo {
     display: flex;
     align-items: center;
     text-decoration: none;
-    /* No font settings needed as the image contains the text */
 }
 
 .brand-logo img {
-    height: 40px;        /* Increased height for better legibility of image text */
-    width: auto;         /* Auto width to maintain aspect ratio */
+    /* Height increased to make the logo/text much larger and readable */
+    height: 60px;        
+    width: auto;
     object-fit: contain;
 }
 
