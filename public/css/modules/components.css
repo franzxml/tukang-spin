@@ -354,6 +354,7 @@ select {
     position: fixed;
     top: 30px;
     left: 50%;
+    /* FIX: Force centering using transform */
     transform: translateX(-50%) translateY(-20px);
     z-index: 9999;
     
@@ -425,10 +426,14 @@ select {
 /**
  * .ios-modal-overlay
  * Fullscreen backdrop with blur effect.
+ * FIX: Use width/height 100vw/vh to ensure full coverage and correct centering.
  */
 .ios-modal-overlay {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(4px);
     z-index: 10000;
@@ -511,13 +516,25 @@ select {
 
 /* Animations Keyframes */
 @keyframes toastEnter {
-    from { opacity: 0; transform: translateX(-50%) translateY(-20px) scale(0.9); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
 }
 
 @keyframes toastExit {
-    from { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-    to { opacity: 0; transform: translateX(-50%) translateY(-20px) scale(0.9); }
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px) scale(0.9);
+    }
 }
 
 @keyframes modalPop {
