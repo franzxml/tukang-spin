@@ -1,8 +1,6 @@
 /*
  * Module: Layout
  * Contains: Container, Header/Navbar, and Footer styling.
- * Handles the main structural elements of the application, including the
- * glassmorphism header, sliding navigation marker, and responsive footer.
  */
 
 /* --- Container --- */
@@ -40,7 +38,7 @@
     }
 }
 
-/* Container for Nav Links & Preview Card */
+/* Container for Nav Links */
 .nav-container {
     position: relative;
 }
@@ -65,7 +63,7 @@
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
-    position: relative; /* Essential for absolute positioning of the marker */
+    position: relative; 
 }
 
 @media (min-width: 768px) {
@@ -85,7 +83,7 @@
     font-size: 0.9rem;
     text-decoration: none;
     transition: color 0.3s ease;
-    border-bottom: none !important; /* Disable default border to use the sliding marker */
+    border-bottom: none !important;
     padding-bottom: 0;
 }
 
@@ -94,84 +92,18 @@
     color: #000000;
 }
 
-/* --- Sliding Navigation Marker --- */
+/* --- Sliding Navigation Marker (Garis Bawah Bergerak) --- */
 .nav-marker {
     position: absolute;
     bottom: 0;
     left: 0;
     height: 2px;
     background-color: #000000;
-    width: 0; /* Initial width is 0 */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth ease-out animation */
+    width: 0; 
+    /* Cubic-bezier untuk efek gerak yang sangat smooth & natural */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     pointer-events: none;
     z-index: 10;
-}
-
-/* --- Navigation Preview Card --- */
-.nav-preview-card {
-    position: absolute;
-    top: 150%; /* Position below the nav menu */
-    left: 50%;
-    transform: translateX(-50%) translateY(10px); /* Start slightly lower for slide-up effect */
-    width: 320px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 16px;
-    padding: 15px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
-    
-    /* Hidden State */
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 900;
-    pointer-events: none; /* Prevent mouse interaction interference */
-}
-
-/* Visible State (Toggled by JS) */
-.nav-preview-card.visible {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-}
-
-.preview-content {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    text-align: left;
-}
-
-.preview-image {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    object-fit: cover;
-    background-color: #f0f0f0;
-    border: 1px solid rgba(0,0,0,0.05);
-}
-
-.preview-text h4 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 4px;
-}
-
-.preview-text p {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    line-height: 1.3;
-    margin: 0;
-}
-
-/* Hide preview card on mobile devices */
-@media (max-width: 768px) {
-    .nav-preview-card {
-        display: none;
-    }
 }
 
 /* --- Footer --- */
@@ -179,7 +111,7 @@
     margin-top: auto;
     background-color: var(--bg-panel);
     border-top: 1px solid var(--border-subtle);
-    padding: 3rem 0; /* Compact padding */
+    padding: 3rem 0; 
     font-size: 0.9rem;
     color: var(--text-primary);
 }
@@ -188,7 +120,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* Consistent gap with header */
+    gap: 15px; 
     text-align: center;
 }
 
@@ -203,7 +135,7 @@
 .footer-left {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Consistent gap */
+    gap: 15px; 
     align-items: center;
 }
 

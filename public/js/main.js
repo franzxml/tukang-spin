@@ -1,22 +1,16 @@
 /**
  * Main JavaScript for Genpedia
+ * Handles Sliding Nav, Dynamic Hero Preview, and Live Search.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- 1. Sliding Navigation Marker Logic (Existing) ---
+    // --- 1. Sliding Navigation Marker Logic ---
     const marker = document.querySelector('.nav-marker');
     const navLinks = document.querySelectorAll('.nav-links a');
     const activeLink = document.querySelector('.nav-links a.active');
     
-    // --- 2. Preview Card Logic (NEW) ---
-    const previewCard = document.getElementById('navPreview');
-    const previewImg = document.getElementById('previewImg');
-    const previewTitle = document.getElementById('previewTitle');
-    const previewDesc = document.getElementById('previewDesc');
-    let hoverTimeout;
-
-    // Fungsi Marker (Sama seperti sebelumnya)
+    // Fungsi untuk memindahkan garis bawah
     function moveIndicator(element) {
         if (element && marker) {
             const parentRect = element.closest('.nav-links').getBoundingClientRect();
@@ -26,63 +20,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Set posisi awal marker
     if (activeLink) {
         moveIndicator(activeLink);
         setTimeout(() => moveIndicator(activeLink), 100);
     }
 
-    // Event Listeners untuk Navigasi
+    // --- 2. Dynamic Hero Image Preview (The "Content Swap" Effect) ---
+    // Cari elemen visual utama di halaman ini (bisa berupa IMG atau DIV background)
+    const heroVisual = document.querySelector('.hero-img'); 
+    const headerCard = document.querySelector('.page-header-card');
+    
+    // Tentukan target yang akan dimanipulasi
+    let visualTarget = null;
+    let originalState = null;
+    let isImgTag = false;
+
+    if (heroVisual) {
+        visualTarget = heroVisual;
+        originalState = heroVisual.src;
+        isImgTag = true;
+        // Pastikan transisi opacity aktif via JS style jika belum ada di CSS
+        visualTarget.style.transition = "opacity 0.3s ease, transform 0.5s ease";
+    } else if (headerCard) {
+        visualTarget = headerCard;
+        // Simpan background image asli (url)
+        originalState = window.getComputedStyle(headerCard).backgroundImage;
+        isImgTag = false;
+        visualTarget.style.transition = "background-image 0.3s ease-in-out";
+    }
+
+    // Fungsi ganti gambar
+    function swapHeroImage(newSrc) {
+        if (!visualTarget || !newSrc) return;
+
+        if (isImgTag) {
+            // Efek Fade untuk IMG tag
+            visualTarget.style.opacity = 0.6; // Sedikit transparan saat ganti
+            setTimeout(() => {
+                visualTarget.src = newSrc;
+                visualTarget.style.opacity = 1;
+            }, 150);
+        } else {
+            // Efek ganti background untuk DIV
+            // Kita pertahankan gradient overlay, hanya ganti URL gambarnya
+            const gradient = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4))";
+            visualTarget.style.backgroundImage = `${gradient}, url('${newSrc}')`;
+        }
+    }
+
+    // Event Listeners Navigasi
     navLinks.forEach(link => {
         link.addEventListener('mouseenter', (e) => {
-            // A. Pindahkan Marker
+            // A. Geser Marker
             moveIndicator(e.target);
 
-            // B. Tampilkan Preview Card
-            const title = link.getAttribute('data-title');
-            const desc = link.getAttribute('data-desc');
-            const img = link.getAttribute('data-img');
-
-            if (previewCard && title) {
-                // Clear timeout lama jika user geser cepat
-                clearTimeout(hoverTimeout);
-
-                // Update konten kartu
-                previewTitle.textContent = title;
-                previewDesc.textContent = desc;
-                previewImg.src = img;
-
-                // Tampilkan kartu
-                previewCard.classList.add('visible');
+            // B. Ganti Hero Image (Preview)
+            const previewImg = link.getAttribute('data-img');
+            if (previewImg) {
+                swapHeroImage(previewImg);
             }
         });
     });
 
-    // Event saat Mouse Keluar dari Area Menu
+    // Reset saat mouse keluar area menu
     const navContainer = document.querySelector('.nav-links');
     if (navContainer) {
         navContainer.addEventListener('mouseleave', () => {
-            // A. Reset Marker ke link aktif
+            // A. Kembalikan Marker
             if (activeLink) {
                 moveIndicator(activeLink);
             } else {
                 marker.style.width = '0';
             }
 
-            // B. Sembunyikan Preview Card
-            if (previewCard) {
-                // Beri jeda sedikit supaya transisi smooth
-                hoverTimeout = setTimeout(() => {
-                    previewCard.classList.remove('visible');
-                }, 50);
+            // B. Kembalikan Hero Image Asli
+            if (visualTarget && originalState) {
+                if (isImgTag) {
+                    swapHeroImage(originalState);
+                } else {
+                    visualTarget.style.backgroundImage = originalState;
+                }
             }
         });
     }
 
-    // --- (Sisa kode JS seperti Live Search dll tetap sama) ---
-    // ...
-    // ... (Pastikan kode sisa di file asli tetap ada)
-    
-    // Konfigurasi & Live Search
+    // --- 3. Window Resize Handler ---
+    window.addEventListener('resize', () => {
+        if (activeLink) moveIndicator(activeLink);
+    });
+
+    // --- 4. Live Search & Utilities ---
     const pathArray = window.location.pathname.split('/');
     const baseURL = window.location.origin + '/' + pathArray[1] + '/public';
     const keywordInput = document.getElementById('keyword');
@@ -101,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error:', error));
         });
     }
-    
+
     if (gridContainer) {
         gridContainer.addEventListener('click', function(e) {
             if (e.target.classList.contains('delete-btn')) {
@@ -110,8 +138,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
-    window.addEventListener('resize', () => {
-        if (activeLink) moveIndicator(activeLink);
-    });
 });
