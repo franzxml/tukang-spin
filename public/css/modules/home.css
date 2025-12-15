@@ -22,7 +22,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--bg-panel); /* Ensure text bg is solid */
+    background-color: var(--bg-panel); 
 }
 
 .hero-title {
@@ -57,10 +57,6 @@
 
 .hero-visual {
     flex: 1;
-    /* REMOVED: background-color: #eeeeee; (Causes grey gaps) */
-    /* REMOVED: align-items & justify-content center (Causes spacing) */
-    
-    /* FIX: Use flex to eliminate inline gaps */
     display: flex; 
     flex-direction: column;
     min-height: 300px;
@@ -69,7 +65,6 @@
 }
 
 .hero-img {
-    /* FIX: Block display + 100% dimensions ensures full coverage */
     display: block;
     width: 100%;
     height: 100%;
@@ -101,7 +96,8 @@
 
 /* --- Stats Section --- */
 .stats-section {
-    margin-bottom: 100px;
+    /* FIX: Reduce margin to 40px to match Hero top margin */
+    margin-bottom: 40px; 
 }
 
 .stats-card-split {
