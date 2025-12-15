@@ -18,8 +18,7 @@
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--border-subtle);
-    /* FIX: Reduce padding to 0.6rem (approx 10px) to tighten vertical space */
-    padding: 0.6rem 0; 
+    padding: 0.5rem 0; /* Compact vertical padding */
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -29,7 +28,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px; /* Reduced gap between Logo and Nav Links */
+    /* FIX #1: Reduce gap to 5px to tighten Logo and Nav Links */
+    gap: 5px; 
 }
 
 @media (min-width: 768px) {
@@ -53,8 +53,7 @@
 }
 
 .brand-logo img {
-    /* Mobile Logo Size */
-    height: 60px;        
+    height: 55px; /* Slightly smaller for mobile balance */
     width: auto;
     object-fit: contain;
 }
@@ -69,7 +68,7 @@
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 15px; /* Slightly tighter gap on mobile */
+    gap: 15px; 
     flex-wrap: wrap;
     justify-content: center;
     position: relative; 

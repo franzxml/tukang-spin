@@ -8,13 +8,13 @@
     <section class="hero-section">
         
         <div class="hero-text">
-            <h1 class="hero-title" style="font-size: 2.5rem;">Daftar Karakter</h1>
+            <h1 class="hero-title">Daftar Karakter</h1>
             <p class="hero-description">Kelola roster, lihat statistik build, dan atur tim Anda dengan mudah.</p>
             
-            <div style="width: 100%; max-width: 400px; margin-top: 10px; display: flex; flex-direction: column; gap: 15px;">
+            <div class="hero-search-container">
                 <input type="text" id="keyword" placeholder="Cari nama karakter..." autocomplete="off" style="background: white; border: 1px solid var(--border-subtle); box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                 
-                <a href="<?= BASEURL; ?>/characters/add" class="btn-cta btn-black" style="text-align: center;">+ Tambah Karakter</a>
+                <a href="<?= BASEURL; ?>/characters/add" class="btn-cta btn-black" style="text-align: center;">+ Tambah Baru</a>
             </div>
         </div>
 
@@ -31,7 +31,6 @@
 
     <div id="character-grid" class="character-grid-wrapper">
         <?php 
-            // Load the partial view for the initial load
             require_once '../app/views/characters/list.php'; 
         ?>
     </div>
