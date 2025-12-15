@@ -87,14 +87,14 @@
     .hero-section {
         flex-direction: row;
         text-align: left;
-        /* Desktop Height for Hero */
         min-height: 480px;
         margin-top: 40px;
     }
 
     .hero-text {
         align-items: flex-start;
-        padding: 60px; 
+        /* FIX: Reduced padding from 60px to 30px to remove excessive whitespace */
+        padding: 30px; 
     }
 
     .hero-title { font-size: 3.5rem; }
@@ -116,7 +116,6 @@
 }
 
 .stats-content {
-    /* FIX: Match Hero padding (was 30px 20px) */
     padding: 25px 20px; 
     flex: 1;
     display: flex;
@@ -167,7 +166,6 @@
 .stats-visual {
     flex: 1;
     display: flex; 
-    /* FIX: Match Hero Visual height (was 180px) */
     min-height: 250px; 
     background-color: #e0e0e0;
     position: relative;
@@ -188,14 +186,13 @@
     .stats-card-split {
         flex-direction: row-reverse; 
         text-align: left;
-        /* FIX: Match Hero Desktop height (was 400px) */
         min-height: 480px;
     }
 
     .stats-content {
         align-items: flex-start;
-        /* FIX: Match Hero padding (was 60px) */
-        padding: 60px; 
+        /* FIX: Reduced padding from 60px to 30px to match Hero text and reduce whitespace */
+        padding: 30px; 
     }
     
     .stats-title { margin-bottom: 25px; }
