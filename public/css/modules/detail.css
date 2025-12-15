@@ -1,0 +1,194 @@
+/*
+ * Module: Detail
+ * Contains: Detail Page Header, Gear Grid, and Legacy Page Headers.
+ */
+
+/* --- Page Header (Legacy/Standard) --- */
+.page-header-card {
+    text-align: center;
+    padding: 60px 20px;
+    margin-top: 40px; 
+    margin-bottom: 3rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), 
+                url('https://i.imgur.com/RiQ50u3.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 24px;
+    color: white;
+}
+
+.page-header-card h1, .page-header-card p {
+    color: #ffffff !important;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 15px;
+}
+
+/* --- Detail Page Specifics --- */
+.detail-header {
+    position: relative;
+    height: 250px;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .detail-header {
+        height: 300px;
+        padding: 40px;
+    }
+}
+
+.detail-header-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.detail-header-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+    z-index: 1;
+}
+
+.detail-profile {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .detail-profile {
+        flex-direction: row;
+        align-items: center;
+        gap: 30px;
+    }
+}
+
+.detail-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    object-fit: cover;
+    background: #fff;
+}
+
+@media (min-width: 768px) {
+    .detail-avatar {
+        width: 120px;
+        height: 120px;
+        border: 4px solid #fff;
+    }
+}
+
+.detail-title-block h1 {
+    color: white !important;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+@media (min-width: 768px) {
+    .detail-title-block h1 {
+        font-size: 3rem;
+    }
+}
+
+.detail-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.detail-tag {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(5px);
+    color: white !important;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.gear-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+    .gear-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+}
+
+.gear-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.gear-card h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.item-flex {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.item-thumb {
+    width: 80px;
+    height: 80px;
+    background: #f5f5f7;
+    border-radius: 12px;
+    padding: 5px;
+    object-fit: contain;
+    border: 1px solid #e5e5ea;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-label { color: var(--text-secondary); }
+.stat-val { font-weight: 600; color: var(--text-primary); }
