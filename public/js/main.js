@@ -21,22 +21,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup: Wrap existing content to preserve state
     if (mainContainer) {
-        // Create wrapper for original content
-        const originalWrapper = document.createElement('div');
-        originalWrapper.id = 'original-view';
-        originalWrapper.className = 'view-wrapper view-visible';
-        
-        // Move all current children into wrapper
-        while (mainContainer.firstChild) {
-            originalWrapper.appendChild(mainContainer.firstChild);
-        }
-        mainContainer.appendChild(originalWrapper);
+        // Create wrapper for original content if it doesn't exist
+        if (!document.getElementById('original-view')) {
+            const originalWrapper = document.createElement('div');
+            originalWrapper.id = 'original-view';
+            originalWrapper.className = 'view-wrapper view-visible';
+            
+            // Move all current children into wrapper
+            while (mainContainer.firstChild) {
+                originalWrapper.appendChild(mainContainer.firstChild);
+            }
+            mainContainer.appendChild(originalWrapper);
 
-        // Create wrapper for preview content (Hidden by default)
-        const previewWrapper = document.createElement('div');
-        previewWrapper.id = 'preview-view';
-        previewWrapper.className = 'view-wrapper view-hidden';
-        mainContainer.appendChild(previewWrapper);
+            // Create wrapper for preview content (Hidden by default)
+            const previewWrapper = document.createElement('div');
+            previewWrapper.id = 'preview-view';
+            previewWrapper.className = 'view-wrapper view-hidden';
+            mainContainer.appendChild(previewWrapper);
+        }
     }
 
     const originalView = document.getElementById('original-view');
@@ -48,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {string} url - The URL to fetch.
      */
     async function loadPreview(url) {
-        // If same as current page, do nothing (or show original)
+        // If same as current page, do nothing (handled by resetView now)
         if (url === window.location.href) return;
 
         // Check Cache first
@@ -97,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function resetView() {
         if (!previewView || !originalView) return;
 
-        // Swap back
+        // Swap back to original content
         previewView.classList.replace('view-visible', 'view-hidden');
         originalView.classList.replace('view-hidden', 'view-visible');
         
@@ -137,18 +139,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // Move Marker
             moveIndicator(e.target);
             
-            // Trigger Preview
             const targetUrl = link.href;
-            // Only preview if it's not the current page
+            
+            // BUG FIX: Check if we are hovering the link of the CURRENT page
             if (targetUrl !== window.location.href) {
+                // If different page, load preview
                 loadPreview(targetUrl);
+            } else {
+                // If current page, restore original view (fix for "stuck" preview)
+                resetView();
             }
         });
     });
 
     if (navContainer) {
         navContainer.addEventListener('mouseleave', () => {
-            // Reset Marker
+            // Reset Marker to Active Link
             if (activeLink) {
                 moveIndicator(activeLink);
             } else {
@@ -167,9 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- 3. Internal Logic (Search, Delete) ---
-    // Note: These listeners attach to the *original* DOM. 
-    // Since we wrap original content but don't destroy it, they persist.
-    // However, they won't work inside the *preview* (which is fine, previews are usually static).
+    // Note: These listeners attach to the *original* DOM.
     
     const keywordInput = document.getElementById('keyword');
     const gridContainer = document.getElementById('character-grid');
@@ -191,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event Delegation for dynamic delete buttons
-    // Attach to 'original-view' wrapper if possible, or document level for safety
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('delete-btn')) {
             const name = e.target.getAttribute('data-name');
