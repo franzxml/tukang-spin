@@ -19,9 +19,10 @@
         </div>
 
         <div class="hero-visual">
-            <img src="<?= BASEURL; ?>/img/home/mizuki-hotspring.jpg" 
+            <img src="<?= BASEURL; ?>/img/home/4.5-wallpapers.png" 
                  alt="Character Roster Visual" 
                  class="hero-img"
+                 style="object-position: 3% 20%;" 
                  loading="lazy"
                  decoding="async">
         </div>
