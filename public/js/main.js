@@ -1,16 +1,121 @@
 /**
  * Main JavaScript for Genpedia
- * Handles Sliding Nav, Dynamic Hero Preview, and Live Search.
+ * Features:
+ * 1. Sliding Navigation Marker
+ * 2. Full Page Content Preview (AJAX/Fetch) on Hover
+ * 3. Live Search & Utilities
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- 1. Sliding Navigation Marker Logic ---
+    // --- Configuration ---
+    // Detect base URL dynamically
+    const pathArray = window.location.pathname.split('/');
+    // Assuming structure is /genpedia/public/...
+    // Adjust index if folder structure is different
+    const baseURL = window.location.origin + '/' + pathArray[1] + '/public';
+
+    // --- 1. View Manager (Content Swap Logic) ---
+    const mainContainer = document.querySelector('main.container');
+    const pageCache = {}; // Cache to store fetched HTML
+
+    // Setup: Wrap existing content to preserve state
+    if (mainContainer) {
+        // Create wrapper for original content
+        const originalWrapper = document.createElement('div');
+        originalWrapper.id = 'original-view';
+        originalWrapper.className = 'view-wrapper view-visible';
+        
+        // Move all current children into wrapper
+        while (mainContainer.firstChild) {
+            originalWrapper.appendChild(mainContainer.firstChild);
+        }
+        mainContainer.appendChild(originalWrapper);
+
+        // Create wrapper for preview content (Hidden by default)
+        const previewWrapper = document.createElement('div');
+        previewWrapper.id = 'preview-view';
+        previewWrapper.className = 'view-wrapper view-hidden';
+        mainContainer.appendChild(previewWrapper);
+    }
+
+    const originalView = document.getElementById('original-view');
+    const previewView = document.getElementById('preview-view');
+    let fetchController = null; // To abort stale requests
+
+    /**
+     * Fetches page content and updates the preview view.
+     * @param {string} url - The URL to fetch.
+     */
+    async function loadPreview(url) {
+        // If same as current page, do nothing (or show original)
+        if (url === window.location.href) return;
+
+        // Check Cache first
+        if (pageCache[url]) {
+            renderPreview(pageCache[url]);
+            return;
+        }
+
+        // Fetch from network
+        try {
+            if (fetchController) fetchController.abort(); // Cancel previous
+            fetchController = new AbortController();
+
+            const response = await fetch(url, { signal: fetchController.signal });
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            const text = await response.text();
+            
+            // Parse HTML to extract <main> content only
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+            const mainContent = doc.querySelector('main.container').innerHTML;
+
+            // Cache and Render
+            pageCache[url] = mainContent;
+            renderPreview(mainContent);
+
+        } catch (error) {
+            if (error.name !== 'AbortError') {
+                console.error('Preview fetch failed:', error);
+            }
+        }
+    }
+
+    function renderPreview(htmlContent) {
+        if (!previewView || !originalView) return;
+        
+        // Inject content
+        previewView.innerHTML = htmlContent;
+        
+        // Swap visibility
+        originalView.classList.replace('view-visible', 'view-hidden');
+        previewView.classList.replace('view-hidden', 'view-visible');
+    }
+
+    function resetView() {
+        if (!previewView || !originalView) return;
+
+        // Swap back
+        previewView.classList.replace('view-visible', 'view-hidden');
+        originalView.classList.replace('view-hidden', 'view-visible');
+        
+        // Clear preview content after transition to avoid ID conflicts
+        setTimeout(() => {
+            if (previewView.classList.contains('view-hidden')) {
+                previewView.innerHTML = ''; 
+            }
+        }, 200);
+    }
+
+
+    // --- 2. Navigation Interaction ---
     const marker = document.querySelector('.nav-marker');
     const navLinks = document.querySelectorAll('.nav-links a');
     const activeLink = document.querySelector('.nav-links a.active');
-    
-    // Fungsi untuk memindahkan garis bawah
+    const navContainer = document.querySelector('.nav-links');
+
     function moveIndicator(element) {
         if (element && marker) {
             const parentRect = element.closest('.nav-links').getBoundingClientRect();
@@ -20,99 +125,52 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Set posisi awal marker
+    // Initialize Marker
     if (activeLink) {
         moveIndicator(activeLink);
         setTimeout(() => moveIndicator(activeLink), 100);
     }
 
-    // --- 2. Dynamic Hero Image Preview (The "Content Swap" Effect) ---
-    // Cari elemen visual utama di halaman ini (bisa berupa IMG atau DIV background)
-    const heroVisual = document.querySelector('.hero-img'); 
-    const headerCard = document.querySelector('.page-header-card');
-    
-    // Tentukan target yang akan dimanipulasi
-    let visualTarget = null;
-    let originalState = null;
-    let isImgTag = false;
-
-    if (heroVisual) {
-        visualTarget = heroVisual;
-        originalState = heroVisual.src;
-        isImgTag = true;
-        // Pastikan transisi opacity aktif via JS style jika belum ada di CSS
-        visualTarget.style.transition = "opacity 0.3s ease, transform 0.5s ease";
-    } else if (headerCard) {
-        visualTarget = headerCard;
-        // Simpan background image asli (url)
-        originalState = window.getComputedStyle(headerCard).backgroundImage;
-        isImgTag = false;
-        visualTarget.style.transition = "background-image 0.3s ease-in-out";
-    }
-
-    // Fungsi ganti gambar
-    function swapHeroImage(newSrc) {
-        if (!visualTarget || !newSrc) return;
-
-        if (isImgTag) {
-            // Efek Fade untuk IMG tag
-            visualTarget.style.opacity = 0.6; // Sedikit transparan saat ganti
-            setTimeout(() => {
-                visualTarget.src = newSrc;
-                visualTarget.style.opacity = 1;
-            }, 150);
-        } else {
-            // Efek ganti background untuk DIV
-            // Kita pertahankan gradient overlay, hanya ganti URL gambarnya
-            const gradient = "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4))";
-            visualTarget.style.backgroundImage = `${gradient}, url('${newSrc}')`;
-        }
-    }
-
-    // Event Listeners Navigasi
+    // Event Listeners
     navLinks.forEach(link => {
         link.addEventListener('mouseenter', (e) => {
-            // A. Geser Marker
+            // Move Marker
             moveIndicator(e.target);
-
-            // B. Ganti Hero Image (Preview)
-            const previewImg = link.getAttribute('data-img');
-            if (previewImg) {
-                swapHeroImage(previewImg);
+            
+            // Trigger Preview
+            const targetUrl = link.href;
+            // Only preview if it's not the current page
+            if (targetUrl !== window.location.href) {
+                loadPreview(targetUrl);
             }
         });
     });
 
-    // Reset saat mouse keluar area menu
-    const navContainer = document.querySelector('.nav-links');
     if (navContainer) {
         navContainer.addEventListener('mouseleave', () => {
-            // A. Kembalikan Marker
+            // Reset Marker
             if (activeLink) {
                 moveIndicator(activeLink);
             } else {
                 marker.style.width = '0';
             }
 
-            // B. Kembalikan Hero Image Asli
-            if (visualTarget && originalState) {
-                if (isImgTag) {
-                    swapHeroImage(originalState);
-                } else {
-                    visualTarget.style.backgroundImage = originalState;
-                }
-            }
+            // Reset View (Hide Preview)
+            resetView();
         });
     }
 
-    // --- 3. Window Resize Handler ---
+    // Recalculate marker on resize
     window.addEventListener('resize', () => {
         if (activeLink) moveIndicator(activeLink);
     });
 
-    // --- 4. Live Search & Utilities ---
-    const pathArray = window.location.pathname.split('/');
-    const baseURL = window.location.origin + '/' + pathArray[1] + '/public';
+
+    // --- 3. Internal Logic (Search, Delete) ---
+    // Note: These listeners attach to the *original* DOM. 
+    // Since we wrap original content but don't destroy it, they persist.
+    // However, they won't work inside the *preview* (which is fine, previews are usually static).
+    
     const keywordInput = document.getElementById('keyword');
     const gridContainer = document.getElementById('character-grid');
 
@@ -125,17 +183,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({ keyword: keyword })
             })
             .then(response => response.text())
-            .then(html => gridContainer.innerHTML = html)
-            .catch(error => console.error('Error:', error));
+            .then(html => {
+                gridContainer.innerHTML = html;
+            })
+            .catch(error => console.error('Error fetching data:', error));
         });
     }
 
-    if (gridContainer) {
-        gridContainer.addEventListener('click', function(e) {
-            if (e.target.classList.contains('delete-btn')) {
-                const name = e.target.getAttribute('data-name');
-                if (!confirm('Hapus ' + name + '?')) e.preventDefault();
+    // Event Delegation for dynamic delete buttons
+    // Attach to 'original-view' wrapper if possible, or document level for safety
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('delete-btn')) {
+            const name = e.target.getAttribute('data-name');
+            if (!confirm('Are you sure you want to delete ' + name + '?')) {
+                e.preventDefault();
             }
-        });
-    }
+        }
+    });
+
 });
