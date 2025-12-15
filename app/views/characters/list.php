@@ -1,8 +1,8 @@
 <?php 
 /**
  * Partial View: Character List Grid
- * Style: Genshin Namecard UI (Horizontal Banner)
- * Icon on Left, Info on Right, Decorative Background.
+ * Style: Seamless Genshin Namecard UI
+ * Icon floats on background without white borders.
  */
 ?>
 
@@ -14,12 +14,14 @@
 
     <?php foreach ($data['characters'] as $char) : ?>
         <?php 
+            // Element Colors
             $elmColor = match($char['element']) {
                 'Pyro' => '#FF5C5C', 'Hydro' => '#4E7CFF', 'Dendro' => '#A5C882',
                 'Electro' => '#AF8EC1', 'Anemo' => '#74E2D1', 'Cryo' => '#9FD6E3',
                 'Geo' => '#FFE699', default => '#999'
             };
-            // Use Namecard URL if available, fallback to gradient
+            
+            // Background Logic: Use Image if set, else Gradient
             $bgStyle = !empty($char['namecard_url']) 
                 ? "background-image: url('" . $char['namecard_url'] . "');" 
                 : "background: linear-gradient(90deg, #ccc, #eee);";
@@ -32,17 +34,22 @@
             <div class="namecard-overlay"></div>
 
             <div class="namecard-avatar-container">
-                <img src="<?= $char['image_url']; ?>" class="namecard-avatar-img">
+                <img src="<?= $char['image_url']; ?>" alt="<?= $char['name']; ?>" class="namecard-avatar-img">
             </div>
 
             <div class="namecard-info">
                 <h3 class="namecard-name"><?= $char['name']; ?></h3>
+                
                 <div class="namecard-meta">
                     <span class="element-badge" style="background-color: <?= $elmColor; ?>40; border-color: <?= $elmColor; ?>; color: #fff;">
                         <?= $char['element']; ?>
                     </span>
+                    
                     <span><?= $char['weapon_type']; ?></span>
-                    <span style="color: #FFD700; margin-left: 5px; font-weight: 700;"><?= $char['rarity']; ?>★</span>
+                    
+                    <span style="color: #FFD700; margin-left: 5px; font-weight: 700;">
+                        <?= $char['rarity']; ?>★
+                    </span>
                 </div>
             </div>
 

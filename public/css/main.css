@@ -2,6 +2,7 @@
  * Main Stylesheet for Genpedia
  * Theme: Apple Human Interface (Light Mode).
  * Font: Inter (Premium, Clean, Modern).
+ * Features: Seamless Namecards, Responsive Grid, Custom Backgrounds.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -47,7 +48,7 @@ body {
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.01em;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevent horizontal scroll globally */
 }
 
 a {
@@ -173,7 +174,7 @@ strong {
     color: var(--text-primary) !important;
 }
 
-/* --- Header Cards --- */
+/* --- Header Cards (Hero & Page Headers) --- */
 
 .hero-section, .page-header-card {
     text-align: center;
@@ -189,6 +190,7 @@ strong {
     overflow: hidden;
 }
 
+/* Home Hero */
 .hero-section {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), 
                 url('https://i.imgur.com/QJU6mHq.jpeg');
@@ -196,6 +198,7 @@ strong {
     background-position: center;
 }
 
+/* Character List Header (Furina) */
 .page-header-card {
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), 
                 url('https://i.imgur.com/RiQ50u3.png');
@@ -222,7 +225,7 @@ strong {
     }
 }
 
-/* --- Stats Cards --- */
+/* --- Stats Cards (No Hover Animation) --- */
 
 .stats-grid {
     display: grid; 
@@ -278,17 +281,18 @@ strong {
     z-index: 2;
 }
 
-/* --- NAMECARD LIST STYLE --- */
+/* --- NAMECARD LIST STYLE (Seamless) --- */
 
 .character-grid-wrapper {
     display: grid;
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr; /* Mobile: 1 Column */
     gap: 20px; 
     margin-bottom: 80px;
 }
 
 @media (min-width: 600px) {
     .character-grid-wrapper {
+        /* Adaptive grid for tablets/desktop */
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
 }
@@ -304,7 +308,7 @@ strong {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     background-color: var(--bg-card);
     border: 1px solid rgba(0,0,0,0.05);
-    max-width: 100%; 
+    max-width: 100%;
 }
 
 .namecard-style:hover {
@@ -321,6 +325,7 @@ strong {
     height: 100%;
     z-index: 0;
     background-size: cover;
+    /* Focus on right side for mobile namecards */
     background-position: right center; 
     background-color: #eee;
 }
@@ -339,23 +344,31 @@ strong {
 }
 
 .namecard-avatar-container {
-    width: 70px;
-    height: 70px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     margin-left: 15px;
     z-index: 2;
     position: relative;
-    border: 3px solid rgba(255,255,255,0.8);
-    background: #fff;
+    
+    /* Seamless Effect: Transparent BG & No Border */
+    background: transparent;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    
     overflow: hidden;
     flex-shrink: 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.namecard-style:hover .namecard-avatar-container {
+    transform: scale(1.05);
 }
 
 @media (min-width: 768px) {
     .namecard-avatar-container {
-        width: 80px;
-        height: 80px;
+        width: 85px;
+        height: 85px;
         margin-left: 20px;
     }
 }
@@ -373,7 +386,7 @@ strong {
     flex-direction: column;
     justify-content: center;
     color: var(--text-on-dark);
-    min-width: 0; 
+    min-width: 0;
     margin-right: 10px;
 }
 
