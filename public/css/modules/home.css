@@ -8,7 +8,7 @@
 .hero-section {
     background-color: var(--bg-panel);
     border-radius: 28px;
-    margin-top: 5px; /* Mobile margin */
+    margin-top: 5px; 
     margin-bottom: 40px;
     overflow: hidden;
     display: flex;
@@ -87,13 +87,13 @@
     .hero-section {
         flex-direction: row;
         text-align: left;
-        min-height: 480px;
+        /* FIX: Change rigid 480px to 350px. Allows card to shrink if content is small (flexible) */
+        min-height: 350px;
         margin-top: 40px;
     }
 
     .hero-text {
         align-items: flex-start;
-        /* FIX: Reduced padding from 60px to 30px to remove excessive whitespace */
         padding: 30px; 
     }
 
@@ -101,7 +101,7 @@
     .hero-description { margin-left: 0; }
 }
 
-/* --- Stats Section (Now Matching Hero Dimensions) --- */
+/* --- Stats Section --- */
 .stats-section {
     margin-bottom: 40px; 
 }
@@ -186,12 +186,12 @@
     .stats-card-split {
         flex-direction: row-reverse; 
         text-align: left;
-        min-height: 480px;
+        /* FIX: Change rigid 480px to 350px to match Hero flexibility */
+        min-height: 350px;
     }
 
     .stats-content {
         align-items: flex-start;
-        /* FIX: Reduced padding from 60px to 30px to match Hero text and reduce whitespace */
         padding: 30px; 
     }
     
