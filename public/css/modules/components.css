@@ -1,12 +1,12 @@
 /*
  * Module: Components
  * Description: Reusable UI components following Apple Human Interface Guidelines.
- * Includes Buttons, Inputs, Form Cards, and Segmented Controls.
+ * Includes Buttons, Inputs, Form Cards, Segmented Controls, and Toast Notifications.
  *
  * Design Philosophy:
  * - Clean, airy layout with generous whitespace.
  * - Soft, diffused shadows for depth (no harsh borders).
- * - "Squircle" rounded corners (smooth curvature).
+ * - "Squircle" rounded corners and glassmorphism effects.
  */
 
 /* --- Buttons --- */
@@ -48,6 +48,7 @@
 /**
  * .btn-secondary
  * Secondary action (e.g., Cancel).
+ * Style: iOS Secondary Button (Light gray background).
  */
 .btn-secondary {
     background-color: rgba(118, 118, 128, 0.12) !important;
@@ -62,7 +63,7 @@
 
 /**
  * .btn-black
- * High contrast button.
+ * High contrast button for light backgrounds.
  */
 .btn-black {
     background-color: #1d1d1f !important;
@@ -71,12 +72,13 @@
 
 /**
  * .btn-danger
- * Destructive action (Delete).
- * Style: Red background or text.
+ * Destructive action (e.g., Delete).
+ * Style: Light red background with red text.
  */
 .btn-danger {
     background-color: rgba(255, 59, 48, 0.1) !important;
     color: var(--accent-red) !important;
+    box-shadow: none !important;
 }
 
 .btn-danger:hover {
@@ -86,8 +88,8 @@
 
 /**
  * .btn-back
- * Distinctive Back Button.
- * Style: Large, pill-shaped, distinct icon.
+ * Distinctive Back Button used in Detail pages.
+ * Style: Large, pill-shaped, distinct floating button.
  */
 .btn-back {
     display: inline-flex;
@@ -96,24 +98,24 @@
     padding: 12px 20px;
     background-color: white;
     color: var(--text-primary);
-    border-radius: 100px; /* Fully rounded */
+    border-radius: 100px;
     font-weight: 600;
     font-size: 0.95rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Floating effect */
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     text-decoration: none;
 }
 
 .btn-back:hover {
-    transform: translateX(-4px); /* Slide left slightly */
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    transform: translateX(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     color: var(--accent-blue);
 }
 
 /**
  * .link-cta
- * Text-only hyperlink.
+ * Text-only hyperlink with hover state.
  */
 .link-cta {
     color: var(--accent-blue);
@@ -129,6 +131,11 @@
 
 /* --- Form Layouts --- */
 
+/**
+ * .form-card
+ * The main container for data entry forms.
+ * Features: Floating appearance, auto height, correct spacing.
+ */
 .form-card {
     max-width: 720px;
     margin: 60px auto 80px auto;
@@ -141,6 +148,10 @@
     position: relative;
 }
 
+/**
+ * .form-content
+ * Inner padding wrapper for form elements.
+ */
 .form-content {
     padding: 40px;
 }
@@ -164,6 +175,10 @@
     line-height: 1.5;
 }
 
+/**
+ * .form-section
+ * Divider block for grouping related inputs.
+ */
 .form-section {
     margin-bottom: 35px;
     padding-bottom: 30px;
@@ -200,8 +215,12 @@
 }
 
 @media (min-width: 600px) {
-    .form-grid-2 { grid-template-columns: 1fr 1fr; }
-    .form-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+    .form-grid-3 {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
 
 .form-group {
@@ -218,7 +237,13 @@
 
 /* --- Inputs & Controls --- */
 
-input, select, textarea {
+/**
+ * Global Input Styles
+ * Style: iOS Input Field (Light gray bg, no border, blue focus ring).
+ */
+input,
+select,
+textarea {
     font-family: var(--font-stack);
     font-size: 1.05rem;
     background: var(--bg-panel);
@@ -232,27 +257,40 @@ input, select, textarea {
     appearance: none;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #a1a1a6;
     font-weight: 400;
 }
 
-input:hover, select:hover, textarea:hover {
+input:hover,
+select:hover,
+textarea:hover {
     background: #eaeaec;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
     outline: none;
     background: white;
     box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
     border-color: var(--accent-blue);
 }
 
+/**
+ * Textarea specific
+ * Disables manual resize to preserve layout integrity.
+ */
 textarea {
     resize: none;
     line-height: 1.6;
 }
 
+/**
+ * Custom Select Arrow (SVG)
+ * Replaces the native browser dropdown arrow.
+ */
 select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -263,6 +301,10 @@ select {
 
 /* --- Segmented Control --- */
 
+/**
+ * .segmented-control
+ * iOS-style Toggle Switch/Radio Group.
+ */
 .segmented-control {
     display: flex;
     background: var(--bg-panel);
@@ -293,10 +335,115 @@ select {
     color: var(--text-primary);
 }
 
+/* Active State Animation */
 .segmented-control input[type="radio"]:checked + .segmented-label {
     background: white;
     color: var(--text-primary);
     font-weight: 600;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transform: scale(1);
+}
+
+/* --- Premium Apple-Style Toast Notification --- */
+
+/**
+ * .flash-toast
+ * A floating, glassmorphism notification that appears at the top.
+ */
+.flash-toast {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    z-index: 9999;
+    
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    
+    background: rgba(255, 255, 255, 0.85); /* Glass Background */
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    
+    padding: 12px 20px 12px 16px;
+    border-radius: 50px; /* Pill shape */
+    
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5); /* Inner light border */
+        
+    opacity: 0;
+    animation: toastEnter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    pointer-events: none; /* Let clicks pass through initially */
+}
+
+/* Success State Colors */
+.flash-toast.type-success .flash-icon {
+    background: #34c759; /* Apple Green */
+    color: white;
+}
+
+/* Danger/Error State Colors */
+.flash-toast.type-danger .flash-icon {
+    background: #ff3b30; /* Apple Red */
+    color: white;
+}
+
+.flash-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.flash-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.2;
+    padding-right: 5px;
+}
+
+.flash-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.flash-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Animations Keyframes */
+@keyframes toastEnter {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
+@keyframes toastExit {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px) scale(0.9);
+    }
+}
+
+/* Class to trigger exit animation (added by JS) */
+.flash-toast.hiding {
+    animation: toastExit 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
