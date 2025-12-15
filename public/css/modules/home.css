@@ -1,6 +1,7 @@
 /*
  * Module: Home
  * Contains: Hero Section and Stats Cards (Split Layouts).
+ * Handles the responsive styling for the main hero banners and metric cards.
  */
 
 /* --- Hero Section --- */
@@ -11,12 +12,13 @@
     margin-bottom: 40px;
     overflow: hidden;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column-reverse; /* Mobile: Image Top, Text Bottom */
     text-align: center;
 }
 
 .hero-text {
-    padding: 40px 30px;
+    /* FIX: Reduce padding for mobile (was 40px 30px) to reduce gap with image */
+    padding: 25px 20px; 
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -59,7 +61,8 @@
     flex: 1;
     display: flex; 
     flex-direction: column;
-    min-height: 300px;
+    /* FIX: Reduce min-height on mobile to avoid excessive scrolling (was 300px) */
+    min-height: 250px; 
     padding: 0;
     margin: 0;
 }
@@ -73,16 +76,18 @@
     transition: transform 0.5s ease;
 }
 
+/* Desktop View */
 @media (min-width: 900px) {
     .hero-section {
-        flex-direction: row;
+        flex-direction: row; /* Desktop: Text Left, Image Right */
         text-align: left;
         min-height: 480px;
     }
 
     .hero-text {
         align-items: flex-start;
-        padding: 60px;
+        /* Restore larger padding for desktop */
+        padding: 60px; 
     }
 
     .hero-title {
@@ -96,7 +101,6 @@
 
 /* --- Stats Section --- */
 .stats-section {
-    /* FIX: Reduce margin to 40px to match Hero top margin */
     margin-bottom: 40px; 
 }
 
