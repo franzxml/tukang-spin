@@ -5,7 +5,8 @@
  * 2. Sliding Navigation Marker.
  * 3. Dynamic content fetching and DOM manipulation.
  * 4. Premium Toast Notification Auto-Dismissal.
- * 5. Robust Base URL handling for Virtual Hosts.
+ * 5. Custom iOS-Style Confirmation Modal (Replacing standard window.confirm).
+ * 6. Robust Base URL handling for Virtual Hosts.
  * * @author FranzXML
  */
 
@@ -219,8 +220,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(html => gridContainer.innerHTML = html)
                 .catch(err => console.error(err));
             });
-            
-            // Note: Autofocus removed to prevent mobile keyboard pop-up
         }
     }
 
@@ -254,24 +253,72 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    /**
+     * Shows a custom iOS-style confirmation modal.
+     * Replaces standard browser confirm() dialogs.
+     * * @param {string} title - Title of the modal
+     * @param {string} message - Description text
+     * @param {Function} onConfirm - Callback to execute on confirmation
+     */
+    function showCustomConfirm(title, message, onConfirm) {
+        // Create Overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'ios-modal-overlay';
+
+        // Create Modal HTML
+        overlay.innerHTML = `
+            <div class="ios-modal">
+                <div class="ios-modal-content">
+                    <div class="ios-modal-title">${title}</div>
+                    <div class="ios-modal-desc">${message}</div>
+                </div>
+                <div class="ios-modal-actions">
+                    <button class="ios-modal-btn cancel-btn">Batal</button>
+                    <button class="ios-modal-btn is-danger confirm-btn">Hapus</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        // Handlers
+        const cancelBtn = overlay.querySelector('.cancel-btn');
+        const confirmBtn = overlay.querySelector('.confirm-btn');
+
+        function closeModal() {
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.remove(), 200);
+        }
+
+        cancelBtn.addEventListener('click', closeModal);
+        
+        confirmBtn.addEventListener('click', () => {
+            onConfirm();
+            closeModal();
+        });
+
+        // Close on backdrop click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+    }
+
     // --- Initialization & Event Listeners ---
 
     navLinks.forEach(link => {
-        // Hover Intent: Prefetch and navigate after delay
+        // Hover Intent
         link.addEventListener('mouseenter', (e) => {
             moveIndicator(e.target);
-            
             const targetUrl = link.href;
             if (targetUrl !== window.location.href) {
                 prefetchPage(targetUrl);
             }
-
             hoverTimeout = setTimeout(() => {
                 navigateTo(targetUrl);
             }, HOVER_DELAY);
         });
 
-        // Cancel navigation if hover ends early
+        // Cancel navigation
         link.addEventListener('mouseleave', () => {
             clearTimeout(hoverTimeout);
             const activeLink = document.querySelector('.nav-links a.active');
@@ -302,17 +349,30 @@ document.addEventListener('DOMContentLoaded', function() {
     reattachDynamicEvents();
     initToast();
 
-    // Global Confirm Delete Handler
+    // Global Confirm Delete Handler (Replacing Native Alert)
     document.addEventListener('click', function(e) {
-        // Checks for any element with 'delete-btn' class or delete link pattern
-        if (e.target.classList.contains('delete-btn') || 
-           (e.target.tagName === 'A' && e.target.href.includes('delete'))) {
+        // Target element checking
+        let target = e.target;
+        // Traverse up if clicked on icon inside button
+        if (!target.classList.contains('btn-danger') && !target.classList.contains('item-delete-btn')) {
+            target = target.closest('.btn-danger, .item-delete-btn');
+        }
+
+        if (target && (target.classList.contains('btn-danger') || target.classList.contains('item-delete-btn'))) {
+            // Prevent default navigation
+            e.preventDefault();
+            e.stopPropagation();
+
+            const deleteUrl = target.getAttribute('href');
             
-            // Only confirm if not handled inline (some views use onclick attribute)
-            if (!e.target.onclick && !e.target.hasAttribute('onclick')) {
-                if (!confirm('Are you sure you want to proceed with this action?')) {
-                    e.preventDefault();
-                }
+            if (deleteUrl) {
+                showCustomConfirm(
+                    'Konfirmasi Hapus',
+                    'Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin ingin menghapus data ini?',
+                    () => {
+                        window.location.href = deleteUrl;
+                    }
+                );
             }
         }
     });
