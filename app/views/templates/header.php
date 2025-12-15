@@ -12,7 +12,7 @@
 <header class="main-header">
     <div class="container nav-flex">
         <a href="<?= BASEURL; ?>" class="brand-logo">
-            <img src="<?= BASEURL; ?>/img/logo.png" alt="Genpedia Logo">
+            <img src="<?= BASEURL; ?>/img/ui/logo-genpedia.png" alt="Genpedia Logo">
         </a>
         
         <nav>
