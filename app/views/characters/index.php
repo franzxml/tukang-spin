@@ -22,7 +22,7 @@
             <img src="<?= BASEURL; ?>/img/home/4.5-wallpapers.png" 
                  alt="Character Roster Visual" 
                  class="hero-img"
-                 style="object-position: center 20%;"
+                 style="object-position: 70% 20%;"
                  loading="lazy"
                  decoding="async">
         </div>
