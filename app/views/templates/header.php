@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $data['title']; ?> | Genpedia</title>
     
-    <link rel="preconnect" href="https://i.imgur.com">
-    
     <link rel="stylesheet" href="<?= BASEURL; ?>/css/main.css">
 </head>
 <body>
@@ -14,7 +12,7 @@
 <header class="main-header">
     <div class="container nav-flex">
         <a href="<?= BASEURL; ?>" class="brand-logo">
-            <img src="https://i.imgur.com/2h7Ucqp.png" alt="Genpedia Logo">
+            <img src="<?= BASEURL; ?>/img/logo.png" alt="Genpedia Logo">
         </a>
         
         <nav>

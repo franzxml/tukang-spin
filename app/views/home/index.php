@@ -11,7 +11,7 @@
     </div>
 
     <div class="hero-visual">
-        <img src="https://i.imgur.com/QJU6mHq.jpeg" 
+        <img src="<?= BASEURL; ?>/img/home-hero.jpg" 
              alt="Genshin Impact Visual" 
              class="hero-img"
              fetchpriority="high"
@@ -33,7 +33,7 @@
         </div>
         
         <div class="stats-visual">
-            <img src="https://i.imgur.com/UsnWDAf.jpeg" 
+            <img src="<?= BASEURL; ?>/img/home-stats.jpg" 
                  alt="Character Collection" 
                  class="stats-img"
                  loading="lazy"
