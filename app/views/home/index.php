@@ -11,7 +11,7 @@
     </div>
 
     <div class="hero-visual">
-        <img src="<?= BASEURL; ?>/img/home/adventurers-trails.jpg" 
+        <img src="<?= BASEURL; ?>/img/home/summer-resort.jpg" 
              alt="Genshin Impact Visual" 
              class="hero-img"
              fetchpriority="high"
@@ -33,7 +33,7 @@
         </div>
         
         <div class="stats-visual">
-            <img src="<?= BASEURL; ?>/img/home/summer-resort.jpg" 
+            <img src="<?= BASEURL; ?>/img/home/adventurers-trails.jpg" 
                  alt="Character Collection" 
                  class="stats-img"
                  loading="lazy"
