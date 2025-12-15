@@ -46,8 +46,8 @@
 }
 
 .brand-logo img {
-    /* Height increased to make the logo/text much larger and readable */
-    height: 60px;        
+    /* Increased significantly to 80px */
+    height: 80px;        
     width: auto;
     object-fit: contain;
 }
