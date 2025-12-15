@@ -3,7 +3,8 @@
  * Features:
  * 1. Instant Hover-Intent Navigation (SPA) with Queueing logic.
  * 2. Sliding Navigation Marker.
- * 3. Dynamic content handling without layout trashing.
+ * 3. Dynamic content handling.
+ * 4. Fixed: Removed autofocus on page load.
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -64,17 +65,16 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     async function navigateTo(url, pushToHistory = true) {
         // Jika sedang animasi, masukkan request ke antrean (Queue)
-        // Ini memperbaiki bug "tidak kedetect" saat hover cepat
         if (isAnimating) {
             pendingNavigation = { url, pushToHistory };
             return;
         }
 
-        // Cek apakah URL sama (kecuali ada di antrean, kita force cek nanti)
+        // Cek apakah URL sama
         if (url === window.location.href) return;
 
         isAnimating = true;
-        pendingNavigation = null; // Reset antrean karena kita mulai proses baru
+        pendingNavigation = null;
 
         try {
             const pageData = await prefetchPage(url);
@@ -91,14 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Navigation error:', error);
             window.location.href = url; // Fallback
         } finally {
-            // Tunggu animasi CSS selesai (300ms) + buffer sedikit
             setTimeout(() => {
                 isAnimating = false;
                 
-                // CEK ANTREAN: Apakah user pindah ke menu lain saat kita sedang animasi?
+                // CEK ANTREAN
                 if (pendingNavigation) {
                     const next = pendingNavigation;
-                    // Eksekusi navigasi yang tertunda
                     if (next.url !== window.location.href) {
                         navigateTo(next.url, next.pushToHistory);
                     }
@@ -165,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const gridContainer = document.getElementById('character-grid');
 
         if (keywordInput && gridContainer) {
-            // Clone node to strip old listeners avoids duplication
+            // Clone node untuk membersihkan listener lama
             const newInput = keywordInput.cloneNode(true);
             keywordInput.parentNode.replaceChild(newInput, keywordInput);
             
@@ -180,8 +178,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(html => gridContainer.innerHTML = html)
                 .catch(err => console.error(err));
             });
-            // Focus balik ke input jika perlu (opsional)
-            newInput.focus(); 
+            
+            // REMOVED: newInput.focus(); 
+            // Baris ini dihapus agar keyboard tidak otomatis muncul di mobile
         }
     }
 
@@ -203,9 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         link.addEventListener('mouseleave', () => {
             clearTimeout(hoverTimeout);
-            
-            // Kembalikan marker ke menu yang sedang AKTIF (bukan yang di-queue)
-            // agar visual konsisten dengan halaman yang sedang tampil
             const activeLink = document.querySelector('.nav-links a.active');
             if (activeLink) moveIndicator(activeLink);
         });
