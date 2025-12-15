@@ -1,17 +1,17 @@
 <section class="hero-section">
-    <div class="hero-text">
+    <div class="hero-content">
         <h1 class="hero-title">Selamat Datang di Genpedia.</h1>
         <p class="hero-subtitle">Database pribadi untuk manajemen build Genshin Impact.</p>
-        <p class="hero-description">Kelola tim, senjata, dan artefak Anda dengan efisiensi maksimal dalam satu tempat yang terorganisir.</p>
+        <p class="hero-description">Kelola tim, senjata, dan artefak Anda dengan efisiensi maksimal. Nikmati pengalaman manajemen yang mulus dan terintegrasi.</p>
         
         <div class="hero-actions">
-            <a href="<?= BASEURL; ?>/characters" class="btn-cta btn-black">Mulai Kelola</a>
-            <a href="<?= BASEURL; ?>/weapons" class="link-cta">Lihat Senjata &rsaquo;</a>
+            <a href="<?= BASEURL; ?>/characters" class="btn-cta btn-primary">Mulai Kelola</a>
+            <a href="<?= BASEURL; ?>/weapons" class="btn-link">Lihat Senjata &rsaquo;</a>
         </div>
     </div>
 
-    <div class="hero-visual">
-        <img src="https://i.imgur.com/QJU6mHq.jpeg" alt="Genshin Impact Visual" class="hero-img">
+    <div class="hero-visual-wrapper">
+        <img src="https://i.imgur.com/QJU6mHq.jpeg" alt="Genshin Impact Banner" class="hero-img">
     </div>
 </section>
 

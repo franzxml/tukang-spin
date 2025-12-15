@@ -1,8 +1,7 @@
 /*
  * Main Stylesheet for Genpedia
- * Theme: Apple Human Interface (Light Mode).
- * Font: Inter (Premium, Clean, Modern).
- * Features: Seamless Namecards, Responsive Grid, Split Hero.
+ * Theme: Apple Human Interface (Modern Blend).
+ * Features: CSS Masking, Soft Gradients, Split Layout.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -10,21 +9,21 @@
 :root {
     /* Colors */
     --bg-body: #ffffff;
+    --bg-panel: #f5f5f7; /* This is the specific light gray form the Apple reference */
     --bg-card: #ffffff;
-    --bg-panel: #f5f5f7;
     --bg-glass: rgba(255, 255, 255, 0.85);
     
     --text-primary: #1d1d1f;
     --text-secondary: #86868b;
     --text-on-dark: #ffffff;
     
-    --accent-gold: #bf9b30;
     --accent-blue: #0071e3;
+    --accent-gold: #bf9b30;
     --accent-red: #ff3b30;
     
     --border-subtle: #d2d2d7;
     
-    /* Genshin Rarity Gradients */
+    /* Gradients */
     --rarity-5: linear-gradient(90deg, #cf7e28 0%, #e0b46a 100%);
     --rarity-4: linear-gradient(90deg, #7a54a3 0%, #b070e6 100%);
     
@@ -123,47 +122,41 @@ a {
     }
 }
 
-/* --- UI Elements --- */
+/* --- Buttons & Inputs --- */
 
 .btn-cta {
     display: inline-block;
     padding: 12px 24px;
-    background-color: var(--accent-blue);
-    color: white;
     border-radius: 980px;
     font-weight: 600;
     font-size: 0.95rem;
     border: none;
     cursor: pointer;
-    transition: transform 0.1s, opacity 0.2s, background-color 0.2s;
+    transition: transform 0.1s, opacity 0.2s;
 }
 
-.btn-cta:hover {
-    opacity: 0.9;
+.btn-primary {
+    background-color: #1d1d1f; /* Apple-black style */
+    color: #ffffff;
 }
 
-.btn-cta:active {
-    transform: scale(0.98);
+.btn-primary:hover {
+    opacity: 0.85;
 }
 
 .btn-white {
-    background-color: #ffffff !important;
-    color: #000000 !important;
+    background-color: #ffffff;
+    color: #000000;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.btn-black {
-    background-color: #1d1d1f !important;
-    color: #ffffff !important;
-}
-
-.link-cta {
+.btn-link {
     color: var(--accent-blue);
     font-weight: 500;
     font-size: 0.95rem;
 }
 
-.link-cta:hover {
+.btn-link:hover {
     text-decoration: underline;
 }
 
@@ -185,80 +178,84 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.2);
 }
 
-strong {
-    color: var(--text-primary) !important;
-}
-
-/* --- Hero Section (New Split Design) --- */
+/* --- Hero Section (Blended Style) --- */
 
 .hero-section {
-    background-color: var(--bg-panel); /* Light/Whitened background */
+    background-color: var(--bg-panel); /* The base light gray color */
     border-radius: 28px;
     margin-top: 40px;
     margin-bottom: 60px;
     overflow: hidden;
+    
     display: flex;
-    flex-direction: column-reverse; /* Image on top on mobile, text bottom */
-    text-align: center;
+    flex-direction: column-reverse; /* Mobile: Text bottom, Image top */
+    position: relative;
+    /* Optional: Subtle inner shadow */
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02); 
 }
 
-.hero-text {
+.hero-content {
     padding: 40px 30px;
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    z-index: 2; /* Ensure text is above any potential image overlap */
 }
 
 .hero-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--text-primary) !important; /* Black text */
+    color: var(--text-primary);
     letter-spacing: -0.02em;
     line-height: 1.1;
-    margin-bottom: 15px;
-    text-shadow: none; /* Removed shadow for clean look */
+    margin-bottom: 12px;
 }
 
 .hero-subtitle {
     font-size: 1.2rem;
     font-weight: 500;
     color: var(--text-primary);
-    margin-bottom: 10px;
-    text-shadow: none;
+    margin-bottom: 8px;
 }
 
 .hero-description {
     font-size: 1rem;
-    color: var(--text-secondary) !important;
-    margin-bottom: 30px;
-    max-width: 400px;
+    color: var(--text-secondary);
+    margin-bottom: 25px;
     line-height: 1.6;
-    text-shadow: none;
+    max-width: 450px;
 }
 
 .hero-actions {
     display: flex;
-    align-items: center;
     gap: 20px;
+    align-items: center;
 }
 
-.hero-visual {
-    flex: 1;
-    background-color: #eeeeee; /* Placeholder bg if image loads slowly */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* The Blending Magic Wrapper */
+.hero-visual-wrapper {
+    width: 100%;
+    height: 300px;
+    position: relative;
     overflow: hidden;
-    min-height: 300px;
+    background-color: var(--bg-panel);
 }
 
 .hero-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    
+    /* Mobile Masking: Fade from bottom (opaque) to top (transparent) 
+       This blends the top of the image into the background, or vice versa depending on layout preference.
+       Here: We fade the BOTTOM of the image into the Text area.
+    */
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .hero-section:hover .hero-img {
@@ -268,50 +265,44 @@ strong {
 /* Desktop Split Layout */
 @media (min-width: 900px) {
     .hero-section {
-        flex-direction: row; /* Split: Text Left, Image Right */
-        text-align: left;
+        flex-direction: row; /* Side by Side */
         min-height: 480px;
+        text-align: left;
     }
 
-    .hero-text {
-        align-items: flex-start; /* Align text to left */
+    .hero-content {
+        flex: 1;
+        align-items: flex-start;
         padding: 60px;
     }
 
     .hero-title {
         font-size: 3.5rem;
     }
-
+    
     .hero-description {
         margin-left: 0;
     }
-}
 
-/* --- Page Header (Legacy for other pages) --- */
+    .hero-visual-wrapper {
+        flex: 1.3; /* Give image slightly more space */
+        height: auto; /* Fill height */
+        position: relative;
+    }
 
-.page-header-card {
-    text-align: center;
-    padding: 60px 20px;
-    margin-top: 40px; 
-    margin-bottom: 3rem;
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), 
-                url('https://i.imgur.com/RiQ50u3.png');
-    background-size: cover;
-    background-position: center;
-    border-radius: 24px;
-    color: white;
-}
-
-.page-header-card h1, .page-header-card p {
-    color: #ffffff !important;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
-}
-
-.page-title {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: 15px;
+    .hero-img {
+        /* Desktop Masking: The Reference Effect 
+           Fade from Right (Opaque/Black) to Left (Transparent).
+           'black 20%' means from the right edge up to 20% in, it is full opacity.
+           Then it gradients to transparent at the left edge.
+        */
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 25%, black 100%);
+        
+        /* Ensure image covers fully */
+        height: 100%;
+        width: 100%;
+    }
 }
 
 /* --- Stats Cards --- */
@@ -417,9 +408,6 @@ strong {
     background-color: #eee;
 }
 
-.bg-rarity-5 { background-image: var(--rarity-5); }
-.bg-rarity-4 { background-image: var(--rarity-4); }
-
 .namecard-overlay {
     position: absolute;
     top: 0;
@@ -511,7 +499,34 @@ strong {
     border: 1px solid rgba(255,255,255,0.3);
 }
 
-/* --- DETAIL PAGE STYLES --- */
+/* --- PAGE HEADER (Legacy) --- */
+
+.page-header-card {
+    text-align: center;
+    padding: 60px 20px;
+    margin-top: 40px; 
+    margin-bottom: 3rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), 
+                url('https://i.imgur.com/RiQ50u3.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 24px;
+    color: white;
+}
+
+.page-header-card h1, .page-header-card p {
+    color: #ffffff !important;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 15px;
+}
+
+/* --- DETAIL PAGE --- */
 
 .detail-header {
     position: relative;
@@ -740,11 +755,7 @@ strong {
     font-size: 1.1rem;
 }
 
-/* --- Utilities --- */
-.text-gold { color: var(--accent-gold); }
-.text-blue { color: var(--accent-blue); }
-
-/* Overrides */
+/* Utilities */
 div[style*="color: white"], strong[style*="color: white"] {
     color: var(--text-primary) !important;
 }
