@@ -5,9 +5,8 @@
  * 2. Sliding Navigation Marker.
  * 3. Dynamic content fetching and DOM manipulation.
  * 4. Premium Toast Notification Auto-Dismissal.
- * 5. Robust Base URL handling for Virtual Hosts.
- * * Note: Custom Delete Modal has been removed per user request. 
- * Reverted to native browser confirmation.
+ * 5. Custom iOS-Style Confirmation Modal (Replacing standard window.confirm).
+ * 6. Robust Base URL handling for Virtual Hosts.
  * * @author FranzXML
  */
 
@@ -254,6 +253,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    /**
+     * Shows a custom iOS-style confirmation modal.
+     * This replaces the native window.confirm to match the Premium UI.
+     * * @param {string} title 
+     * @param {string} message 
+     * @param {Function} onConfirm 
+     */
+    function showCustomConfirm(title, message, onConfirm) {
+        // Create Overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'ios-modal-overlay'; // This class now has fixed positioning 100vw/100vh
+
+        // Create Modal HTML
+        overlay.innerHTML = `
+            <div class="ios-modal">
+                <div class="ios-modal-content">
+                    <div class="ios-modal-title">${title}</div>
+                    <div class="ios-modal-message">${message}</div>
+                </div>
+                <div class="ios-modal-actions">
+                    <button class="ios-modal-btn btn-cancel">Batal</button>
+                    <button class="ios-modal-btn btn-confirm">Hapus</button>
+                </div>
+            </div>
+        `;
+
+        // Append to Body to ensure it's on top of everything
+        document.body.appendChild(overlay);
+
+        // Focus management could be added here, but simple click handlers suffice for now
+        const cancelBtn = overlay.querySelector('.btn-cancel');
+        const confirmBtn = overlay.querySelector('.btn-confirm');
+
+        function closeModal() {
+            // Fade out
+            overlay.style.transition = 'opacity 0.2s ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                if (document.body.contains(overlay)) {
+                    document.body.removeChild(overlay);
+                }
+            }, 200);
+        }
+
+        cancelBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal();
+        });
+        
+        confirmBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            onConfirm();
+            closeModal();
+        });
+
+        // Close on backdrop click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeModal();
+        });
+    }
+
     // --- Initialization & Event Listeners ---
 
     navLinks.forEach(link => {
@@ -300,7 +360,33 @@ document.addEventListener('DOMContentLoaded', function() {
     reattachDynamicEvents();
     initToast();
 
-    // No Global Custom Modal Handler - Default browser behavior will take over.
+    // Global Confirm Delete Handler (Replacing Native Alert with Premium Modal)
+    document.addEventListener('click', function(e) {
+        // Target element checking - support icons inside buttons
+        let target = e.target;
+        if (!target.classList.contains('btn-danger') && !target.classList.contains('item-delete-btn')) {
+            target = target.closest('.btn-danger, .item-delete-btn');
+        }
+
+        if (target && (target.classList.contains('btn-danger') || target.classList.contains('item-delete-btn'))) {
+            // Check if it's a link or form submit
+            const deleteUrl = target.getAttribute('href');
+            
+            // If it's a link, we intercept
+            if (deleteUrl && deleteUrl !== '#') {
+                e.preventDefault();
+                e.stopPropagation();
+
+                showCustomConfirm(
+                    'Konfirmasi Hapus',
+                    'Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.',
+                    () => {
+                        window.location.href = deleteUrl;
+                    }
+                );
+            }
+        }
+    });
     
     // Responsive Marker Adjustment
     window.addEventListener('resize', () => {
