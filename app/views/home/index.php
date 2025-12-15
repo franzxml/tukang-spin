@@ -26,7 +26,7 @@
             
             <div class="stats-metric">
                 <span class="metric-value"><?= $data['total_characters']; ?></span>
-                <span class="metric-label">Hero Terdaftar</span>
+                <span class="metric-label">Terdaftar</span>
             </div>
             
             <p class="stats-desc">Karakter yang telah Anda daftarkan dan kelola di database Genpedia.</p>
