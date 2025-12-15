@@ -68,12 +68,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* Default position for mobile */
+    object-position: center; 
     transition: transform 0.5s ease;
 }
 
-.hero-section:hover .hero-img {
-    transform: scale(1.03);
-}
+/* Removed hover animation for Hero Image per request */
 
 @media (min-width: 900px) {
     .hero-section {
@@ -93,6 +93,11 @@
 
     .hero-description {
         margin-left: 0;
+    }
+    
+    .hero-img {
+        /* Fix: Center the subject in the desktop frame */
+        object-position: center; 
     }
 }
 
@@ -125,28 +130,31 @@
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* More space below title */
 }
 
 .stats-metric {
     margin-bottom: 15px;
     display: flex;
-    align-items: center; 
-    gap: 12px;
+    /* Fix: Align number and text on the baseline for neatness */
+    align-items: baseline; 
+    justify-content: center;
+    gap: 8px;
 }
 
 .metric-value {
-    font-size: 2.5rem; 
+    /* Adjusted size for better proportion */
+    font-size: 2.25rem; 
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
 .metric-label {
     font-size: 1.1rem; 
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--text-secondary); /* Softer color for label */
 }
 
 .stats-desc {
@@ -172,9 +180,7 @@
     transition: transform 0.5s ease;
 }
 
-.stats-card-split:hover .stats-img {
-    transform: scale(1.03);
-}
+/* Removed hover animation for Stats Image per request */
 
 @media (min-width: 900px) {
     .stats-card-split {
@@ -186,6 +192,10 @@
     .stats-content {
         align-items: flex-start;
         padding: 60px;
+    }
+    
+    .stats-metric {
+        justify-content: flex-start; /* Align metric to left on desktop */
     }
     
     .stats-desc {
