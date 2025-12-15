@@ -68,12 +68,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Default position for mobile */
     object-position: center; 
     transition: transform 0.5s ease;
 }
-
-/* Removed hover animation for Hero Image per request */
 
 @media (min-width: 900px) {
     .hero-section {
@@ -94,11 +91,6 @@
     .hero-description {
         margin-left: 0;
     }
-    
-    .hero-img {
-        /* Fix: Center the subject in the desktop frame */
-        object-position: center; 
-    }
 }
 
 /* --- Stats Section --- */
@@ -111,7 +103,7 @@
     border-radius: 28px;
     overflow: hidden;
     display: flex;
-    flex-direction: column; /* Stack on Mobile */
+    flex-direction: column; 
     text-align: center;
 }
 
@@ -125,43 +117,44 @@
 }
 
 .stats-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 20px; /* More space below title */
+    letter-spacing: 0.08em;
+    margin-bottom: 25px; /* Memberi ruang lebih agar tidak sesak */
 }
 
+/* Tipografi Stats yang Lebih Rapi */
 .stats-metric {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     display: flex;
-    /* Fix: Align number and text on the baseline for neatness */
-    align-items: baseline; 
+    align-items: baseline; /* Mensejajarkan bagian bawah huruf/angka */
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .metric-value {
-    /* Adjusted size for better proportion */
-    font-size: 2.25rem; 
+    /* Ukuran angka yang pas, tidak terlalu raksasa */
+    font-size: 3.5rem; 
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
 }
 
 .metric-label {
-    font-size: 1.1rem; 
+    font-size: 1.2rem; 
     font-weight: 500;
-    color: var(--text-secondary); /* Softer color for label */
+    color: var(--text-primary);
+    opacity: 0.9;
 }
 
 .stats-desc {
     color: var(--text-secondary);
     font-size: 1rem;
     max-width: 300px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .stats-visual {
@@ -176,15 +169,20 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center center;
+    
+    /* * PERBAIKAN FOKUS CEWEK:
+     * Karena karakter di gambar asli berada di kiri, kita set posisi ke '25%'.
+     * Ini akan menggeser fokus kamera ke kiri (ke arah cewek), 
+     * sehingga dia tampil tepat di tengah kontainer.
+     */
+    object-position: 25% center;
+    
     transition: transform 0.5s ease;
 }
 
-/* Removed hover animation for Stats Image per request */
-
 @media (min-width: 900px) {
     .stats-card-split {
-        flex-direction: row-reverse; /* Image Left, Text Right */
+        flex-direction: row-reverse; 
         text-align: left;
         min-height: 400px;
     }
@@ -195,7 +193,7 @@
     }
     
     .stats-metric {
-        justify-content: flex-start; /* Align metric to left on desktop */
+        justify-content: flex-start; 
     }
     
     .stats-desc {
