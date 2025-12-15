@@ -23,7 +23,7 @@
     padding: 14px 28px;
     background-color: var(--accent-blue);
     color: white;
-    border-radius: 14px; /* Slightly softer radius */
+    border-radius: 14px;
     font-weight: 600;
     font-size: 1rem;
     border: none;
@@ -37,7 +37,7 @@
 .btn-cta:hover {
     background-color: #0077ED;
     transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0, 113, 227, 0.25); /* Premium lift effect */
+    box-shadow: 0 8px 15px rgba(0, 113, 227, 0.25);
 }
 
 .btn-cta:active {
@@ -47,8 +47,7 @@
 
 /**
  * .btn-secondary
- * Secondary action (e.g., Cancel, Back).
- * Style: iOS Secondary Button (Light gray background).
+ * Secondary action (e.g., Cancel).
  */
 .btn-secondary {
     background-color: rgba(118, 118, 128, 0.12) !important;
@@ -63,7 +62,7 @@
 
 /**
  * .btn-black
- * High contrast button for light backgrounds.
+ * High contrast button.
  */
 .btn-black {
     background-color: #1d1d1f !important;
@@ -71,8 +70,50 @@
 }
 
 /**
+ * .btn-danger
+ * Destructive action (Delete).
+ * Style: Red background or text.
+ */
+.btn-danger {
+    background-color: rgba(255, 59, 48, 0.1) !important;
+    color: var(--accent-red) !important;
+}
+
+.btn-danger:hover {
+    background-color: rgba(255, 59, 48, 0.2) !important;
+    transform: translateY(-1px);
+}
+
+/**
+ * .btn-back
+ * Distinctive Back Button.
+ * Style: Large, pill-shaped, distinct icon.
+ */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background-color: white;
+    color: var(--text-primary);
+    border-radius: 100px; /* Fully rounded */
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Floating effect */
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    transform: translateX(-4px); /* Slide left slightly */
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    color: var(--accent-blue);
+}
+
+/**
  * .link-cta
- * Text-only hyperlink with hover state.
+ * Text-only hyperlink.
  */
 .link-cta {
     color: var(--accent-blue);
@@ -88,31 +129,18 @@
 
 /* --- Form Layouts --- */
 
-/**
- * .form-card
- * The main container for data entry.
- * Features:
- * - Floating appearance.
- * - Flexible height (auto).
- * - Correct spacing from header (margin-top).
- */
 .form-card {
     max-width: 720px;
-    margin: 60px auto 80px auto; /* Generous spacing from header & footer */
+    margin: 60px auto 80px auto;
     background: var(--bg-card);
-    /* Padding is handled by inner containers to allow full-width images */
     border-radius: 24px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08); /* Deep, soft shadow */
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(0, 0, 0, 0.02);
     height: auto;
-    overflow: hidden; /* Ensures image banner respects border radius */
+    overflow: hidden;
     position: relative;
 }
 
-/**
- * .form-content
- * Inner wrapper for the actual form elements (provides padding).
- */
 .form-content {
     padding: 40px;
 }
@@ -123,7 +151,7 @@
 }
 
 .form-header h2 {
-    font-size: 2rem; /* Larger, bolder title */
+    font-size: 2rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--text-primary);
@@ -136,14 +164,10 @@
     line-height: 1.5;
 }
 
-/**
- * .form-section
- * Divider block for grouping related inputs.
- */
 .form-section {
     margin-bottom: 35px;
     padding-bottom: 30px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06); /* Very subtle divider */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .form-section:last-of-type {
@@ -166,7 +190,7 @@
 .form-grid-2 {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px; /* Wider gap for cleaner look */
+    gap: 24px;
 }
 
 .form-grid-3 {
@@ -176,12 +200,8 @@
 }
 
 @media (min-width: 600px) {
-    .form-grid-2 {
-        grid-template-columns: 1fr 1fr;
-    }
-    .form-grid-3 {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+    .form-grid-2 { grid-template-columns: 1fr 1fr; }
+    .form-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
 }
 
 .form-group {
@@ -192,66 +212,47 @@
     display: block;
     margin-bottom: 10px;
     font-size: 0.95rem;
-    font-weight: 600; /* Semibold for readability */
+    font-weight: 600;
     color: var(--text-primary);
 }
 
 /* --- Inputs & Controls --- */
 
-/**
- * Global Input Styles
- * Style: iOS Input Field (Light gray bg, no border, blue cursor).
- */
-input,
-select,
-textarea {
+input, select, textarea {
     font-family: var(--font-stack);
-    font-size: 1.05rem; /* Slightly larger text for easier typing */
+    font-size: 1.05rem;
     background: var(--bg-panel);
     border: 1px solid transparent;
     border-radius: 12px;
     color: var(--text-primary);
-    padding: 16px; /* Taller touch target */
+    padding: 16px;
     width: 100%;
     transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     -webkit-appearance: none;
     appearance: none;
 }
 
-input::placeholder,
-textarea::placeholder {
+input::placeholder, textarea::placeholder {
     color: #a1a1a6;
     font-weight: 400;
 }
 
-input:hover,
-select:hover,
-textarea:hover {
-    background: #eaeaec; /* Slightly darker on hover */
+input:hover, select:hover, textarea:hover {
+    background: #eaeaec;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
+input:focus, select:focus, textarea:focus {
     outline: none;
     background: white;
-    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15); /* Soft blue glow */
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
     border-color: var(--accent-blue);
 }
 
-/**
- * Textarea specific
- * Disables manual resize to preserve layout integrity.
- */
 textarea {
     resize: none;
     line-height: 1.6;
 }
 
-/**
- * Custom Select Arrow (SVG)
- * Replaces the native browser dropdown arrow.
- */
 select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -262,11 +263,6 @@ select {
 
 /* --- Segmented Control --- */
 
-/**
- * .segmented-control
- * iOS-style Toggle Switch.
- * Container is light gray, Active item is a floating white card.
- */
 .segmented-control {
     display: flex;
     background: var(--bg-panel);
@@ -297,7 +293,6 @@ select {
     color: var(--text-primary);
 }
 
-/* Active State Animation */
 .segmented-control input[type="radio"]:checked + .segmented-label {
     background: white;
     color: var(--text-primary);
