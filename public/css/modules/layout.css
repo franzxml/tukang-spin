@@ -51,12 +51,14 @@
     object-fit: contain;
 }
 
+/* --- Navigation Links (Sliding Effect) --- */
 .nav-links {
     list-style: none;
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
+    position: relative; /* Penting untuk marker */
 }
 
 @media (min-width: 768px) {
@@ -65,22 +67,37 @@
     }
 }
 
+.nav-links li {
+    position: relative;
+    padding: 5px 0; /* Memberi ruang */
+}
+
 .nav-links a {
     color: var(--text-secondary);
     font-weight: 500;
     font-size: 0.9rem;
     text-decoration: none;
-    
-    /* Active State Styling */
-    padding-bottom: 5px; /* Jarak antara teks dan garis */
-    border-bottom: 2px solid transparent; /* Garis transparan (invisible) secara default */
-    transition: color 0.3s ease, border-color 0.3s ease;
+    transition: color 0.3s ease;
+    /* HAPUS border-bottom lama */
+    border-bottom: none !important; 
+    padding-bottom: 0;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
     color: #000000;
-    border-bottom-color: #000000; /* Munculkan garis hitam saat aktif/hover */
+}
+
+/* --- The Sliding Marker (Garis Pindah) --- */
+.nav-marker {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: #000000;
+    width: 0; /* Lebar awal 0 */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Animasi smooth */
+    pointer-events: none; /* Agar tidak menghalangi klik */
 }
 
 /* --- Footer --- */
@@ -88,7 +105,7 @@
     margin-top: auto;
     background-color: var(--bg-panel);
     border-top: 1px solid var(--border-subtle);
-    padding: 3rem 0;
+    padding: 3rem 0; 
     font-size: 0.9rem;
     color: var(--text-primary);
 }
@@ -97,7 +114,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 15px; 
     text-align: center;
 }
 
@@ -112,7 +129,7 @@
 .footer-left {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 15px; 
     align-items: center;
 }
 

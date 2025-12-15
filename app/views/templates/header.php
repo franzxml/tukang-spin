@@ -1,5 +1,4 @@
 <?php
-// Deteksi URL saat ini untuk menentukan menu yang aktif
 $uri = $_SERVER['REQUEST_URI'];
 ?>
 <!DOCTYPE html>
@@ -8,7 +7,6 @@ $uri = $_SERVER['REQUEST_URI'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $data['title']; ?> | Genpedia</title>
-    
     <link rel="stylesheet" href="<?= BASEURL; ?>/css/main.css">
 </head>
 <body>
@@ -21,6 +19,8 @@ $uri = $_SERVER['REQUEST_URI'];
         
         <nav>
             <ul class="nav-links">
+                <div class="nav-marker"></div>
+
                 <li>
                     <a href="<?= BASEURL; ?>" 
                        class="<?= (strpos($uri, '/characters') === false && strpos($uri, '/weapons') === false && strpos($uri, '/artifacts') === false) ? 'active' : ''; ?>">
