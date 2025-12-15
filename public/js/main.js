@@ -5,8 +5,8 @@
  * 2. Sliding Navigation Marker.
  * 3. Dynamic content fetching and DOM manipulation.
  * 4. Premium Toast Notification Auto-Dismissal.
- * 5. Custom iOS-Style Confirmation Modal (Replacing standard window.confirm).
- * 6. Robust Base URL handling for Virtual Hosts.
+ * 5. Custom iOS-Style Confirmation Modal.
+ * 6. Fix for Double Notifications (strips native onclick handlers).
  * * @author FranzXML
  */
 
@@ -14,10 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // --- Configuration ---
     
-    /** * Determine the Base URL dynamically from the logo link.
-     * This ensures accuracy across Localhost and Virtual Hosts.
-     * @type {string}
-     */
     const logoLink = document.querySelector('.brand-logo');
     const baseURL = logoLink ? logoLink.href.replace(/\/+$/, '') : window.location.origin;
 
@@ -26,12 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let hoverTimeout;
     const HOVER_DELAY = 50; 
     let isAnimating = false;
-    
-    /** * Navigation Queue to store the pending destination 
-     * if the user hovers/clicks while an animation is active.
-     */
     let pendingNavigation = null; 
-
     const pageCache = {}; 
 
     // --- DOM Elements ---
@@ -43,10 +34,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Functions ---
 
     /**
+     * Removes inline 'onclick' attributes from delete buttons.
+     * Prevents native browser confirm dialogs from double-firing.
+     */
+    function cleanInlineHandlers() {
+        const buttons = document.querySelectorAll('.btn-danger, .item-delete-btn, a[onclick*="confirm"]');
+        buttons.forEach(btn => {
+            if (btn.hasAttribute('onclick')) {
+                btn.removeAttribute('onclick');
+            }
+        });
+    }
+
+    /**
      * Prefetch page content to enable instant navigation.
-     * Caches the result to avoid redundant network requests.
-     * * @param {string} url - The URL to fetch.
-     * @returns {Promise} - Resolves with page HTML and Title.
      */
     function prefetchPage(url) {
         if (!pageCache[url]) {
@@ -79,17 +80,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /**
      * Handles navigation with smooth transitions and queuing.
-     * * @param {string} url - Destination URL.
-     * @param {boolean} pushToHistory - Whether to push state to History API.
      */
     async function navigateTo(url, pushToHistory = true) {
-        // If animating, queue the request to prevent glitches
         if (isAnimating) {
             pendingNavigation = { url, pushToHistory };
             return;
         }
 
-        // Ignore if already on the requested page
         if (url === window.location.href) return;
 
         isAnimating = true;
@@ -108,13 +105,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } catch (error) {
             console.error('Navigation error:', error);
-            window.location.href = url; // Fallback to standard navigation
+            window.location.href = url;
         } finally {
-            // Buffer to ensure CSS transition completes
             setTimeout(() => {
                 isAnimating = false;
-                
-                // Process the queue if a new request came in
                 if (pendingNavigation) {
                     const next = pendingNavigation;
                     if (next.url !== window.location.href) {
@@ -127,12 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /**
      * Executes the visual transition between pages.
-     * * @param {string} htmlContent - The new HTML content to inject.
      */
     function performTransition(htmlContent) {
         if (!mainContainer) return;
 
-        // Snapshot old content for exit animation
         const oldContent = document.createElement('div');
         oldContent.className = 'view-exit'; 
         while (mainContainer.firstChild) {
@@ -140,33 +132,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         mainContainer.appendChild(oldContent);
 
-        // Inject new content
         const newContent = document.createElement('div');
         newContent.className = 'view-wrapper view-visible';
         newContent.innerHTML = htmlContent;
         mainContainer.appendChild(newContent);
 
-        // Force browser reflow to trigger animation
         void newContent.offsetWidth;
 
-        // Cleanup after animation
         setTimeout(() => {
             oldContent.remove();
-            
             while (newContent.firstChild) {
                 mainContainer.appendChild(newContent.firstChild);
             }
             newContent.remove();
             
             reattachDynamicEvents();
-            initToast(); // Re-initialize toasts for new content
+            initToast();
+            cleanInlineHandlers(); // Re-clean after navigation
         }, 300); 
     }
 
-    /**
-     * Updates the active state of navigation links and moves the marker.
-     * * @param {string} currentUrl 
-     */
     function updateActiveMenu(currentUrl) {
         navLinks.forEach(link => {
             if (link.href === currentUrl) {
@@ -178,10 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    /**
-     * Moves the sliding underline marker to the target element.
-     * * @param {HTMLElement} element 
-     */
     function moveIndicator(element) {
         if (element && marker) {
             const parentRect = element.closest('.nav-links').getBoundingClientRect();
@@ -191,23 +172,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    /**
-     * Re-attaches event listeners to dynamic elements (e.g., Live Search).
-     * Called after content replacement.
-     */
     function reattachDynamicEvents() {
         const keywordInput = document.getElementById('keyword');
         const gridContainer = document.getElementById('character-grid');
 
         if (keywordInput && gridContainer) {
-            // Clone node to strip old listeners and avoid duplication
             const newInput = keywordInput.cloneNode(true);
             keywordInput.parentNode.replaceChild(newInput, keywordInput);
             
             newInput.addEventListener('keyup', function() {
                 const keyword = this.value;
-                
-                // Use the correct Base URL
                 fetch(baseURL + '/characters/liveSearch', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -225,26 +199,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /**
      * Initializes Toast Notifications.
-     * Sets auto-dismiss timer and click-to-dismiss behavior.
      */
     function initToast() {
         const toast = document.querySelector('.flash-toast');
         if (toast) {
-            // Auto dismiss after 4 seconds
             setTimeout(() => {
                 dismissToast(toast);
             }, 4000);
-
-            // Allow manual dismissal
             toast.style.pointerEvents = 'auto';
             toast.addEventListener('click', () => dismissToast(toast));
         }
     }
 
-    /**
-     * Animates the toast out and removes it from DOM.
-     * * @param {HTMLElement} element 
-     */
     function dismissToast(element) {
         if (!element) return;
         element.classList.add('hiding');
@@ -255,17 +221,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /**
      * Shows a custom iOS-style confirmation modal.
-     * This replaces the native window.confirm to match the Premium UI.
-     * * @param {string} title 
-     * @param {string} message 
-     * @param {Function} onConfirm 
      */
     function showCustomConfirm(title, message, onConfirm) {
-        // Create Overlay
         const overlay = document.createElement('div');
-        overlay.className = 'ios-modal-overlay'; // This class now has fixed positioning 100vw/100vh
+        overlay.className = 'ios-modal-overlay'; // Fixed centered overlay
 
-        // Create Modal HTML
         overlay.innerHTML = `
             <div class="ios-modal">
                 <div class="ios-modal-content">
@@ -279,15 +239,12 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        // Append to Body to ensure it's on top of everything
         document.body.appendChild(overlay);
 
-        // Focus management could be added here, but simple click handlers suffice for now
         const cancelBtn = overlay.querySelector('.btn-cancel');
         const confirmBtn = overlay.querySelector('.btn-confirm');
 
         function closeModal() {
-            // Fade out
             overlay.style.transition = 'opacity 0.2s ease';
             overlay.style.opacity = '0';
             setTimeout(() => {
@@ -308,7 +265,6 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         });
 
-        // Close on backdrop click
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) closeModal();
         });
@@ -317,26 +273,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Initialization & Event Listeners ---
 
     navLinks.forEach(link => {
-        // Hover Intent
         link.addEventListener('mouseenter', (e) => {
             moveIndicator(e.target);
             const targetUrl = link.href;
-            if (targetUrl !== window.location.href) {
-                prefetchPage(targetUrl);
-            }
-            hoverTimeout = setTimeout(() => {
-                navigateTo(targetUrl);
-            }, HOVER_DELAY);
+            if (targetUrl !== window.location.href) prefetchPage(targetUrl);
+            hoverTimeout = setTimeout(() => navigateTo(targetUrl), HOVER_DELAY);
         });
 
-        // Cancel navigation
         link.addEventListener('mouseleave', () => {
             clearTimeout(hoverTimeout);
             const activeLink = document.querySelector('.nav-links a.active');
             if (activeLink) moveIndicator(activeLink);
         });
 
-        // Click fallback
         link.addEventListener('click', (e) => {
             e.preventDefault();
             clearTimeout(hoverTimeout);
@@ -344,35 +293,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Handle Browser Back/Forward buttons
     window.addEventListener('popstate', () => {
         navigateTo(window.location.href, false);
     });
 
-    // Initial Marker Position
+    // Initial Setup
     const activeLink = document.querySelector('.nav-links a.active');
     if (activeLink) {
         moveIndicator(activeLink);
         setTimeout(() => moveIndicator(activeLink), 100);
     }
     
-    // Initial Setup
     reattachDynamicEvents();
     initToast();
+    cleanInlineHandlers(); // Run on first load
 
-    // Global Confirm Delete Handler (Replacing Native Alert with Premium Modal)
+    // Global Confirm Delete Handler (Using Custom Modal)
     document.addEventListener('click', function(e) {
-        // Target element checking - support icons inside buttons
         let target = e.target;
         if (!target.classList.contains('btn-danger') && !target.classList.contains('item-delete-btn')) {
             target = target.closest('.btn-danger, .item-delete-btn');
         }
 
         if (target && (target.classList.contains('btn-danger') || target.classList.contains('item-delete-btn'))) {
-            // Check if it's a link or form submit
             const deleteUrl = target.getAttribute('href');
             
-            // If it's a link, we intercept
             if (deleteUrl && deleteUrl !== '#') {
                 e.preventDefault();
                 e.stopPropagation();
@@ -388,7 +333,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Responsive Marker Adjustment
     window.addEventListener('resize', () => {
         const currentActive = document.querySelector('.nav-links a.active');
         if (currentActive) moveIndicator(currentActive);
