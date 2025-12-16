@@ -8,7 +8,8 @@ class Characters extends Controller
     public function add()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $writer = $this->model('CharacterWriter');
+            // Updated path
+            $writer = $this->model('characters/CharacterWriter');
             $data = [
                 'name' => trim($_POST['name']),
                 'element' => trim($_POST['element']),
@@ -17,10 +18,8 @@ class Characters extends Controller
                 'region' => trim($_POST['region']),
                 'description' => trim($_POST['description'])
             ];
-
-            if ($writer->add($data)) {
-                header('Location: ' . URLROOT);
-            } else { die('Error adding character'); }
+            if ($writer->add($data)) header('Location: ' . URLROOT);
+            else die('Error adding character');
         } else {
             $this->view('characters/add', ['title' => 'Add Character']);
         }
