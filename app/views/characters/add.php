@@ -1,39 +1,51 @@
+<?php
+/**
+ * View: Add Character
+ * Description: Displays the form to add a new character.
+ * Uses a Split Card layout (Image Left, Form Right) to match the homepage aesthetic.
+ *
+ * @var array $data Contains title, weapons, artifacts, and other view data.
+ */
+?>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <div class="content-header" style="align-items: center; overflow: hidden; position: relative;">
+            
+            <div class="form-split-card">
                 
-                <div class="content-title" style="flex: 1; z-index: 2;">
-                    <h3>Tambah Karakter Baru</h3>
-                    <p>Lengkapi data di bawah untuk menambahkan karakter ke database.</p>
+                <div class="form-split-visual">
+                    <img src="<?= BASEURL; ?>/img/home/mizuki-hotspring.jpg" 
+                         alt="New Character Banner" 
+                         loading="lazy">
+                    
+                    <a href="<?= BASEURL; ?>/characters" class="visual-back-btn">
+                        &larr; Kembali
+                    </a>
                 </div>
 
-                <img src="<?= BASEURL; ?>/img/home/mizuki-hotspring.jpg" 
-                     alt="Hero Visual" 
-                     style="height: 120px; width: auto; border-radius: 12px; object-fit: cover; margin: 0 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
-                     class="d-none d-md-block">
-
-                <a href="<?= BASEURL; ?>/characters" class="btn-back" style="z-index: 2;">
-                    &larr; Kembali
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-            <div class="card-item" style="padding: 32px; background: var(--bg-panel); border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
-                
-                <form action="<?= BASEURL; ?>/characters/store" method="post" novalidate>
+                <div class="form-split-content">
                     
-                    <?php require_once __DIR__ . '/form_fields.php'; ?>
-
-                    <div class="form-group" style="margin-top: 32px;">
-                        <button type="submit" class="btn-cta" style="width: 100%;">Simpan Data</button>
+                    <div class="form-header-simple">
+                        <h2>Tambah Karakter</h2>
+                        <p>Lengkapi identitas, atribut, dan relasi untuk mendaftarkan pahlawan baru ke database.</p>
                     </div>
 
-                </form>
+                    <form action="<?= BASEURL; ?>/characters/store" method="post" autocomplete="off">
+                        
+                        <?php require_once __DIR__ . '/form_fields.php'; ?>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn-cta btn-black w-100">
+                                Simpan Karakter
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
             </div>
+
         </div>
     </div>
 </div>
