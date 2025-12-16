@@ -2,7 +2,7 @@
 /**
  * Footer Template
  * * Contains the closing tags for the main container and the footer section.
- * Refactored to a minimal, single-column layout.
+ * Refactored to a minimal, single-column layout with centered content.
  */
 ?>
 </main> 
@@ -10,7 +10,7 @@
 <footer class="main-footer">
     <div class="container footer-content">
         
-        <p class="footer-text">Genpedia, dikembangkan oleh <strong>@franzxml</strong>.</p>
+        <p class="footer-text">Genpedia, dikembangkan oleh @franzxml.</p>
         
         <div class="footer-socials">
             <a href="https://instagram.com/franzxml" target="_blank" aria-label="Instagram">
