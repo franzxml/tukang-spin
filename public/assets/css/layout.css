@@ -22,11 +22,11 @@
     text-decoration: none;
 }
 
-/* Updated Logo Size */
+/* Updated Logo Size: 80x80 */
 .nav-logo {
-    height: 40px;
-    width: 40px; /* Enforce square dimension */
-    object-fit: contain; /* Prevent distortion if image isn't square */
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
     display: block;
 }
 
