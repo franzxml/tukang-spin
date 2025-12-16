@@ -2,51 +2,27 @@
  * Main Stylesheet for Genpedia
  * Theme: Apple Human Interface (Light Mode).
  * Font: Inter (Premium, Clean, Modern).
- * Features: Modular Architecture.
+ * Features: Modular Architecture with Sub-Indices.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* --- 1. Base & Reset --- */
+/* --- 1. Base --- */
 @import 'modules/base.css';
 
-/* --- 2. Layout Structure & Navigation --- */
-@import 'modules/layout.css';
-@import 'modules/header.css';
-@import 'modules/branding.css';
-@import 'modules/nav-links.css';
-@import 'modules/nav-marker.css';
-@import 'modules/footer.css';
+/* --- 2. Structure & Navigation --- */
+@import 'modules/index-structure.css';
 
-/* --- 3. UI Components (Modular) --- */
-/* Buttons */
-@import 'modules/buttons-core.css';
-@import 'modules/buttons-special.css';
-@import 'modules/links.css';
+/* --- 3. UI Components --- */
+@import 'modules/index-buttons.css';
+@import 'modules/index-cards.css';
 
-/* Content Headers */
-@import 'modules/content-header-layout.css';
-@import 'modules/content-header-typography.css';
-@import 'modules/content-header-actions.css';
-
-/* Cards System */
-@import 'modules/grid-layout.css';
-@import 'modules/card-container.css';
-@import 'modules/card-media.css';
-@import 'modules/card-content.css';
-@import 'modules/card-badges.css';
-
-/* Forms & Feedback */
+/* Standalone Components */
 @import 'modules/forms.css';
 @import 'modules/toasts.css';
 @import 'modules/modals.css';
 
-/* --- 4. Page Specific Modules --- */
-/* Hero Section (Modularized) */
-@import 'modules/hero-layout.css';
-@import 'modules/hero-text.css';
-@import 'modules/hero-actions.css';
-@import 'modules/hero-visual.css';
-
+/* --- 4. Page Specifics --- */
+@import 'modules/index-hero.css';
 @import 'modules/stats.css';
 @import 'modules/detail.css';

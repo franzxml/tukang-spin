@@ -1,0 +1,9 @@
+/*
+ * Module Index: Hero
+ * Groups all hero section sub-modules.
+ */
+
+@import 'hero-layout.css';
+@import 'hero-text.css';
+@import 'hero-actions.css';
+@import 'hero-visual.css';
