@@ -33,4 +33,17 @@ trait CharacterWriteActions
             exit;
         }
     }
+
+    /**
+     * Handle deletion.
+     * @param mixed $id
+     */
+    public function delete($id): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            (new Character())->delete($id);
+            header('Location: /character');
+            exit;
+        }
+    }
 }

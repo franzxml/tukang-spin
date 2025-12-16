@@ -45,4 +45,16 @@ trait CharacterWrites
             ':rar' => $data['rarity'], ':reg' => $data['region']
         ]);
     }
+
+    /**
+     * Delete a character.
+     * @param mixed $id
+     * @return bool
+     */
+    public function delete($id): bool
+    {
+        $sql = "DELETE FROM characters WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':id' => $id]);
+    }
 }
