@@ -6,7 +6,7 @@
 .navbar {
     background: #F4F5F6;
     color: #333;
-    padding: 1rem 0;
+    padding: 0.8rem 0; /* Slightly reduced padding */
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
@@ -22,6 +22,17 @@
     color: #333;
     text-decoration: none;
     letter-spacing: 1px;
+    
+    /* Flex alignment for Image + Text */
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+/* New Logo Style */
+.nav-logo {
+    height: 35px; /* Adjust based on your logo size */
+    width: auto;
 }
 
 .navbar ul {

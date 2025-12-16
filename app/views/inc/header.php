@@ -15,7 +15,11 @@
 <body>
     <nav class="navbar">
         <div class="container nav-flex">
-            <a href="<?php echo URLROOT; ?>" class="brand"><?php echo SITENAME; ?></a>
+            <a href="<?php echo URLROOT; ?>" class="brand">
+                <img src="<?php echo URLROOT; ?>/assets/img/favicon.png" alt="Genpedia Logo" class="nav-logo">
+                <?php echo SITENAME; ?>
+            </a>
+            
             <ul>
                 <li><a href="<?php echo URLROOT; ?>">Home</a></li>
                 <li><a href="<?php echo URLROOT; ?>/characters">Characters</a></li>
