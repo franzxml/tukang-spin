@@ -12,7 +12,7 @@
             <p class="hero-description">Kelola roster, lihat statistik build, dan atur tim Anda dengan mudah.</p>
             
             <div class="hero-search-container">
-                <input type="text" id="keyword" placeholder="Cari nama karakter..." autocomplete="off" style="background: white; border: 1px solid var(--border-subtle); box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <input type="text" id="keyword" class="hero-input" placeholder="Cari nama karakter..." autocomplete="off">
                 
                 <a href="<?= BASEURL; ?>/characters/add" class="btn-cta btn-black" style="text-align: center;">+ Tambah Baru</a>
             </div>

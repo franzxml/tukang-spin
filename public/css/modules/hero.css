@@ -7,7 +7,7 @@
 .hero-section {
     background-color: var(--bg-panel);
     border-radius: 28px;
-    margin-top: 5px; /* Mobile margin */
+    margin-top: 5px;
     margin-bottom: 40px;
     overflow: hidden;
     display: flex;
@@ -16,7 +16,6 @@
 }
 
 .hero-text {
-    /* Padding: 16px Vertical, 24px Horizontal */
     padding: 16px 24px; 
     flex: 1;
     display: flex;
@@ -26,20 +25,64 @@
 }
 
 .hero-title {
-    font-size: 2.5rem; /* Mobile Size */
+    font-size: 2.5rem;
     font-weight: 700;
-    color: #000000; /* Explicit Black */
+    color: #000000;
     line-height: 1.1;
-    margin-bottom: 16px;
+    
+    /* FIX: Closer to description for better grouping */
+    margin-bottom: 8px; 
+    margin-top: 0;
 }
 
 .hero-description {
     font-size: 1rem;
-    color: #000000; /* Explicit Black */
+    color: #000000;
     line-height: 1.5;
-    margin-bottom: 0;
+    
+    /* FIX: Larger gap before the search/action area */
+    margin-bottom: 24px; 
 }
 
+/* --- Action Containers --- */
+
+/* For Home Page */
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center; /* Centered on mobile */
+}
+
+/* For Character Page (Search + Add) */
+.hero-search-container {
+    display: flex;
+    flex-direction: column;
+    /* FIX: Ideal gap between Search Box and Add Button */
+    gap: 16px; 
+    width: 100%;
+}
+
+/* Styled Input for Hero */
+.hero-input {
+    width: 100%;
+    padding: 14px 16px; /* Comfortable touch target */
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: white;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    outline: none;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+}
+
+.hero-input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+}
+
+/* --- Visuals --- */
 .hero-visual {
     display: flex; 
     flex-direction: column;
@@ -69,22 +112,30 @@
     .hero-text {
         align-items: flex-start;
         padding: 16px 24px; 
-        flex: 1; /* 50% Width */
+        flex: 1; 
     }
 
     .hero-title { 
-        font-size: 48px; /* Desktop Size */
-        margin-top: 0;
-        margin-bottom: 16px;
+        font-size: 48px;
+        margin-bottom: 8px;
     }
 
     .hero-description { 
-        font-size: 16px; /* Desktop Size */
-        margin: 0;
+        font-size: 16px;
+        margin-bottom: 24px;
         max-width: 100%;
+    }
+    
+    .hero-actions {
+        justify-content: flex-start;
+    }
+
+    .hero-search-container {
+        /* Constrain width on desktop for better aesthetics */
+        max-width: 400px; 
     }
 
     .hero-visual {
-        flex: 1; /* 50% Width */
+        flex: 1; 
     }
 }
