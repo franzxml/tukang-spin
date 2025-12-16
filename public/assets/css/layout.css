@@ -54,45 +54,50 @@
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
+    /* Clickable area remains large */
     padding: 16px 24px;
     display: inline-block;
+}
+
+/* Make the span relative so the absolute bar sticks to IT, not the big link box */
+.navbar ul li a span {
     position: relative;
+    display: inline-block;
 }
 
 .navbar ul li a:hover {
     color: #333; 
 }
 
-/* Base Bar State (Hidden) */
-.navbar ul li a::after {
+/* Base Bar State: Attached to SPAN */
+.navbar ul li a span::after {
     content: '';
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: 0;
+    bottom: -4px; /* Slight gap below text */
     left: 0;
     background-color: #333;
-    transition: width 0.3s ease-in-out;
+    /* Faster animation: 0.2s */
+    transition: width 0.2s ease-in-out;
 }
 
-/* 1. Normal Hover: Always show bar on the hovered item */
-.navbar ul li a:hover::after {
+/* Hover State */
+.navbar ul li a:hover span::after {
     width: 100%;
 }
 
-/* 2. Active State: Show bar normally... */
-.navbar ul li a.active::after {
+/* Active State */
+.navbar ul li a.active span::after {
     width: 100%;
 }
 
-/* 3. THE FIX: If the user hovers anywhere on the UL (the menu), hide the 'Active' bar */
-/* This allows the 'Hover' bar to take over, creating the 'Follow' effect */
-.navbar ul:hover li a.active::after {
+/* Smart Sliding Logic (Updated for Span) */
+.navbar ul:hover li a.active span::after {
     width: 0;
 }
 
-/* 4. Exception: If the user hovers the Active link itself, keep it visible */
-.navbar ul:hover li a.active:hover::after {
+.navbar ul:hover li a.active:hover span::after {
     width: 100%;
 }
 
