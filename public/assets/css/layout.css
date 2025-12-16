@@ -6,7 +6,7 @@
 .navbar {
     background: #F4F5F6;
     color: #333;
-    padding: 0.8rem 0; /* Slightly reduced padding */
+    padding: 0.8rem 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
@@ -17,22 +17,17 @@
 }
 
 .brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-    letter-spacing: 1px;
-    
-    /* Flex alignment for Image + Text */
     display: flex;
     align-items: center;
-    gap: 10px; 
+    text-decoration: none;
+    /* Removed gap as there is no text */
 }
 
-/* New Logo Style */
+/* Standalone Logo Style */
 .nav-logo {
-    height: 35px; /* Adjust based on your logo size */
+    height: 40px; /* Increased size slightly for visibility */
     width: auto;
+    display: block;
 }
 
 .navbar ul {

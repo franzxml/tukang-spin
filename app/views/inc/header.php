@@ -17,7 +17,6 @@
         <div class="container nav-flex">
             <a href="<?php echo URLROOT; ?>" class="brand">
                 <img src="<?php echo URLROOT; ?>/assets/img/favicon.png" alt="Genpedia Logo" class="nav-logo">
-                <?php echo SITENAME; ?>
             </a>
             
             <ul>
