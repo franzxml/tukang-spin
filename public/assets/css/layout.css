@@ -75,13 +75,24 @@
     transition: width 0.3s ease-in-out;
 }
 
-/* Hover State: Slide In */
+/* 1. Normal Hover: Always show bar on the hovered item */
 .navbar ul li a:hover::after {
     width: 100%;
 }
 
-/* Active State: Stay Visible */
+/* 2. Active State: Show bar normally... */
 .navbar ul li a.active::after {
+    width: 100%;
+}
+
+/* 3. THE FIX: If the user hovers anywhere on the UL (the menu), hide the 'Active' bar */
+/* This allows the 'Hover' bar to take over, creating the 'Follow' effect */
+.navbar ul:hover li a.active::after {
+    width: 0;
+}
+
+/* 4. Exception: If the user hovers the Active link itself, keep it visible */
+.navbar ul:hover li a.active:hover::after {
     width: 100%;
 }
 

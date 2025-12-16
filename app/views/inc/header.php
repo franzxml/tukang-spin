@@ -1,15 +1,10 @@
 <?php
 // Helper to set active class
 function isActive($keyword) {
-    // Check if the current URL contains the keyword
     $currentUrl = $_SERVER['REQUEST_URI'];
-    
-    // Special case for Home (root)
     if ($keyword == '/' && (trim($currentUrl, '/') == '' || $currentUrl == '/genpedia/')) {
         return 'active';
     }
-    
-    // For other pages (ensure we don't match partial words if possible, but simple strpos works for now)
     if ($keyword != '/' && strpos($currentUrl, $keyword) !== false) {
         return 'active';
     }
@@ -35,7 +30,7 @@ function isActive($keyword) {
                 <img src="<?php echo URLROOT; ?>/assets/img/favicon.png" alt="Genpedia Logo" class="nav-logo">
             </a>
             
-            <ul>
+            <ul id="nav-menu">
                 <li><a href="<?php echo URLROOT; ?>" class="<?php echo isActive('/'); ?>">Home</a></li>
                 <li><a href="<?php echo URLROOT; ?>/characters" class="<?php echo isActive('characters'); ?>">Character</a></li>
                 <li><a href="<?php echo URLROOT; ?>/weapons" class="<?php echo isActive('weapons'); ?>">Weapon</a></li>
@@ -44,3 +39,18 @@ function isActive($keyword) {
         </div>
     </nav>
     <main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('#nav-menu li a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    // Only navigate if we aren't already on that page (to prevent loops)
+                    if (!this.classList.contains('active')) {
+                        window.location.href = this.href;
+                    }
+                });
+            });
+        });
+    </script>
