@@ -1,50 +1,53 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php
+/**
+ * Core Application Class.
+ * Manages URL routing and controller instantiation.
+ *
+ * @package App\Core
+ */
+class App {
+    protected $controller = 'Home';
+    protected $method = 'index';
+    protected $params = [];
 
-<div class="container">
-    <a href="<?php echo URLROOT; ?>/characters" class="back-link">Back to Archive</a>
-    <h2>Add New Character</h2>
-    
-    <form action="<?php echo URLROOT; ?>/characters/add" method="POST">
-        <div class="form-group">
-            <label>Name: 
-                <input type="text" name="name" required autocomplete="off">
-            </label>
-        </div>
-        
-        <div class="form-group">
-            <label>Weapon Type:</label>
-            <select name="weapon" required>
-                <option value="Sword">Sword</option>
-                <option value="Polearm">Polearm</option>
-                <option value="Claymore">Claymore</option>
-                <option value="Bow">Bow</option>
-                <option value="Catalyst">Catalyst</option>
-            </select>
-        </div>
+    /**
+     * Initialize the application.
+     */
+    public function __construct() {
+        $url = $this->parseUrl();
 
-        <div class="form-group">
-            <label>Level (1-90): 
-                <input type="number" name="level" min="1" max="90" value="1" required>
-            </label>
-        </div>
+        // Check if controller exists
+        if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
+            $this->controller = ucwords($url[0]);
+            unset($url[0]);
+        }
 
-        <div class="form-group">
-            <label>Talent Levels (NA / Skill / Burst):</label>
-            <div style="display: flex; gap: 10px;">
-                <select name="talent_na" required>
-                    <?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Normal: $i</option>"; ?>
-                </select>
-                <select name="talent_es" required>
-                    <?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Skill: $i</option>"; ?>
-                </select>
-                <select name="talent_eb" required>
-                    <?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Burst: $i</option>"; ?>
-                </select>
-            </div>
-        </div>
+        require_once '../app/controllers/' . $this->controller . '.php';
+        $this->controller = new $this->controller;
 
-        <input type="submit" value="Submit" class="btn">
-    </form>
-</div>
+        // Check if method exists
+        if (isset($url[1])) {
+            if (method_exists($this->controller, $url[1])) {
+                $this->method = $url[1];
+                unset($url[1]);
+            }
+        }
 
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+        // Get params
+        $this->params = $url ? array_values($url) : [];
+
+        // Call callback with array of params
+        call_user_func_array([$this->controller, $this->method], $this->params);
+    }
+
+    /**
+     * Parse the URL parameter.
+     * @return array
+     */
+    public function parseUrl() {
+        if (isset($_GET['url'])) {
+            return explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+        }
+        return ['Home']; // Default fallback
+    }
+}

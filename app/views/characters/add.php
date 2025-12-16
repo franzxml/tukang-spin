@@ -6,17 +6,43 @@
     
     <form action="<?php echo URLROOT; ?>/characters/add" method="POST">
         <div class="form-group">
-            <label>Name: <input type="text" name="name" required></label>
+            <label>Name: 
+                <input type="text" name="name" required autocomplete="off">
+            </label>
         </div>
+        
         <div class="form-group">
-            <label>Weapon: <input type="text" name="weapon" required></label>
+            <label>Weapon Type:</label>
+            <select name="weapon" required>
+                <option value="Sword">Sword</option>
+                <option value="Polearm">Polearm</option>
+                <option value="Claymore">Claymore</option>
+                <option value="Bow">Bow</option>
+                <option value="Catalyst">Catalyst</option>
+            </select>
         </div>
+
         <div class="form-group">
-            <label>Level (1-90): <input type="number" name="level" min="1" max="90" value="1" required></label>
+            <label>Level (1-90): 
+                <input type="number" name="level" min="1" max="90" value="1" required>
+            </label>
         </div>
+
         <div class="form-group">
-            <label>Talents (e.g., 8/8/8): <input type="text" name="talents_level" placeholder="1/1/1" required></label>
+            <label>Talent Levels (NA / Skill / Burst):</label>
+            <div style="display: flex; gap: 10px;">
+                <select name="talent_na" required>
+                    <?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Normal: $i</option>"; ?>
+                </select>
+                <select name="talent_es" required>
+                    <?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Skill: $i</option>"; ?>
+                </select>
+                <select name="talent_eb" required>
+                    <?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Burst: $i</option>"; ?>
+                </select>
+            </div>
         </div>
+
         <input type="submit" value="Submit" class="btn">
     </form>
 </div>
