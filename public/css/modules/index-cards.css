@@ -10,7 +10,12 @@
 
 /* Card System */
 @import 'grid-layout.css';
-@import 'card-container.css';
+
+/* Modularized Card Types */
+@import 'card-grid-item.css';
+@import 'card-split-form.css';
+
+/* Card Internals */
 @import 'card-media.css';
 @import 'card-content.css';
 @import 'card-badges.css';
