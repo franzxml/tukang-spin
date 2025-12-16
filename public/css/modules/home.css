@@ -17,7 +17,8 @@
 }
 
 .hero-text {
-    padding: 25px 20px; 
+    /* FIX: Set padding to 16px (top/bottom) and 24px (left/right) */
+    padding: 16px 24px; 
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -94,7 +95,8 @@
 
     .hero-text {
         align-items: flex-start;
-        padding: 30px; 
+        /* Maintain consistent padding for desktop as well */
+        padding: 16px 24px; 
     }
 
     .hero-title { font-size: 3.5rem; }
@@ -116,7 +118,8 @@
 }
 
 .stats-content {
-    padding: 25px 20px; 
+    /* FIX: Applying same padding 16px 24px for consistency */
+    padding: 16px 24px; 
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -192,7 +195,8 @@
 
     .stats-content {
         align-items: flex-start;
-        padding: 30px; 
+        /* Maintain consistent padding for desktop */
+        padding: 16px 24px; 
     }
     
     .stats-title { margin-bottom: 25px; }
