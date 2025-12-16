@@ -1,15 +1,22 @@
 <?php
 /**
- * Characters Controller (Add)
+ * Edit Controller
+ * Handles Update Logic.
  * @package Genpedia
  */
-class Characters extends Controller
+class Edit extends Controller
 {
-    public function add()
+    public function index($id)
+    {
+        $char = $this->model('Character')->getCharacterById($id);
+        $this->view('characters/edit', ['char' => $char]);
+    }
+
+    public function update($id)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $writer = $this->model('CharacterWriter');
             $data = [
+                'id' => $id,
                 'name' => trim($_POST['name']),
                 'element' => trim($_POST['element']),
                 'weapon' => trim($_POST['weapon']),
@@ -17,12 +24,9 @@ class Characters extends Controller
                 'region' => trim($_POST['region']),
                 'description' => trim($_POST['description'])
             ];
-
-            if ($writer->add($data)) {
+            if ($this->model('CharacterWriter')->update($data)) {
                 header('Location: ' . URLROOT);
-            } else { die('Error adding character'); }
-        } else {
-            $this->view('characters/add', ['title' => 'Add Character']);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 /**
- * Character Model
+ * Character Model (Read)
+ * Handles data retrieval.
  * @package Genpedia
  */
 class Character
@@ -18,19 +19,11 @@ class Character
         return $this->db->resultSet();
     }
 
-    public function add($data)
+    public function getCharacterById($id)
     {
-        $sql = "INSERT INTO characters (name, element, weapon, rarity, region, description) 
-                VALUES (:nm, :el, :wp, :rr, :rg, :ds)";
-        
+        $sql = "SELECT * FROM characters WHERE id = :id";
         $this->db->query($sql);
-        $this->db->bind(':nm', $data['name']);
-        $this->db->bind(':el', $data['element']);
-        $this->db->bind(':wp', $data['weapon']);
-        $this->db->bind(':rr', $data['rarity']);
-        $this->db->bind(':rg', $data['region']);
-        $this->db->bind(':ds', $data['description']);
-
-        return $this->db->execute();
+        $this->db->bind(':id', $id);
+        return $this->db->single(); // Need to add single() to DB
     }
 }
