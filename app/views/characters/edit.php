@@ -2,7 +2,7 @@
 <div class="container">
     <div style="display:flex; justify-content:space-between; align-items:center;">
         <h2>Edit Character</h2>
-        <form action="<?php echo URLROOT; ?>/delete/index/<?php echo $data['char']->id; ?>" 
+        <form action="<?php echo URLROOT; ?>/manage/delete/<?php echo $data['char']->id; ?>" 
               method="POST" 
               onsubmit="return confirm('Are you sure?');">
             <input type="submit" value="Delete" style="background:red; color:white; border:none; cursor:pointer;">
@@ -10,7 +10,7 @@
     </div>
 
     <?php $c = $data['char']; ?>
-    <form action="<?php echo URLROOT; ?>/edit/update/<?php echo $c->id; ?>" method="POST">
+    <form action="<?php echo URLROOT; ?>/manage/update/<?php echo $c->id; ?>" method="POST">
         <label>Name: <input type="text" name="name" value="<?php echo $c->name; ?>" required></label><br>
         
         <label>Element: <select name="element">

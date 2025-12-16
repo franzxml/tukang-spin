@@ -1,12 +1,12 @@
 <?php
 /**
- * Edit Controller
- * Handles Update Logic.
+ * Manage Controller
+ * Handles Edit, Update, and Delete actions.
  * @package Genpedia
  */
-class Edit extends Controller
+class Manage extends Controller
 {
-    public function index($id)
+    public function edit($id)
     {
         $char = $this->model('Character')->getCharacterById($id);
         $this->view('characters/edit', ['char' => $char]);
@@ -25,6 +25,15 @@ class Edit extends Controller
                 'description' => trim($_POST['description'])
             ];
             if ($this->model('CharacterWriter')->update($data)) {
+                header('Location: ' . URLROOT);
+            }
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->model('CharacterRemover')->delete($id)) {
                 header('Location: ' . URLROOT);
             }
         }

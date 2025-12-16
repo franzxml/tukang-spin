@@ -20,7 +20,7 @@
                 <span class="badge"><?php echo $char->element; ?></span>
                 <p><strong>Weapon:</strong> <?php echo $char->weapon; ?></p>
                 <p><strong>Rarity:</strong> <?php echo $char->rarity; ?> Star</p>
-                <a href="<?php echo URLROOT; ?>/edit/index/<?php echo $char->id; ?>" 
+                <a href="<?php echo URLROOT; ?>/manage/edit/<?php echo $char->id; ?>" 
                    style="display:block; margin-top:10px; color:#333;">Edit</a>
             </div>
         <?php endforeach; ?>
