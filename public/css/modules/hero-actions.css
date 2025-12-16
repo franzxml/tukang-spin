@@ -33,9 +33,17 @@
     color: var(--text-primary);
 }
 
+/* FIX: Prevent Gray Background on Hover */
+.hero-input:hover {
+    background: white; /* Keep white */
+    border-color: #a1a1a6; /* Subtle darken border for feedback */
+}
+
+/* FIX: Remove Blue Glow on Focus (Neutral Style) */
 .hero-input:focus {
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+    background: white;
+    border-color: #6e6e73; /* Neutral Dark Gray Border */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Neutral Shadow */
 }
 
 /* Desktop Adjustment */
