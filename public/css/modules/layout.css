@@ -1,6 +1,7 @@
 /*
  * Module: Layout
  * Contains: Container, Header/Navbar, and Footer styling.
+ * Follows Apple Human Interface Guidelines for spacing and typography.
  */
 
 /* --- Container --- */
@@ -8,7 +9,7 @@
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-    /* FIX: Increased padding to 24px for better edge spacing (Premium Standard) */
+    /* Maintain 24px horizontal padding for premium edge spacing */
     padding: 0 24px;
     position: relative; 
 }
@@ -76,7 +77,8 @@
 
 @media (min-width: 768px) {
     .nav-links {
-        gap: 40px;
+        /* FIX: Set spacing between navigation items to exactly 24px */
+        gap: 24px;
     }
 }
 
