@@ -1,6 +1,6 @@
 /**
  * Main Stylesheet.
- * Includes global resets and specific Home page styles.
+ * Global resets and base typography.
  */
 
 :root {
@@ -29,14 +29,11 @@ body {
 .container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px; /* Updated Left-Right spacing */
 }
 
-.text-center {
-    text-align: center;
-}
+.text-center { text-align: center; }
 
-/* Hero Section */
 .hero-section {
     background: var(--white);
     padding: 3rem 2rem;
@@ -61,11 +58,4 @@ body {
     border: 0;
     border-top: 1px solid #eee;
     margin: 2rem 0;
-}
-
-.btn-large {
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
-    margin-top: 1rem;
-    display: inline-block;
 }
