@@ -6,7 +6,7 @@
 .navbar {
     background: #F4F5F6;
     color: #333;
-    padding: 16px 0; /* Updated Top-Down spacing */
+    padding: 16px 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
@@ -22,9 +22,11 @@
     text-decoration: none;
 }
 
+/* Updated Logo Size */
 .nav-logo {
     height: 40px;
-    width: auto;
+    width: 40px; /* Enforce square dimension */
+    object-fit: contain; /* Prevent distortion if image isn't square */
     display: block;
 }
 
