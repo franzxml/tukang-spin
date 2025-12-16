@@ -2,23 +2,30 @@
 /**
  * Character Actions Trait.
  *
- * Handles Add and Edit logic.
+ * Handles Add and Edit logic including new dropdown processing.
  *
  * @package App\Controllers\Traits
  */
 trait CharacterActions {
     private function handleForm($mode, $id = null) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Common fields
+            // Concatenate talents into "NA/ES/EB" format
+            $talents = [
+                $_POST['talent_na'],
+                $_POST['talent_es'],
+                $_POST['talent_eb']
+            ];
+            $talentsString = implode('/', $talents);
+
             $data = [
                 'id' => $id,
                 'name' => trim($_POST['name']),
                 'weapon' => trim($_POST['weapon']),
                 'level' => trim($_POST['level']),
-                'talents_level' => trim($_POST['talents_level'])
+                'talents_level' => $talentsString
             ];
 
-            // Only capture these if they exist (for Edit mode compliance)
+            // Optional fields (Edit mode)
             $data['element'] = isset($_POST['element']) ? trim($_POST['element']) : null;
             $data['rarity'] = isset($_POST['rarity']) ? trim($_POST['rarity']) : null;
             $data['region'] = isset($_POST['region']) ? trim($_POST['region']) : null;
