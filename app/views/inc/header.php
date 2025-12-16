@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($data['title']) ? $data['title'] : SITENAME; ?></title>
+    
+    <link rel="icon" href="<?php echo URLROOT; ?>/assets/img/favicon.png" type="image/png">
+    
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/layout.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/cards.css">
