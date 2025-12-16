@@ -8,7 +8,8 @@
     justify-content: center;
     align-items: center;
     padding: 14px 28px;
-    background-color: var(--accent-blue);
+    /* FIX: Changed base color to Black */
+    background-color: #1d1d1f; 
     color: white;
     border-radius: 14px;
     font-weight: 600;
@@ -18,14 +19,14 @@
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-decoration: none;
     line-height: 1.2;
-    box-shadow: 0 4px 6px rgba(0, 113, 227, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn-cta:hover {
-    background-color: #0077ED;
+    /* FIX: Hover color to Dark Gray */
+    background-color: #3a3a3c; 
     transform: translateY(-2px);
-    /* Neutral shadow (No blue glow) */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-cta:active {
@@ -33,6 +34,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* ... (Sisa kode tombol lainnya tetap) ... */
 .btn-secondary {
     background-color: rgba(118, 118, 128, 0.12) !important;
     color: var(--text-primary) !important;

@@ -30,8 +30,9 @@
     text-decoration: none;
 }
 
+/* FIX: Hover state neutral (Black text, no blue) */
 .btn-back:hover {
     transform: translateX(-4px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    color: var(--accent-blue);
+    color: #000000; /* Changed from accent-blue to black */
 }

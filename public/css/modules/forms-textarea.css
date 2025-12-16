@@ -1,10 +1,15 @@
 /*
  * Module: Forms Textarea
- * Description: Resize and height logic for textareas.
+ * Description: Resize, height, and typography for textareas.
  */
 
 textarea.form-control {
     min-height: 120px;
     line-height: 1.5;
     resize: vertical;
+}
+
+/* FIX: Specific class for San Francisco font requirement */
+.font-sf {
+    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
