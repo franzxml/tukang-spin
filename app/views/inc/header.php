@@ -21,7 +21,9 @@
             
             <ul>
                 <li><a href="<?php echo URLROOT; ?>">Home</a></li>
-                <li><a href="<?php echo URLROOT; ?>/characters">Characters</a></li>
+                <li><a href="<?php echo URLROOT; ?>/characters">Character</a></li>
+                <li><a href="<?php echo URLROOT; ?>/weapons">Weapon</a></li>
+                <li><a href="<?php echo URLROOT; ?>/artifacts">Artifact</a></li>
             </ul>
         </div>
     </nav>
