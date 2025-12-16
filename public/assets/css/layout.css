@@ -6,15 +6,15 @@
 .navbar {
     background: #F4F5F6;
     color: #333;
-    /* Remove fixed padding top/bottom and use min-height for better centering */
-    min-height: 80px; 
+    /* Increased min-height to accommodate larger logo comfortably */
+    min-height: 90px; 
     display: flex;
-    align-items: center; /* Vertically centers everything inside */
+    align-items: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .container {
-    width: 100%; /* Ensure container takes full width available */
+    width: 100%;
 }
 
 .nav-flex {
@@ -28,7 +28,6 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    /* Optional: Add a transition for a smooth hover effect */
     transition: opacity 0.3s ease;
 }
 
@@ -36,10 +35,10 @@
     opacity: 0.8;
 }
 
-/* SMART SIZING: Height controls the size, Width adjusts automatically */
+/* Updated Size: Slightly bigger as requested */
 .nav-logo {
-    height: 60px; /* Ideal size for readability */
-    width: auto;  /* Prevents stretching/distortion */
+    height: 75px; 
+    width: auto;
     display: block;
     object-fit: contain;
 }
@@ -47,7 +46,7 @@
 .navbar ul {
     list-style: none;
     display: flex;
-    gap: 15px; /* Adds space between menu items */
+    gap: 20px; /* Increased gap slightly for balance */
     margin: 0;
     padding: 0;
 }
@@ -57,7 +56,7 @@
     text-decoration: none;
     padding: 0.5rem 1rem;
     font-weight: 500;
-    font-size: 1.1rem; /* Slightly larger text to match larger logo */
+    font-size: 1.1rem;
 }
 
 .navbar ul li a:hover {
