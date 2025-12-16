@@ -14,13 +14,6 @@
                     <p><strong>Weapon:</strong> <?php echo $char->weapon; ?></p>
                     <p><strong>Level:</strong> <?php echo $char->level; ?></p>
                 </a>
-
-                <div class="card-actions">
-                    <a href="<?php echo URLROOT; ?>/characters/edit/<?php echo $char->id; ?>" class="btn-sm">Edit</a>
-                    <form action="<?php echo URLROOT; ?>/characters/delete/<?php echo $char->id; ?>" method="POST" class="inline-form">
-                        <input type="submit" value="Delete" class="btn-sm btn-danger">
-                    </form>
-                </div>
             </div>
         <?php endforeach; ?>
     </div>
