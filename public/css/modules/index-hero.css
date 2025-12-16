@@ -5,5 +5,9 @@
 
 @import 'hero-layout.css';
 @import 'hero-text.css';
-@import 'hero-actions.css';
+
+/* Actions Split */
+@import 'hero-actions-container.css';
+@import 'hero-search-input.css';
+
 @import 'hero-visual.css';

@@ -1,0 +1,29 @@
+/*
+ * Module: Hero Search Input
+ * Description: Specific styling for the hero search input field.
+ */
+
+.hero-input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: white;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    outline: none;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+}
+
+/* Interaction States (Neutral Style) */
+.hero-input:hover {
+    background: white;
+    border-color: #a1a1a6;
+}
+
+.hero-input:focus {
+    background: white;
+    border-color: #6e6e73;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

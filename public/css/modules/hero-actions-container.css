@@ -1,0 +1,31 @@
+/*
+ * Module: Hero Actions Container
+ * Description: Layout wrappers for call-to-action areas in Hero.
+ */
+
+/* Wrapper for Home Page Actions */
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Wrapper for Character Search */
+.hero-search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+    width: 100%;
+}
+
+/* Desktop Adjustment */
+@media (min-width: 900px) {
+    .hero-actions {
+        justify-content: flex-start;
+    }
+
+    .hero-search-container {
+        max-width: 400px; 
+    }
+}
