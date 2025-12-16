@@ -8,8 +8,14 @@
         <div class="brand">Genpedia</div>
         <div class="links">
             <a href="/" style="color:#fff; text-decoration:none;">Home</a>
-            <a href="/characters" style="color:#aaa; text-decoration:none; margin-left:15px">Characters</a>
-            <a href="/weapons" style="color:#aaa; text-decoration:none; margin-left:15px">Weapons</a>
+            
+            <a href="/character" style="color:#aaa; text-decoration:none; margin-left:15px">
+                Characters
+            </a>
+            
+            <a href="/weapon" style="color:#aaa; text-decoration:none; margin-left:15px">
+                Weapons
+            </a>
         </div>
     </div>
 </nav>

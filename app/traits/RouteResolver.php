@@ -17,7 +17,8 @@ trait RouteResolver
     protected function resolveController(array &$url): void
     {
         if (isset($url[0])) {
-            $ctrlName = ucfirst($url[0]);
+            // Append 'Controller' to the URL segment
+            $ctrlName = ucfirst($url[0]) . 'Controller';
             $path = dirname(__DIR__) . '/controllers/' . $ctrlName . '.php';
             
             if (file_exists($path)) {
