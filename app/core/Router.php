@@ -7,12 +7,14 @@
 namespace App\Core;
 
 use App\Traits\UrlParser;
-use App\Traits\RouteResolver;
+use App\Traits\ControllerResolver;
+use App\Traits\MethodResolver;
 
 class Router
 {
     use UrlParser;
-    use RouteResolver;
+    use ControllerResolver;
+    use MethodResolver;
 
     protected mixed $controller = 'HomeController';
     protected string $method = 'index';
