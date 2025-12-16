@@ -1,8 +1,15 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
 <div class="container">
-    <h2>Edit Character: <?php echo $data['char']->name; ?></h2>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>Edit Character</h2>
+        <form action="<?php echo URLROOT; ?>/delete/index/<?php echo $data['char']->id; ?>" 
+              method="POST" 
+              onsubmit="return confirm('Are you sure?');">
+            <input type="submit" value="Delete" style="background:red; color:white; border:none; cursor:pointer;">
+        </form>
+    </div>
+
     <?php $c = $data['char']; ?>
-    
     <form action="<?php echo URLROOT; ?>/edit/update/<?php echo $c->id; ?>" method="POST">
         <label>Name: <input type="text" name="name" value="<?php echo $c->name; ?>" required></label><br>
         
@@ -18,7 +25,7 @@
         <label>Region: <input type="text" name="region" value="<?php echo $c->region; ?>" required></label><br>
         <textarea name="description"><?php echo $c->description; ?></textarea><br>
         
-        <input type="submit" value="Update Character" class="btn">
+        <input type="submit" value="Update" class="btn">
     </form>
 </div>
 <?php require_once APPROOT . '/views/inc/footer.php'; ?>
