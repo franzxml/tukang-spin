@@ -14,7 +14,6 @@ require APPROOT . '/views/inc/header.php';
         <p class="lead-text"><?php echo $data['description']; ?></p>
         <hr class="divider">
         <p>Manage your Genshin Impact character database efficiently.</p>
-        <a href="<?php echo URLROOT; ?>/characters" class="btn btn-large">View Archive</a>
     </div>
 </div>
 
