@@ -1,0 +1,49 @@
+/*
+ * Module: Split Form Content
+ * Description: Form wrapper, headers, and scoped input spacing.
+ */
+
+.form-split-content {
+    flex: 1;
+    padding: 24px;
+}
+
+/* Header Styling */
+.form-header-simple {
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 10px;
+}
+
+.form-header-simple h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.form-header-simple p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Scoped Spacing & Buttons */
+.form-split-content .form-group {
+    margin-bottom: 14px;
+}
+
+.form-split-content .btn-cta {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+}
+
+/* Desktop Padding Adjustment */
+@media (min-width: 992px) {
+    .form-split-content {
+        padding: 30px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
