@@ -2,30 +2,35 @@
 /**
  * Pages Controller
  *
- * Handles the default pages of the application.
+ * Handles default pages.
  *
  * @package Genpedia
  * @author  franzxml
  */
 class Pages extends Controller
 {
+    private $charModel;
+
     /**
      * Constructor
+     * Loads the Character model.
      */
     public function __construct()
     {
-        // Constructor logic if needed
+        $this->charModel = $this->model('Character');
     }
 
     /**
      * Index Method
-     * Loads the homepage.
+     * Loads homepage with character list.
      */
     public function index()
     {
+        $characters = $this->charModel->getCharacters();
+        
         $data = [
             'title' => 'Genpedia',
-            'description' => 'Private Genshin Impact Database'
+            'characters' => $characters
         ];
 
         $this->view('pages/index', $data);
