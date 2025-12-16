@@ -1,0 +1,50 @@
+/*
+ * Module: Hero Actions
+ * Description: Call-to-action buttons and search inputs in Hero.
+ */
+
+/* Generic Action Wrapper */
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Search Box Container */
+.hero-search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+    width: 100%;
+}
+
+/* Input Field Styling */
+.hero-input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background: white;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    outline: none;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+}
+
+.hero-input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+}
+
+/* Desktop Adjustment */
+@media (min-width: 900px) {
+    .hero-actions {
+        justify-content: flex-start;
+    }
+
+    .hero-search-container {
+        max-width: 400px; 
+    }
+}

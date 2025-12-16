@@ -42,6 +42,11 @@
 @import 'modules/modals.css';
 
 /* --- 4. Page Specific Modules --- */
-@import 'modules/hero.css';
+/* Hero Section (Modularized) */
+@import 'modules/hero-layout.css';
+@import 'modules/hero-text.css';
+@import 'modules/hero-actions.css';
+@import 'modules/hero-visual.css';
+
 @import 'modules/stats.css';
 @import 'modules/detail.css';
