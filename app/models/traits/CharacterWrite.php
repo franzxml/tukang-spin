@@ -2,22 +2,40 @@
 /**
  * Character Write Trait.
  *
- * Handles data persistence operations including Level and Talents.
+ * Handles data persistence operations.
  *
  * @package App\Models\Traits
  */
 trait CharacterWrite {
+    /**
+     * Add a new character.
+     * Only includes Name, Weapon, Level, Talents.
+     *
+     * @param array $data
+     * @return bool
+     */
     public function add($data) {
-        $sql = "INSERT INTO characters (name, element, weapon, rarity, region, level, talents_level) VALUES (:name, :element, :weapon, :rarity, :region, :level, :talents)";
+        $sql = "INSERT INTO characters (name, weapon, level, talents_level) VALUES (:name, :weapon, :level, :talents)";
         $this->db->query($sql);
-        return $this->bindParams($data);
+        
+        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':weapon', $data['weapon']);
+        $this->db->bind(':level', $data['level']);
+        $this->db->bind(':talents', $data['talents_level']);
+        
+        return $this->db->execute();
     }
 
+    /**
+     * Edit existing character.
+     * Includes all fields.
+     */
     public function edit($data) {
         $sql = "UPDATE characters SET name = :name, element = :element, weapon = :weapon, rarity = :rarity, region = :region, level = :level, talents_level = :talents WHERE id = :id";
         $this->db->query($sql);
         $this->db->bind(':id', $data['id']);
-        return $this->bindParams($data);
+        $this->bindAllParams($data);
+        return $this->db->execute();
     }
 
     public function delete($id) {
@@ -26,7 +44,10 @@ trait CharacterWrite {
         return $this->db->execute();
     }
 
-    private function bindParams($data) {
+    /**
+     * Helper to bind all params (used in Edit).
+     */
+    private function bindAllParams($data) {
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':element', $data['element']);
         $this->db->bind(':weapon', $data['weapon']);
@@ -34,6 +55,5 @@ trait CharacterWrite {
         $this->db->bind(':region', $data['region']);
         $this->db->bind(':level', $data['level']);
         $this->db->bind(':talents', $data['talents_level']);
-        return $this->db->execute();
     }
 }

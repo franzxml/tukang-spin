@@ -9,9 +9,6 @@
             <label>Name: <input type="text" name="name" required></label>
         </div>
         <div class="form-group">
-            <label>Element: <input type="text" name="element" required></label>
-        </div>
-        <div class="form-group">
             <label>Weapon: <input type="text" name="weapon" required></label>
         </div>
         <div class="form-group">
@@ -19,12 +16,6 @@
         </div>
         <div class="form-group">
             <label>Talents (e.g., 8/8/8): <input type="text" name="talents_level" placeholder="1/1/1" required></label>
-        </div>
-        <div class="form-group">
-            <label>Rarity (4 or 5): <input type="number" name="rarity" min="4" max="5" required></label>
-        </div>
-        <div class="form-group">
-            <label>Region: <input type="text" name="region" required></label>
         </div>
         <input type="submit" value="Submit" class="btn">
     </form>
