@@ -3,45 +3,48 @@ require_once 'config.php';
 
 /**
  * Database Class
- *
- * Establishes a PDO connection to the MySQL database.
- *
+ * Handles PDO connection and queries.
  * @package Genpedia
- * @author  franzxml
  */
 class Database
 {
     private $dbh;
-    private $error;
+    private $stmt;
 
-    /**
-     * Constructor
-     * Initializes the PDO connection.
-     */
     public function __construct()
     {
         $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
-        $options = [
-            PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ];
-
+        $opts = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
         try {
-            $this->dbh = new PDO($dsn, DB_USER, DB_PASS, $options);
+            $this->dbh = new PDO($dsn, DB_USER, DB_PASS, $opts);
         } catch (PDOException $e) {
-            $this->error = $e->getMessage();
-            echo $this->error;
+            die($e->getMessage());
         }
     }
 
-    /**
-     * Get Connection
-     * returns the active PDO instance.
-     *
-     * @return PDO|null
-     */
-    public function connect()
+    public function query($sql)
     {
-        return $this->dbh;
+        $this->stmt = $this->dbh->prepare($sql);
+    }
+
+    public function bind($param, $value, $type = null)
+    {
+        if (is_null($type)) {
+            // Auto-detect type logic would go here
+            // Simplified for space:
+            $type = PDO::PARAM_STR; 
+        }
+        $this->stmt->bindValue($param, $value, $type);
+    }
+
+    public function execute()
+    {
+        return $this->stmt->execute();
+    }
+
+    public function resultSet()
+    {
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }
