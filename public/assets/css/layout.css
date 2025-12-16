@@ -7,7 +7,7 @@
     background: #333;
     color: #fff;
     padding: 1rem 0;
-    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .nav-flex {
@@ -21,6 +21,8 @@
     font-weight: bold;
     color: #fff;
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .navbar ul {
@@ -31,7 +33,20 @@
 .navbar ul li a {
     color: #fff;
     text-decoration: none;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #4a90e2;
+}
+
+.footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto; /* Pushes footer to bottom */
 }
 
 .btn {
@@ -43,6 +58,11 @@
     border: none;
     cursor: pointer;
     border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #357abd;
 }
 
 .header-row {

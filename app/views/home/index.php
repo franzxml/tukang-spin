@@ -2,23 +2,20 @@
 /**
  * Home Index View.
  *
+ * Uses the global header and footer partials.
  * @var array $data Passed from controller.
  */
+require APPROOT . '/views/inc/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $data['title']; ?></title>
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/style.css">
-</head>
-<body>
-    <main class="container">
-        <h1><?php echo $data['title']; ?></h1>
-        <p><?php echo $data['description']; ?></p>
-        <p>Status: Core MVC Operational.</p>
-    </main>
-    <script src="<?php echo URLROOT; ?>/assets/js/main.js"></script>
-</body>
-</html>
+
+<div class="container text-center">
+    <div class="hero-section">
+        <h1 class="display-title"><?php echo $data['title']; ?></h1>
+        <p class="lead-text"><?php echo $data['description']; ?></p>
+        <hr class="divider">
+        <p>Manage your Genshin Impact character database efficiently.</p>
+        <a href="<?php echo URLROOT; ?>/characters" class="btn btn-large">View Archive</a>
+    </div>
+</div>
+
+<?php require APPROOT . '/views/inc/footer.php'; ?>
