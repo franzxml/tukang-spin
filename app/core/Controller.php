@@ -20,6 +20,7 @@ class Controller
         // Extract array keys to variables
         extract($data);
 
+        // dirname(__DIR__) is 'app', so this points to 'app/views/'
         $viewPath = dirname(__DIR__) . '/views/' . $view . '.php';
 
         if (file_exists($viewPath)) {

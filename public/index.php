@@ -4,8 +4,8 @@
  * Bootstraps the application and triggers the Router.
  */
 
-// Load the Autoloader
-require_once __DIR__ . '/../app/core/Autoloader.php';
+// Load the Autoloader (Updated path to Capitalized 'Core')
+require_once __DIR__ . '/../app/Core/Autoloader.php';
 
 // Register the Autoloader
 use App\Core\Autoloader;
