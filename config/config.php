@@ -14,7 +14,8 @@ define('DB_PASS', '');
 define('DB_NAME', 'genpedia');
 
 // Application Root
-define('APPROOT', dirname(dirname(__FILE__)));
+// Fix: Append '/app' so APPROOT points to the actual app directory
+define('APPROOT', dirname(dirname(__FILE__)) . '/app');
 
 // URL Root (Dynamic)
 define('URLROOT', 'http://genpedia.test');
