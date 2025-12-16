@@ -70,42 +70,29 @@
 
     .hero-text {
         align-items: flex-start;
-        /* FIX: Padding 16px (top/bottom) 24px (left/right) */
         padding: 16px 24px; 
         
-        /* FIX: Content takes 75% width (3 parts) */
-        flex: 3; 
+        /* FIX: Changed from 3 to 1 to create a 50/50 split with the visual */
+        flex: 1; 
     }
 
     .hero-title { 
-        /* FIX: 48px font size, Bold */
         font-size: 48px; 
         font-weight: 700;
-        
-        /* FIX: Spacing Logic 
-           Top: Handled by container padding (16px) -> margin-top: 0
-           Bottom: 16px distance to paragraph -> margin-bottom: 16px 
-        */
         margin-top: 0;
         margin-bottom: 16px;
     }
 
     .hero-description { 
-        /* FIX: 16px font size */
         font-size: 16px;
         margin-left: 0;
-        
-        /* FIX: Spacing Logic
-           Top: Handled by H1 margin-bottom
-           Bottom: Handled by container padding (16px) -> margin-bottom: 0
-        */
         margin-top: 0;
         margin-bottom: 0;
         max-width: 100%;
     }
 
     .hero-visual {
-        /* FIX: Image takes 25% width (1 part) */
+        /* FIX: Changed from 1 (25%) to 1 (50% relative to text) */
         flex: 1; 
     }
 }
