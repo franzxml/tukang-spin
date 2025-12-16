@@ -16,7 +16,11 @@
 @import 'modules/layout.css';     
 @import 'modules/header.css';     /* Layout Header Utama */
 @import 'modules/branding.css';   /* Logo Styles */
-@import 'modules/navigation.css'; /* Nav Links & Marker */
+
+/* Navigation Modules */
+@import 'modules/nav-links.css';  /* Menu Links */
+@import 'modules/nav-marker.css'; /* Sliding Marker */
+
 @import 'modules/footer.css';
 
 /* 3. Komponen UI Modular */
