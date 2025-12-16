@@ -12,7 +12,13 @@
  */
 @import 'modules/base.css';       /* 1. Variabel & Reset */
 @import 'modules/layout.css';     /* 2. Struktur Utama (Header/Footer) */
-@import 'modules/components.css'; /* 3. Tombol & Input */
+
+/* 3. Komponen UI Modular */
+@import 'modules/buttons.css';
+@import 'modules/forms.css';
+@import 'modules/toasts.css';
+@import 'modules/modals.css';
+
 @import 'modules/cards.css';      /* 4. Kartu Karakter */
 @import 'modules/home.css';       /* 5. Halaman Beranda */
 @import 'modules/detail.css';     /* 6. Halaman Detail */
