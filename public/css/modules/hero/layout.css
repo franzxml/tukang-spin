@@ -1,0 +1,27 @@
+/* Module: Hero Layout & Typography */
+.hero-section {
+    background-color: var(--bg-panel); border-radius: 28px;
+    margin-top: 5px; margin-bottom: 40px;
+    overflow: hidden; display: flex;
+    flex-direction: column-reverse; text-align: center;
+}
+
+.hero-text {
+    padding: 16px 24px; flex: 1; display: flex;
+    flex-direction: column; justify-content: center;
+    background-color: var(--bg-panel);
+}
+.hero-title {
+    font-size: 2.5rem; font-weight: 700; color: #000;
+    line-height: 1.1; margin-bottom: 8px; margin-top: 0;
+}
+.hero-description {
+    font-size: 1rem; color: #000; line-height: 1.5; margin-bottom: 24px;
+}
+
+@media (min-width: 900px) {
+    .hero-section { flex-direction: row; text-align: left; min-height: 350px; margin-top: 40px; }
+    .hero-text { align-items: flex-start; flex: 1; }
+    .hero-title { font-size: 48px; }
+    .hero-description { font-size: 16px; margin-bottom: 24px; max-width: 100%; }
+}

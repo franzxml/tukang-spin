@@ -1,42 +1,26 @@
 /*
  * Main Stylesheet for Genpedia
  * Theme: Apple Human Interface (Light Mode).
- * Font: Inter (Premium, Clean, Modern).
- * Features: Modular Architecture with Sub-Indices.
+ * Structure: Modular Folders (Core, Nav, Hero, Forms, Cards, Components).
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* --- 1. Base & Reset --- */
-/* Variables, Reset, and Global Utilities */
-@import 'modules/base.css';
+/* 1. Core (Base, Layout, Typography) */
+@import 'modules/core/index.css';
 
-/* --- 2. Layout Structure & Navigation --- */
-/* Containers, Headers, Footers, Branding, and Nav Links */
-@import 'modules/index-structure.css';
+/* 2. Navigation (Header, Footer, Menu) */
+@import 'modules/navigation/index.css';
 
-/* --- 3. UI Components (Modular Indices) --- */
+/* 3. Hero Section */
+@import 'modules/hero/index.css';
 
-/* Buttons & Links */
-@import 'modules/index-buttons.css';
+/* 4. Form Elements */
+@import 'modules/forms/index.css';
 
-/* Content Headers & Cards System (Grid, Media, Badges) */
-@import 'modules/index-cards.css';
+/* 5. Card Systems (Standard & Split) */
+@import 'modules/cards/index.css';
+@import 'modules/split-card/index.css';
 
-/* Forms & Inputs (Structure, Input Styles) */
-@import 'modules/index-forms.css';
-
-/* Feedback Components */
-@import 'modules/toasts.css';
-@import 'modules/modals.css';
-
-/* --- 4. Page Specific Modules --- */
-
-/* Hero Section (Layout, Text, Actions, Visual) */
-@import 'modules/index-hero.css';
-
-/* Dashboard Stats */
-@import 'modules/stats.css';
-
-/* Detail Page Specifics */
-@import 'modules/detail.css';
+/* 6. UI Components (Buttons, Feedback, Pages) */
+@import 'modules/components/index.css';
