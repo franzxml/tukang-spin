@@ -6,22 +6,24 @@
 .navbar {
     background: #F4F5F6;
     color: #333;
-    /* Increased min-height to accommodate larger logo comfortably */
-    min-height: 90px; 
-    display: flex;
-    align-items: center;
+    /* Strict Top-Down Spacing: 16px */
+    padding: 16px 0; 
+    /* Removed min-height to allow padding to define exact spacing around the 75px logo */
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .container {
+    /* Strict Left-Right Spacing: 24px */
+    padding: 0 24px;
     width: 100%;
+    margin: 0 auto;
+    max-width: 1200px; /* Optional: keeps it from getting too wide on huge screens */
 }
 
 .nav-flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
 }
 
 .brand {
@@ -35,7 +37,7 @@
     opacity: 0.8;
 }
 
-/* Updated Size: Slightly bigger as requested */
+/* Logo Size maintained at 75px */
 .nav-logo {
     height: 75px; 
     width: auto;
@@ -46,7 +48,7 @@
 .navbar ul {
     list-style: none;
     display: flex;
-    gap: 20px; /* Increased gap slightly for balance */
+    gap: 20px;
     margin: 0;
     padding: 0;
 }
