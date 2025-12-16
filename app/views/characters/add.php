@@ -6,11 +6,14 @@
     
     <form action="<?php echo URLROOT; ?>/characters/add" method="POST">
         <div class="form-group">
-            <label>Name: 
-                <input type="text" name="name" required autocomplete="off">
-            </label>
+            <label>Name: <input type="text" name="name" required autocomplete="off"></label>
         </div>
-        
+        <div class="form-group">
+            <label>Icon URL: <input type="text" name="icon" placeholder="https://..." required></label>
+        </div>
+        <div class="form-group">
+            <label>Namecard URL: <input type="text" name="namecard" placeholder="https://..." required></label>
+        </div>
         <div class="form-group">
             <label>Weapon Type:</label>
             <select name="weapon" required>
@@ -21,30 +24,18 @@
                 <option value="Catalyst">Catalyst</option>
             </select>
         </div>
-
         <div class="form-group">
-            <label>Level (1-90): 
-                <input type="number" name="level" min="1" max="90" value="1" required>
-            </label>
+            <label>Level (1-90): <input type="number" name="level" min="1" max="90" value="1" required></label>
         </div>
-
         <div class="form-group">
-            <label>Talent Levels (NA / Skill / Burst):</label>
+            <label>Talents (NA / Skill / Burst):</label>
             <div style="display: flex; gap: 10px;">
-                <select name="talent_na" required>
-                    <?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Normal: $i</option>"; ?>
-                </select>
-                <select name="talent_es" required>
-                    <?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Skill: $i</option>"; ?>
-                </select>
-                <select name="talent_eb" required>
-                    <?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Burst: $i</option>"; ?>
-                </select>
+                <select name="talent_na" required><?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Normal: $i</option>"; ?></select>
+                <select name="talent_es" required><?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Skill: $i</option>"; ?></select>
+                <select name="talent_eb" required><?php for($i=1; $i<=13; $i++) echo "<option value='$i'>Burst: $i</option>"; ?></select>
             </div>
         </div>
-
         <input type="submit" value="Submit" class="btn">
     </form>
 </div>
-
 <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -1,34 +1,27 @@
 <?php
 /**
  * Character Actions Trait.
- *
- * Handles Add and Edit logic including new dropdown processing.
- *
+ * Handles Add and Edit logic.
  * @package App\Controllers\Traits
  */
 trait CharacterActions {
     private function handleForm($mode, $id = null) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Concatenate talents into "NA/ES/EB" format
             $talents = [
                 $_POST['talent_na'],
                 $_POST['talent_es'],
                 $_POST['talent_eb']
             ];
-            $talentsString = implode('/', $talents);
-
+            
             $data = [
                 'id' => $id,
                 'name' => trim($_POST['name']),
+                'icon' => trim($_POST['icon']),
+                'namecard' => trim($_POST['namecard']),
                 'weapon' => trim($_POST['weapon']),
                 'level' => trim($_POST['level']),
-                'talents_level' => $talentsString
+                'talents_level' => implode('/', $talents)
             ];
-
-            // Optional fields (Edit mode)
-            $data['element'] = isset($_POST['element']) ? trim($_POST['element']) : null;
-            $data['rarity'] = isset($_POST['rarity']) ? trim($_POST['rarity']) : null;
-            $data['region'] = isset($_POST['region']) ? trim($_POST['region']) : null;
 
             if ($this->characterModel->$mode($data)) {
                 header('Location: ' . URLROOT . '/characters');
