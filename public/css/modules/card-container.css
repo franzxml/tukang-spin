@@ -45,8 +45,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Changed horizontal position from 'center' to '25%' to shift focus leftward */
-    object-position: 25% 20%;
+    /* FIX: Set to 50% (Center) to focus on the middle character (Purple Hair) */
+    object-position: 43% 20%;
 }
 
 /* Floating Back Button */
@@ -125,4 +125,4 @@
         flex-direction: column;
         justify-content: center;
     }
-}
+}   
