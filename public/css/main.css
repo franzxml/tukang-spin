@@ -11,7 +11,11 @@
  * Urutan ini penting! Jangan diubah.
  */
 @import 'modules/base.css';       /* 1. Variabel & Reset */
-@import 'modules/layout.css';     /* 2. Struktur Utama (Header/Footer) */
+
+/* 2. Struktur & Navigasi */
+@import 'modules/layout.css';     
+@import 'modules/header.css';     
+@import 'modules/footer.css';
 
 /* 3. Komponen UI Modular */
 @import 'modules/buttons.css';

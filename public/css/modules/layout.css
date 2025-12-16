@@ -1,130 +1,17 @@
 /*
  * Module: Layout
- * Contains: Container, Header/Navbar, and Footer styling.
- * Follows Apple Human Interface Guidelines for spacing and typography.
+ * Description: Core structural styles (Containers, Wrappers, Page Transitions).
  */
 
-/* --- Container --- */
 .container {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-    /* Maintain 24px horizontal padding for premium edge spacing */
     padding: 0 24px;
-    position: relative; 
-}
-
-/* --- Header --- */
-.main-header {
-    /* FIX: Updated background color to #F4F5F6 (Light Gray) as requested */
-    background-color: #F4F5F6;
-    
-    border-bottom: 1px solid var(--border-subtle);
-    padding: 0.5rem 0; /* Compact vertical padding */
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-flex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px; 
-}
-
-@media (min-width: 768px) {
-    .nav-flex {
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 0;
-    }
-}
-
-/* Container for Nav Links */
-.nav-container {
     position: relative;
 }
 
-/* --- Brand Logo --- */
-.brand-logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-
-.brand-logo img {
-    height: 55px; /* Slightly smaller for mobile balance */
-    width: auto;
-    object-fit: contain;
-    /* Hover effect transition */
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.brand-logo:hover img {
-    transform: scale(1.05);
-}
-
-@media (min-width: 768px) {
-    .brand-logo img {
-        height: 80px;
-    }
-}
-
-/* --- Navigation Links --- */
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px; 
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative; 
-}
-
-@media (min-width: 768px) {
-    .nav-links {
-        /* Set spacing between navigation items to exactly 24px */
-        gap: 24px;
-    }
-}
-
-.nav-links li {
-    position: relative;
-    padding: 5px 0;
-}
-
-.nav-links a {
-    /* FIX: Reverted to dark text color for contrast against #F4F5F6 background */
-    color: var(--text-secondary); 
-    font-weight: 500;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    border-bottom: none !important;
-    padding-bottom: 0;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    /* FIX: Active state black for visibility */
-    color: #000000; 
-}
-
-/* --- Sliding Navigation Marker --- */
-.nav-marker {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    /* FIX: Reverted marker to black for contrast */
-    background-color: #000000;
-    width: 0; 
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    pointer-events: none;
-    z-index: 10;
-}
-
-/* --- View Transition Wrapper --- */
+/* --- View Transitions --- */
 .view-wrapper {
     width: 100%;
     transition: opacity 0.15s ease-out;
@@ -156,52 +43,4 @@
         opacity: 1;
         transform: translateY(0) scale(1);
     }
-}
-
-/* --- Footer --- */
-.main-footer {
-    margin-top: auto;
-    background-color: var(--bg-panel);
-    border-top: 1px solid var(--border-subtle);
-    
-    /* Vertical padding 16px (Horizontal 0 because .container handles the 24px) */
-    padding: 16px 0; 
-    
-    font-size: 0.9rem;
-    color: var(--text-primary);
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    /* Center alignment for all footer items */
-    align-items: center; 
-    gap: 8px; /* Space between text and icons */
-}
-
-.footer-text {
-    font-size: 16px;
-    color: var(--text-primary);
-    /* Center align text */
-    text-align: center; 
-    margin: 0;
-    line-height: 1.5;
-    width: 100%;
-}
-
-.footer-socials {
-    display: flex;
-    gap: 16px; /* Spacing between icons */
-}
-
-.social-icon {
-    width: 24px;
-    height: 24px;
-    fill: var(--text-secondary);
-    transition: fill 0.2s, transform 0.2s;
-}
-
-.social-icon:hover {
-    fill: #000000;
-    transform: translateY(-2px);
 }
