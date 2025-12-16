@@ -1,6 +1,6 @@
 /*
  * Module: Header
- * Description: Styling for the main navigation bar and branding.
+ * Description: Main layout container for the page header.
  */
 
 .main-header {
@@ -12,6 +12,7 @@
     z-index: 1000;
 }
 
+/* Flex Container for Header Content */
 .nav-flex {
     display: flex;
     flex-direction: column;
@@ -19,87 +20,15 @@
     gap: 5px;
 }
 
+.nav-container {
+    position: relative;
+}
+
+/* Desktop Layout Adjustment */
 @media (min-width: 768px) {
     .nav-flex {
         flex-direction: row;
         justify-content: space-between;
         gap: 0;
     }
-}
-
-.nav-container {
-    position: relative;
-}
-
-/* --- Brand Logo --- */
-.brand-logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-
-.brand-logo img {
-    height: 55px;
-    width: auto;
-    object-fit: contain;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.brand-logo:hover img {
-    transform: scale(1.05);
-}
-
-@media (min-width: 768px) {
-    .brand-logo img {
-        height: 80px;
-    }
-}
-
-/* --- Navigation Links --- */
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-}
-
-@media (min-width: 768px) {
-    .nav-links {
-        gap: 24px;
-    }
-}
-
-.nav-links li {
-    position: relative;
-    padding: 5px 0;
-}
-
-.nav-links a {
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    border-bottom: none !important;
-    padding-bottom: 0;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    color: #000000;
-}
-
-/* --- Navigation Marker --- */
-.nav-marker {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    background-color: #000000;
-    width: 0;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    pointer-events: none;
-    z-index: 10;
 }

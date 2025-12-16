@@ -1,0 +1,53 @@
+/*
+ * Module: Navigation
+ * Description: Styles for navigation links and the sliding marker.
+ */
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+}
+
+.nav-links li {
+    position: relative;
+    padding: 5px 0;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border-bottom: none !important;
+    padding-bottom: 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #000000;
+}
+
+/* Sliding Marker */
+.nav-marker {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: #000000;
+    width: 0;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Desktop Adjustment */
+@media (min-width: 768px) {
+    .nav-links {
+        gap: 24px;
+    }
+}

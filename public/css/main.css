@@ -14,7 +14,9 @@
 
 /* 2. Struktur & Navigasi */
 @import 'modules/layout.css';     
-@import 'modules/header.css';     
+@import 'modules/header.css';     /* Layout Header Utama */
+@import 'modules/branding.css';   /* Logo Styles */
+@import 'modules/navigation.css'; /* Nav Links & Marker */
 @import 'modules/footer.css';
 
 /* 3. Komponen UI Modular */
