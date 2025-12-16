@@ -17,8 +17,8 @@
 }
 
 .hero-text {
-    /* Base padding for mobile */
-    padding: 24px; 
+    /* FIX: Set uniform padding to 16px vertical, 24px horizontal for all devices */
+    padding: 16px 24px; 
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -70,9 +70,9 @@
 
     .hero-text {
         align-items: flex-start;
-        padding: 16px 24px; 
+        /* Padding is already set to 16px 24px globally above */
         
-        /* FIX: Changed from 3 to 1 to create a 50/50 split with the visual */
+        /* 50/50 Split layout */
         flex: 1; 
     }
 
@@ -92,7 +92,7 @@
     }
 
     .hero-visual {
-        /* FIX: Changed from 1 (25%) to 1 (50% relative to text) */
+        /* 50/50 Split layout */
         flex: 1; 
     }
 }
@@ -112,6 +112,7 @@
 }
 
 .stats-content {
+    /* Consistent padding with Hero Card */
     padding: 16px 24px; 
     flex: 1;
     display: flex;
