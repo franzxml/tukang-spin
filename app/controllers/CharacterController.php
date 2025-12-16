@@ -36,13 +36,48 @@ class CharacterController extends Controller
     }
 
     /**
-     * Handle form submission.
+     * Handle create submission.
      */
     public function store(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $model = new Character();
             $model->create($_POST);
+            header('Location: /character');
+            exit;
+        }
+    }
+
+    /**
+     * Show edit form.
+     * @param int $id
+     */
+    public function edit($id): void
+    {
+        $model = new Character();
+        $character = $model->getById($id);
+
+        if (!$character) {
+            header('Location: /character');
+            exit;
+        }
+
+        $this->view('pages/characters/edit', [
+            'title' => 'Edit Character',
+            'css' => 'characters',
+            'character' => $character
+        ]);
+    }
+
+    /**
+     * Handle edit submission.
+     * @param int $id
+     */
+    public function update($id): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $model = new Character();
+            $model->update($id, $_POST);
             header('Location: /character');
             exit;
         }

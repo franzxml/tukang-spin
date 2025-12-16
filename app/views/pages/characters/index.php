@@ -26,6 +26,11 @@ require_once dirname(__DIR__, 2) . '/components/navbar.php';
                     <div class="char-info">
                         <?= $char['rarity'] ?> Stars
                     </div>
+                    <div style="margin-top: 15px;">
+                        <a href="/character/edit/<?= $char['id'] ?>" class="btn-primary" style="padding: 5px 10px; font-size: 0.9rem;">
+                            Edit
+                        </a>
+                    </div>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
