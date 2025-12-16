@@ -19,11 +19,11 @@ trait CharacterWrite {
     }
 
     /**
-     * Update existing character.
+     * Edit/Update existing character.
      * @param array $data
      * @return bool
      */
-    public function update($data) {
+    public function edit($data) {
         $sql = "UPDATE characters SET name = :name, element = :element, weapon = :weapon, rarity = :rarity, region = :region WHERE id = :id";
         $this->db->query($sql);
         $this->db->bind(':id', $data['id']);
@@ -32,6 +32,8 @@ trait CharacterWrite {
 
     /**
      * Helper to bind standard params.
+     * @param array $data
+     * @return bool
      */
     private function bindParams($data) {
         $this->db->bind(':name', $data['name']);
