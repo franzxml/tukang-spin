@@ -6,7 +6,8 @@
 :root {
     --primary-color: #4a90e2;
     --text-color: #333;
-    --bg-color: #f4f4f4;
+    /* Updated Background to White */
+    --bg-color: #ffffff; 
     --white: #fff;
 }
 
