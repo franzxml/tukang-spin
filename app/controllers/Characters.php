@@ -2,11 +2,16 @@
 /**
  * Characters Controller.
  *
- * Manages character CRUD operations.
+ * Manages character CRUD operations via Traits.
  *
  * @package App\Controllers
  */
+
+require_once 'traits/CharacterActions.php';
+
 class Characters extends Controller {
+    use CharacterActions;
+
     private $characterModel;
 
     public function __construct() {
@@ -21,22 +26,10 @@ class Characters extends Controller {
     }
 
     public function add() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $data = [
-                'name' => trim($_POST['name']),
-                'element' => trim($_POST['element']),
-                'weapon' => trim($_POST['weapon']),
-                'rarity' => trim($_POST['rarity']),
-                'region' => trim($_POST['region'])
-            ];
+        $this->handleForm('add');
+    }
 
-            if ($this->characterModel->add($data)) {
-                header('Location: ' . URLROOT . '/characters');
-            } else {
-                die('Something went wrong');
-            }
-        } else {
-            $this->view('characters/add');
-        }
+    public function edit($id) {
+        $this->handleForm('edit', $id);
     }
 }

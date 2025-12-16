@@ -1,4 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
+
 <div class="container">
     <div class="row header-row">
         <h1>Genpedia Archive</h1>
@@ -15,6 +16,9 @@
                 <span class="rarity star-<?php echo $char->rarity; ?>">
                     <?php echo $char->rarity; ?> Stars
                 </span>
+                <div class="card-actions" style="margin-top: 15px;">
+                    <a href="<?php echo URLROOT; ?>/characters/edit/<?php echo $char->id; ?>" class="btn-sm">Edit</a>
+                </div>
             </div>
         <?php endforeach; ?>
     </div>
