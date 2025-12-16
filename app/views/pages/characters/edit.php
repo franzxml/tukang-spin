@@ -1,54 +1,44 @@
 <?php
 require_once dirname(__DIR__, 2) . '/layouts/header.php';
 require_once dirname(__DIR__, 2) . '/components/navbar.php';
-
-// Helper to check selection
-function isSelected($current, $target) {
-    return $current == $target ? 'selected' : '';
-}
+$c = $character; // Shorten variable
 ?>
 
 <div class="container">
-    <h1>Edit Character: <?= htmlspecialchars($character['name']) ?></h1>
-    
-    <form action="/character/update/<?= $character['id'] ?>" method="POST" class="char-form">
+    <h1>Edit: <?= htmlspecialchars($c['name']) ?></h1>
+    <form action="/character/update/<?= $c['id'] ?>" method="POST" class="char-form">
         <div class="form-group">
             <label>Name</label>
-            <input type="text" name="name" value="<?= htmlspecialchars($character['name']) ?>" required>
+            <input type="text" name="name" value="<?= $c['name'] ?>" required>
         </div>
         <div class="form-group">
             <label>Region</label>
-            <input type="text" name="region" value="<?= htmlspecialchars($character['region']) ?>" required>
+            <input type="text" name="region" value="<?= $c['region'] ?>" required>
         </div>
         <div class="form-group">
             <label>Element</label>
             <select name="element">
-                <?php 
-                $elements = ['Anemo', 'Geo', 'Electro', 'Dendro', 'Hydro', 'Pyro', 'Cryo'];
-                foreach ($elements as $el): ?>
-                    <option <?= isSelected($character['element'], $el) ?>><?= $el ?></option>
+                <?php foreach(['Anemo','Geo','Electro','Dendro','Hydro','Pyro','Cryo'] as $e): ?>
+                    <option <?= $c['element'] == $e ? 'selected' : '' ?>><?= $e ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
             <label>Weapon</label>
             <select name="weapon">
-                <?php 
-                $weapons = ['Sword', 'Claymore', 'Polearm', 'Catalyst', 'Bow'];
-                foreach ($weapons as $wp): ?>
-                    <option <?= isSelected($character['weapon_type'], $wp) ?>><?= $wp ?></option>
+                <?php foreach(['Sword','Claymore','Polearm','Catalyst','Bow'] as $w): ?>
+                    <option <?= $c['weapon_type'] == $w ? 'selected' : '' ?>><?= $w ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
             <label>Rarity</label>
             <select name="rarity">
-                <option value="4" <?= isSelected($character['rarity'], 4) ?>>4 Stars</option>
-                <option value="5" <?= isSelected($character['rarity'], 5) ?>>5 Stars</option>
+                <option value="4" <?= $c['rarity'] == 4 ? 'selected' : '' ?>>4 Stars</option>
+                <option value="5" <?= $c['rarity'] == 5 ? 'selected' : '' ?>>5 Stars</option>
             </select>
         </div>
-        <button type="submit" class="btn-primary">Update Character</button>
+        <button type="submit" class="btn-primary">Update</button>
     </form>
 </div>
-
 <?php require_once dirname(__DIR__, 2) . '/layouts/footer.php'; ?>
