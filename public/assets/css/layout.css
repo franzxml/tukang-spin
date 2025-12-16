@@ -27,7 +27,7 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition: transform 0.1s ease, opacity 0.1s ease; /* Faster logo hover */
 }
 
 .brand:hover {
@@ -54,12 +54,10 @@
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
-    /* Clickable area remains large */
     padding: 16px 24px;
     display: inline-block;
 }
 
-/* Make the span relative so the absolute bar sticks to IT, not the big link box */
 .navbar ul li a span {
     position: relative;
     display: inline-block;
@@ -69,17 +67,17 @@
     color: #333; 
 }
 
-/* Base Bar State: Attached to SPAN */
+/* Base Bar State */
 .navbar ul li a span::after {
     content: '';
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -4px; /* Slight gap below text */
+    bottom: -4px;
     left: 0;
     background-color: #333;
-    /* Faster animation: 0.2s */
-    transition: width 0.2s ease-in-out;
+    /* SUPER FAST: 0.1s */
+    transition: width 0.1s ease-in-out;
 }
 
 /* Hover State */
@@ -92,7 +90,7 @@
     width: 100%;
 }
 
-/* Smart Sliding Logic (Updated for Span) */
+/* Smart Sliding Logic */
 .navbar ul:hover li a.active span::after {
     width: 0;
 }

@@ -53,16 +53,16 @@ function isActive($keyword) {
                 link.addEventListener('mouseenter', function() {
                     if (this.classList.contains('active')) return;
 
-                    // FASTER DEBOUNCE: Reduced to 150ms for snappier reaction
+                    // LIGHTNING FAST DEBOUNCE: 100ms
                     hoverTimer = setTimeout(() => {
                         mainContent.classList.remove('loaded');
                         mainContent.classList.add('fading-out');
 
-                        // FASTER TRANSITION: Wait 200ms to match CSS
+                        // MATCH CSS TRANSITION: 100ms
                         setTimeout(() => {
                             window.location.href = this.href;
-                        }, 200); 
-                    }, 150); 
+                        }, 100); 
+                    }, 100); 
                 });
 
                 link.addEventListener('mouseleave', function() {

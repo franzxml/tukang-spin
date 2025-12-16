@@ -36,11 +36,11 @@ body {
     padding: 0 24px;
 }
 
-/* FASTER ANIMATIONS: Changed 0.4s to 0.2s */
+/* SUPER FAST ANIMATIONS: 0.1s */
 main {
     opacity: 0; 
     transform: translateY(10px); 
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
     width: 100%;
 }
 
