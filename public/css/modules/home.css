@@ -1,10 +1,10 @@
 /*
  * Module: Home
  * Contains: Hero Section and Stats Cards.
- * Refactored to ensure identical dimensions for all major cards.
+ * Refactored to match specific typography and layout requests.
  */
 
-/* --- Hero Section (Reference) --- */
+/* --- Hero Section --- */
 .hero-section {
     background-color: var(--bg-panel);
     border-radius: 28px;
@@ -17,62 +17,38 @@
 }
 
 .hero-text {
-    /* FIX: Set padding to 16px (top/bottom) and 24px (left/right) */
-    padding: 16px 24px; 
+    /* Base padding for mobile */
+    padding: 24px; 
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     background-color: var(--bg-panel); 
 }
 
 .hero-title {
+    /* Default mobile size */
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
+    color: #000000; /* Explicit Black */
     line-height: 1.1;
-    margin-bottom: 15px;
-}
-
-.hero-subtitle {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
 .hero-description {
     font-size: 1rem;
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-    max-width: 400px;
-    line-height: 1.6;
-}
-
-.hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.hero-search-container {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px; 
+    color: #000000; /* Explicit Black */
+    line-height: 1.5;
+    margin-bottom: 0;
 }
 
 .hero-visual {
-    flex: 1;
     display: flex; 
     flex-direction: column;
-    /* Base Mobile Height for Hero */
     min-height: 250px; 
     padding: 0;
     margin: 0;
+    /* Mobile: Image takes full width naturally in column layout */
 }
 
 .hero-img {
@@ -88,22 +64,53 @@
     .hero-section {
         flex-direction: row;
         text-align: left;
-        /* Flexible height for Hero as well */
         min-height: 350px;
         margin-top: 40px;
     }
 
     .hero-text {
         align-items: flex-start;
-        /* Maintain consistent padding for desktop as well */
+        /* FIX: Padding 16px (top/bottom) 24px (left/right) */
         padding: 16px 24px; 
+        
+        /* FIX: Content takes 75% width (3 parts) */
+        flex: 3; 
     }
 
-    .hero-title { font-size: 3.5rem; }
-    .hero-description { margin-left: 0; }
+    .hero-title { 
+        /* FIX: 48px font size, Bold */
+        font-size: 48px; 
+        font-weight: 700;
+        
+        /* FIX: Spacing Logic 
+           Top: Handled by container padding (16px) -> margin-top: 0
+           Bottom: 16px distance to paragraph -> margin-bottom: 16px 
+        */
+        margin-top: 0;
+        margin-bottom: 16px;
+    }
+
+    .hero-description { 
+        /* FIX: 16px font size */
+        font-size: 16px;
+        margin-left: 0;
+        
+        /* FIX: Spacing Logic
+           Top: Handled by H1 margin-bottom
+           Bottom: Handled by container padding (16px) -> margin-bottom: 0
+        */
+        margin-top: 0;
+        margin-bottom: 0;
+        max-width: 100%;
+    }
+
+    .hero-visual {
+        /* FIX: Image takes 25% width (1 part) */
+        flex: 1; 
+    }
 }
 
-/* --- Stats Section --- */
+/* --- Stats Section (Maintained for Consistency) --- */
 .stats-section {
     margin-bottom: 40px; 
 }
@@ -118,7 +125,6 @@
 }
 
 .stats-content {
-    /* FIX: Applying same padding 16px 24px for consistency */
     padding: 16px 24px; 
     flex: 1;
     display: flex;
@@ -189,13 +195,11 @@
     .stats-card-split {
         flex-direction: row-reverse; 
         text-align: left;
-        /* FIX: Change to 'auto' so height strictly follows content */
         min-height: auto; 
     }
 
     .stats-content {
         align-items: flex-start;
-        /* Maintain consistent padding for desktop */
         padding: 16px 24px; 
     }
     
