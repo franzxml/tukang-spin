@@ -5,8 +5,8 @@
  */
 ?>
 
-<?php require_once 'partials/form-identity.php'; ?>
+<?php require_once __DIR__ . '/partials/form-identity.php'; ?>
 
-<?php require_once 'partials/form-attributes.php'; ?>
+<?php require_once __DIR__ . '/partials/form-attributes.php'; ?>
 
-<?php require_once 'partials/form-relations.php'; ?>
+<?php require_once __DIR__ . '/partials/form-relations.php'; ?>

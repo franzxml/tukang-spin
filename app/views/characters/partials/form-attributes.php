@@ -5,6 +5,6 @@
  */
 ?>
 
-<?php require_once 'attributes/battle.php'; ?>
+<?php require_once __DIR__ . '/attributes/battle.php'; ?>
 
-<?php require_once 'attributes/meta.php'; ?>
+<?php require_once __DIR__ . '/attributes/meta.php'; ?>
