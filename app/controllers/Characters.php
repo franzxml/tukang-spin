@@ -32,4 +32,9 @@ class Characters extends Controller {
     public function edit($id) {
         $this->handleForm('edit', $id);
     }
+
+    public function show($id) {
+        $character = $this->characterModel->getCharacterById($id);
+        $this->view('characters/show', ['character' => $character]);
+    }
 }

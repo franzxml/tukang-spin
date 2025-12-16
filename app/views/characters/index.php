@@ -9,7 +9,11 @@
     <div class="grid">
         <?php foreach($data['characters'] as $char) : ?>
             <div class="card">
-                <h3><?php echo $char->name; ?></h3>
+                <h3>
+                    <a href="<?php echo URLROOT; ?>/characters/show/<?php echo $char->id; ?>" class="card-link">
+                        <?php echo $char->name; ?>
+                    </a>
+                </h3>
                 <p><strong>Element:</strong> <?php echo $char->element; ?></p>
                 <p><strong>Weapon:</strong> <?php echo $char->weapon; ?></p>
                 <p><strong>Region:</strong> <?php echo $char->region; ?></p>
