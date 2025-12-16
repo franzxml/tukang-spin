@@ -2,16 +2,11 @@
 /**
  * Character Actions Trait.
  *
- * Handles Add and Edit logic to reduce Controller size.
+ * Handles Add and Edit logic including new stats.
  *
  * @package App\Controllers\Traits
  */
 trait CharacterActions {
-    /**
-     * Handle Add/Edit logic.
-     * @param string $mode 'add' or 'edit'
-     * @param int|null $id
-     */
     private function handleForm($mode, $id = null) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $data = [
@@ -20,7 +15,9 @@ trait CharacterActions {
                 'element' => trim($_POST['element']),
                 'weapon' => trim($_POST['weapon']),
                 'rarity' => trim($_POST['rarity']),
-                'region' => trim($_POST['region'])
+                'region' => trim($_POST['region']),
+                'level' => trim($_POST['level']),
+                'talents_level' => trim($_POST['talents_level'])
             ];
 
             if ($this->characterModel->$mode($data)) {

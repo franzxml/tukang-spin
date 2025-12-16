@@ -1,4 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
+
 <div class="container">
     <a href="<?php echo URLROOT; ?>/characters" class="back-link">Back to Archive</a>
     <h2>Edit Character: <?php echo $data['data']->name; ?></h2>
@@ -14,7 +15,13 @@
             <label>Weapon: <input type="text" name="weapon" value="<?php echo $data['data']->weapon; ?>" required></label>
         </div>
         <div class="form-group">
-            <label>Rarity (4 or 5): <input type="number" name="rarity" min="4" max="5" value="<?php echo $data['data']->rarity; ?>" required></label>
+            <label>Level: <input type="number" name="level" min="1" max="90" value="<?php echo $data['data']->level; ?>" required></label>
+        </div>
+        <div class="form-group">
+            <label>Talents: <input type="text" name="talents_level" value="<?php echo $data['data']->talents_level; ?>" required></label>
+        </div>
+        <div class="form-group">
+            <label>Rarity: <input type="number" name="rarity" min="4" max="5" value="<?php echo $data['data']->rarity; ?>" required></label>
         </div>
         <div class="form-group">
             <label>Region: <input type="text" name="region" value="<?php echo $data['data']->region; ?>" required></label>

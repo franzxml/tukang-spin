@@ -8,6 +8,8 @@
         <div class="detail-grid">
             <div class="detail-item"><strong>Element:</strong> <?php echo $data['character']->element; ?></div>
             <div class="detail-item"><strong>Weapon:</strong> <?php echo $data['character']->weapon; ?></div>
+            <div class="detail-item"><strong>Level:</strong> Lv. <?php echo $data['character']->level; ?></div>
+            <div class="detail-item"><strong>Talents:</strong> <?php echo $data['character']->talents_level; ?></div>
             <div class="detail-item"><strong>Region:</strong> <?php echo $data['character']->region; ?></div>
             <div class="detail-item">
                 <strong>Rarity:</strong> 

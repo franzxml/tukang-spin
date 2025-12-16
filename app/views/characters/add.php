@@ -15,6 +15,12 @@
             <label>Weapon: <input type="text" name="weapon" required></label>
         </div>
         <div class="form-group">
+            <label>Level (1-90): <input type="number" name="level" min="1" max="90" value="1" required></label>
+        </div>
+        <div class="form-group">
+            <label>Talents (e.g., 8/8/8): <input type="text" name="talents_level" placeholder="1/1/1" required></label>
+        </div>
+        <div class="form-group">
             <label>Rarity (4 or 5): <input type="number" name="rarity" min="4" max="5" required></label>
         </div>
         <div class="form-group">
