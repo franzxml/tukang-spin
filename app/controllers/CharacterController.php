@@ -12,22 +12,39 @@ use App\Models\Character;
 class CharacterController extends Controller
 {
     /**
-     * Display the list of characters.
-     *
-     * @return void
+     * Display list.
      */
     public function index(): void
     {
-        $characterModel = new Character();
-        $characters = $characterModel->getAll();
+        $model = new Character();
+        $this->view('pages/characters/index', [
+            'title' => 'Genpedia - Characters',
+            'css' => 'characters', 
+            'characters' => $model->getAll()
+        ]);
+    }
 
-        $data = [
-            'title'      => 'Genpedia - Characters',
-            'css'        => 'characters',
-            'js'         => 'characters',
-            'characters' => $characters
-        ];
+    /**
+     * Show create form.
+     */
+    public function create(): void
+    {
+        $this->view('pages/characters/create', [
+            'title' => 'Add Character',
+            'css' => 'characters'
+        ]);
+    }
 
-        $this->view('pages/characters/index', $data);
+    /**
+     * Handle form submission.
+     */
+    public function store(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $model = new Character();
+            $model->create($_POST);
+            header('Location: /character');
+            exit;
+        }
     }
 }

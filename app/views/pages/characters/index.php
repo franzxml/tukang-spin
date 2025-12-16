@@ -7,9 +7,9 @@ require_once dirname(__DIR__, 2) . '/components/navbar.php';
 <div class="container">
     <div class="char-header">
         <h1>Characters</h1>
-        <button onclick="alert('Create modal not implemented')" style="padding:10px;">
+        <a href="/character/create" class="btn-primary">
             + Add Character
-        </button>
+        </a>
     </div>
 
     <div class="char-grid">
