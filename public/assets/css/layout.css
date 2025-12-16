@@ -1,0 +1,53 @@
+/**
+ * Layout Styles.
+ * Navigation and Global Containers.
+ */
+
+.navbar {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 1rem;
+}
+
+.btn {
+    display: inline-block;
+    background: #4a90e2;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
