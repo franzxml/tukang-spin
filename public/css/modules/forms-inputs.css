@@ -1,0 +1,59 @@
+/*
+ * Module: Forms Inputs
+ * Description: Styling for input fields, selects, and textareas.
+ * Interaction: Neutral style (No blue glow, no gray hover).
+ */
+
+/* Base Input Style */
+.form-control,
+.form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    background-color: #ffffff;
+    font-size: 1rem;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Hover State - Stay White, Subtle Border Darken */
+.form-control:hover,
+.form-select:hover {
+    background-color: #ffffff;
+    border-color: #a1a1a6;
+}
+
+/* Focus State - Neutral Gray Border & Shadow */
+.form-control:focus,
+.form-select:focus {
+    background-color: #ffffff;
+    border-color: #6e6e73;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Placeholder Style */
+.form-control::placeholder {
+    color: #9ca3af;
+    opacity: 1;
+}
+
+/* Textarea specific */
+textarea.form-control {
+    min-height: 120px;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+/* Custom Chevron for Selects */
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px 12px;
+    padding-right: 2.5rem; 
+}

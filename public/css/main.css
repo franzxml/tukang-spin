@@ -7,22 +7,36 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* --- 1. Base --- */
+/* --- 1. Base & Reset --- */
+/* Variables, Reset, and Global Utilities */
 @import 'modules/base.css';
 
-/* --- 2. Structure & Navigation --- */
+/* --- 2. Layout Structure & Navigation --- */
+/* Containers, Headers, Footers, Branding, and Nav Links */
 @import 'modules/index-structure.css';
 
-/* --- 3. UI Components --- */
+/* --- 3. UI Components (Modular Indices) --- */
+
+/* Buttons & Links */
 @import 'modules/index-buttons.css';
+
+/* Content Headers & Cards System (Grid, Media, Badges) */
 @import 'modules/index-cards.css';
 
-/* Standalone Components */
-@import 'modules/forms.css';
+/* Forms & Inputs (Structure, Input Styles) */
+@import 'modules/index-forms.css';
+
+/* Feedback Components */
 @import 'modules/toasts.css';
 @import 'modules/modals.css';
 
-/* --- 4. Page Specifics --- */
+/* --- 4. Page Specific Modules --- */
+
+/* Hero Section (Layout, Text, Actions, Visual) */
 @import 'modules/index-hero.css';
+
+/* Dashboard Stats */
 @import 'modules/stats.css';
+
+/* Detail Page Specifics */
 @import 'modules/detail.css';

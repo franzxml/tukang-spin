@@ -1,0 +1,7 @@
+/*
+ * Module Index: Forms
+ * Groups form structure and input styling.
+ */
+
+@import 'forms-structure.css';
+@import 'forms-inputs.css';
