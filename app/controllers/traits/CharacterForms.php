@@ -1,27 +1,14 @@
 <?php
 /**
- * Controller Read Actions.
+ * Character Forms Trait.
  */
 
 namespace App\Controllers\Traits;
 
 use App\Models\Character;
 
-trait CharacterReadActions
+trait CharacterForms
 {
-    /**
-     * Display character list.
-     */
-    public function index(): void
-    {
-        $model = new Character();
-        $this->view('pages/characters/index', [
-            'title' => 'Genpedia - Characters',
-            'css' => 'characters',
-            'characters' => $model->getAll()
-        ]);
-    }
-
     /**
      * Show create form.
      */

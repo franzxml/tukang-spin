@@ -7,11 +7,13 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Controllers\Traits\CharacterReadActions;
+use App\Controllers\Traits\CharacterListing;
+use App\Controllers\Traits\CharacterForms;
 use App\Controllers\Traits\CharacterWriteActions;
 
 class CharacterController extends Controller
 {
-    use CharacterReadActions;
+    use CharacterListing;
+    use CharacterForms;
     use CharacterWriteActions;
 }
