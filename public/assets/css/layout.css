@@ -45,7 +45,6 @@
 .navbar ul {
     list-style: none;
     display: flex;
-    gap: 0; /* Removed gap since we are using padding on the links now */
     margin: 0;
     padding: 0;
 }
@@ -53,24 +52,18 @@
 .navbar ul li a {
     color: #333;
     text-decoration: none;
-    
-    /* 1. Font Size 16px */
     font-size: 16px;
     font-weight: 500;
-    
-    /* 3. Spacing: Top-Down 16px, Left-Right 24px */
     padding: 16px 24px;
-    
     display: inline-block;
-    position: relative; /* Needed for sliding bar positioning */
+    position: relative;
 }
 
-/* 2. Remove Blue Hover Effect (Keep text #333) */
 .navbar ul li a:hover {
     color: #333; 
 }
 
-/* 4. Sliding Bar Effect */
+/* Base Bar State (Hidden) */
 .navbar ul li a::after {
     content: '';
     position: absolute;
@@ -78,12 +71,17 @@
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #333; /* Black bar to match text */
-    transition: width 0.3s ease-in-out; /* The sliding animation */
+    background-color: #333;
+    transition: width 0.3s ease-in-out;
 }
 
-/* Expand bar on hover */
+/* Hover State: Slide In */
 .navbar ul li a:hover::after {
+    width: 100%;
+}
+
+/* Active State: Stay Visible */
+.navbar ul li a.active::after {
     width: 100%;
 }
 
