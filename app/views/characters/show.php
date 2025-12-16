@@ -6,26 +6,21 @@
     <div class="card detail-card">
         <h1><?php echo $data['character']->name; ?></h1>
         <div class="detail-grid">
-            <div class="detail-item">
-                <strong>Element:</strong> <?php echo $data['character']->element; ?>
-            </div>
-            <div class="detail-item">
-                <strong>Weapon:</strong> <?php echo $data['character']->weapon; ?>
-            </div>
-            <div class="detail-item">
-                <strong>Region:</strong> <?php echo $data['character']->region; ?>
-            </div>
+            <div class="detail-item"><strong>Element:</strong> <?php echo $data['character']->element; ?></div>
+            <div class="detail-item"><strong>Weapon:</strong> <?php echo $data['character']->weapon; ?></div>
+            <div class="detail-item"><strong>Region:</strong> <?php echo $data['character']->region; ?></div>
             <div class="detail-item">
                 <strong>Rarity:</strong> 
-                <span class="rarity star-<?php echo $data['character']->rarity; ?>">
-                    <?php echo $data['character']->rarity; ?> Stars
-                </span>
+                <span class="rarity star-<?php echo $data['character']->rarity; ?>"><?php echo $data['character']->rarity; ?> Stars</span>
             </div>
         </div>
         
         <hr class="divider">
-        <div class="actions">
-            <a href="<?php echo URLROOT; ?>/characters/edit/<?php echo $data['character']->id; ?>" class="btn">Edit Character</a>
+        <div class="actions row">
+            <a href="<?php echo URLROOT; ?>/characters/edit/<?php echo $data['character']->id; ?>" class="btn">Edit</a>
+            <form action="<?php echo URLROOT; ?>/characters/delete/<?php echo $data['character']->id; ?>" method="POST">
+                <input type="submit" value="Delete Character" class="btn btn-danger">
+            </form>
         </div>
     </div>
 </div>

@@ -19,9 +19,7 @@ class Characters extends Controller {
     }
 
     public function index() {
-        $data = [
-            'characters' => $this->characterModel->getCharacters()
-        ];
+        $data = ['characters' => $this->characterModel->getCharacters()];
         $this->view('characters/index', $data);
     }
 
@@ -36,5 +34,15 @@ class Characters extends Controller {
     public function show($id) {
         $character = $this->characterModel->getCharacterById($id);
         $this->view('characters/show', ['character' => $character]);
+    }
+
+    public function delete($id) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($this->characterModel->delete($id)) {
+                header('Location: ' . URLROOT . '/characters');
+            } else {
+                die('Something went wrong');
+            }
+        }
     }
 }
