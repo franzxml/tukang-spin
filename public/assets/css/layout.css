@@ -27,14 +27,12 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    /* Define the transition for smooth animation */
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Hover Effect: Slight Zoom and Fade */
 .brand:hover {
-    transform: scale(1.05); /* Scales up by 5% */
-    opacity: 0.8;           /* Slight transparency */
+    transform: scale(1.05);
+    opacity: 0.8;
 }
 
 .nav-logo {
@@ -47,7 +45,7 @@
 .navbar ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 0; /* Removed gap since we are using padding on the links now */
     margin: 0;
     padding: 0;
 }
@@ -55,14 +53,38 @@
 .navbar ul li a {
     color: #333;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    
+    /* 1. Font Size 16px */
+    font-size: 16px;
     font-weight: 500;
-    font-size: 1.1rem;
-    transition: color 0.2s ease; /* Added transition for links too */
+    
+    /* 3. Spacing: Top-Down 16px, Left-Right 24px */
+    padding: 16px 24px;
+    
+    display: inline-block;
+    position: relative; /* Needed for sliding bar positioning */
 }
 
+/* 2. Remove Blue Hover Effect (Keep text #333) */
 .navbar ul li a:hover {
-    color: #4a90e2;
+    color: #333; 
+}
+
+/* 4. Sliding Bar Effect */
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #333; /* Black bar to match text */
+    transition: width 0.3s ease-in-out; /* The sliding animation */
+}
+
+/* Expand bar on hover */
+.navbar ul li a:hover::after {
+    width: 100%;
 }
 
 .footer {
