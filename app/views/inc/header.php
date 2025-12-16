@@ -8,8 +8,12 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Genpedia</h1>
+        <div class="container header-flex">
+            <h1><a href="<?php echo URLROOT; ?>" style="color:#fff; text-decoration:none;">Genpedia</a></h1>
+            <nav>
+                <a href="<?php echo URLROOT; ?>">Characters</a>
+                <a href="<?php echo URLROOT; ?>/weapons">Weapons</a>
+            </nav>
         </div>
     </header>
     <div class="container">
