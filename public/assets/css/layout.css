@@ -6,18 +6,15 @@
 .navbar {
     background: #F4F5F6;
     color: #333;
-    /* Strict Top-Down Spacing: 16px */
     padding: 16px 0; 
-    /* Removed min-height to allow padding to define exact spacing around the 75px logo */
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .container {
-    /* Strict Left-Right Spacing: 24px */
     padding: 0 24px;
     width: 100%;
     margin: 0 auto;
-    max-width: 1200px; /* Optional: keeps it from getting too wide on huge screens */
+    max-width: 1200px;
 }
 
 .nav-flex {
@@ -30,14 +27,16 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    transition: opacity 0.3s ease;
+    /* Define the transition for smooth animation */
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
+/* Hover Effect: Slight Zoom and Fade */
 .brand:hover {
-    opacity: 0.8;
+    transform: scale(1.05); /* Scales up by 5% */
+    opacity: 0.8;           /* Slight transparency */
 }
 
-/* Logo Size maintained at 75px */
 .nav-logo {
     height: 75px; 
     width: auto;
@@ -59,6 +58,7 @@
     padding: 0.5rem 1rem;
     font-weight: 500;
     font-size: 1.1rem;
+    transition: color 0.2s ease; /* Added transition for links too */
 }
 
 .navbar ul li a:hover {
