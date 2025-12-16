@@ -2,11 +2,7 @@
 
 /**
  * Class ArtifactModel
- *
  * Handles database interactions for Artifact Sets.
- * Updated to support split 2pc and 4pc bonuses.
- *
- * @package App\Models
  */
 class ArtifactModel
 {
@@ -24,14 +20,20 @@ class ArtifactModel
         return $this->db->resultSet();
     }
 
+    // NEW: Count total artifact sets
+    public function countArtifacts(): int
+    {
+        $this->db->query("SELECT COUNT(*) as count FROM " . $this->table);
+        $row = $this->db->single();
+        return (int) $row['count'];
+    }
+
     public function addArtifact(array $data): int
     {
-        // Updated query for split columns
         $query = "INSERT INTO artifact_sets (name, bonus_2pc, bonus_4pc, image_url) 
                   VALUES (:name, :bonus_2pc, :bonus_4pc, :image_url)";
         
         $this->db->query($query);
-        
         $this->db->bind('name', htmlspecialchars($data['name']));
         $this->db->bind('bonus_2pc', htmlspecialchars($data['bonus_2pc']));
         $this->db->bind('bonus_4pc', htmlspecialchars($data['bonus_4pc']));

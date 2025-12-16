@@ -8,8 +8,7 @@
     <div class="hero-text">
         <h1 class="hero-title">Selamat datang di Genpedia!</h1>
         <p class="hero-description">Kelola tim, senjata, dan artefak Anda dengan efisiensi maksimal dalam satu tempat yang terorganisir.</p>
-        
-        </div>
+    </div>
 
     <div class="hero-visual">
         <img src="<?= BASEURL; ?>/img/home/summer-resort.jpg" 
@@ -23,19 +22,18 @@
 <section class="stats-section">
     <div class="stats-card-split">
         <div class="stats-content">
-            <h3 class="stats-title">Koleksi Karakter</h3>
+            <h3 class="stats-title-main">Berikut total database terdaftar:</h3>
             
-            <div class="stats-metric">
-                <span class="metric-value"><?= $data['total_characters']; ?></span>
-                <span class="metric-label">Terdaftar</span>
-            </div>
-            
-            <p class="stats-desc">Karakter yang telah Anda daftarkan dan kelola di database Genpedia.</p>
+            <p class="stats-desc-main">
+                <?= $data['total_characters']; ?> karakter, 
+                <?= $data['total_weapons']; ?> senjata, dan 
+                <?= $data['total_artifacts']; ?> artefak.
+            </p>
         </div>
         
         <div class="stats-visual">
             <img src="<?= BASEURL; ?>/img/home/adventurers-trails.jpg" 
-                 alt="Character Collection" 
+                 alt="Database Stats Visual" 
                  class="stats-img"
                  loading="lazy"
                  decoding="async">
