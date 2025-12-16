@@ -1,3 +1,4 @@
+<?php
 /**
  * Character Controller.
  * Manages character interactions via traits.
