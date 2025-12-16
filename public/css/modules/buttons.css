@@ -6,7 +6,7 @@
 
 /**
  * .btn-cta
- * Primary Call-to-Action button (e.g., Submit, Save).
+ * Primary Call-to-Action button (e.g., Submit, Save, Add New).
  * Style: iOS Primary Button (Blue, bold, pill-like).
  */
 .btn-cta {
@@ -30,19 +30,18 @@
 .btn-cta:hover {
     background-color: #0077ED;
     transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0, 113, 227, 0.25);
+    
+    /* FIX: Removed blue glow/light effect. 
+       Replaced with a subtle neutral shadow for depth without color bleed. */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
 }
 
 .btn-cta:active {
     transform: scale(0.96);
-    box-shadow: 0 2px 4px rgba(0, 113, 227, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/**
- * .btn-secondary
- * Secondary action (e.g., Cancel).
- * Style: iOS Secondary Button (Light gray background).
- */
+/* ... (Sisa kode tombol lainnya tetap sama) ... */
 .btn-secondary {
     background-color: rgba(118, 118, 128, 0.12) !important;
     color: var(--text-primary) !important;
@@ -54,20 +53,11 @@
     transform: translateY(-1px);
 }
 
-/**
- * .btn-black
- * High contrast button for light backgrounds.
- */
 .btn-black {
     background-color: #1d1d1f !important;
     color: #ffffff !important;
 }
 
-/**
- * .btn-danger
- * Destructive action (e.g., Delete).
- * Style: Light red background with red text.
- */
 .btn-danger {
     background-color: rgba(255, 59, 48, 0.1) !important;
     color: var(--accent-red) !important;
@@ -79,11 +69,6 @@
     transform: translateY(-1px);
 }
 
-/**
- * .btn-back
- * Distinctive Back Button used in Detail pages.
- * Style: Large, pill-shaped, distinct floating button.
- */
 .btn-back {
     display: inline-flex;
     align-items: center;
@@ -106,10 +91,6 @@
     color: var(--accent-blue);
 }
 
-/**
- * .link-cta
- * Text-only hyperlink with hover state.
- */
 .link-cta {
     color: var(--accent-blue);
     font-weight: 500;
