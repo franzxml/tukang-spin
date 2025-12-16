@@ -1,0 +1,71 @@
+/*
+ * Module: Content Header
+ * Description: Header section for content lists (Title, Search, Add Button).
+ */
+
+.content-header {
+    background-color: var(--bg-panel);
+    border-radius: 24px;
+    margin-top: 40px;
+    margin-bottom: 24px;
+    
+    /* Padding: 16px Vertical / 24px Horizontal */
+    padding: 16px 24px;
+    
+    display: flex;
+    flex-direction: column;
+    
+    /* FIX: Ideal spacing between Text, Search, and Button */
+    gap: 24px; 
+    
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+/* Typography spacing within title block */
+.content-title {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Spacing between H3 and subtitle paragraph */
+}
+
+.content-title h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.content-title p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Actions Wrapper (Search + Button) */
+.header-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+/* Desktop Layout */
+@media (min-width: 900px) {
+    .content-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center; /* Center vertically */
+    }
+
+    .header-actions {
+        flex-direction: row;
+        width: auto;
+        align-items: center;
+        gap: 16px; /* Spacing between Search and Add Button */
+    }
+
+    /* Make search box slightly wider on desktop */
+    .header-actions input {
+        min-width: 250px;
+    }
+}

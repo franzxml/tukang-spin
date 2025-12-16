@@ -7,32 +7,34 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* * Import Modules 
- * Urutan ini penting! Jangan diubah.
- */
-@import 'modules/base.css';       /* 1. Variabel & Reset */
+/* --- 1. Base & Reset --- */
+@import 'modules/base.css';
 
-/* 2. Struktur & Navigasi */
-@import 'modules/layout.css';     
-@import 'modules/header.css';     /* Layout Header Utama */
-@import 'modules/branding.css';   /* Logo Styles */
-
-/* Navigation Modules */
-@import 'modules/nav-links.css';  /* Menu Links */
-@import 'modules/nav-marker.css'; /* Sliding Marker */
-
+/* --- 2. Layout Structure & Navigation --- */
+@import 'modules/layout.css';
+@import 'modules/header.css';
+@import 'modules/branding.css';
+@import 'modules/nav-links.css';
+@import 'modules/nav-marker.css';
 @import 'modules/footer.css';
 
-/* 3. Komponen UI Modular */
-@import 'modules/buttons.css';
+/* --- 3. UI Components (Modular) --- */
+/* Buttons */
+@import 'modules/buttons-core.css';
+@import 'modules/buttons-special.css';
+@import 'modules/links.css';
+
+/* Cards & Layouts */
+@import 'modules/content-header.css';
+@import 'modules/grid-layout.css';
+@import 'modules/card-item.css';
+
+/* Forms & Feedback */
 @import 'modules/forms.css';
 @import 'modules/toasts.css';
 @import 'modules/modals.css';
 
-@import 'modules/cards.css';      /* 4. Kartu Karakter */
-
-/* 5. Halaman Beranda (Modular) */
+/* --- 4. Page Specific Modules --- */
 @import 'modules/hero.css';
 @import 'modules/stats.css';
-
-@import 'modules/detail.css';     /* 6. Halaman Detail */
+@import 'modules/detail.css';

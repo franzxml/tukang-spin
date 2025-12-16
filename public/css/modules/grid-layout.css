@@ -1,0 +1,17 @@
+/*
+ * Module: Grid Layout
+ * Description: Responsive grid system for card items.
+ */
+
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 24px;
+    padding-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+    .character-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
