@@ -155,7 +155,7 @@
     background-color: var(--bg-panel);
     border-top: 1px solid var(--border-subtle);
     
-    /* FIX: Vertical padding 16px (Horizontal 0 because .container handles the 24px) */
+    /* Vertical padding 16px (Horizontal 0 because .container handles the 24px) */
     padding: 16px 0; 
     
     font-size: 0.9rem;
@@ -165,8 +165,8 @@
 .footer-content {
     display: flex;
     flex-direction: column;
-    /* FIX: Content layout - simple column */
-    align-items: flex-start; 
+    /* FIX: Center alignment for all footer items */
+    align-items: center; 
     gap: 8px; /* Space between text and icons */
 }
 
@@ -174,10 +174,11 @@
 .footer-text {
     font-size: 16px;
     color: var(--text-primary);
-    text-align: justify;
+    /* FIX: Center align text */
+    text-align: center; 
     margin: 0;
     line-height: 1.5;
-    width: 100%; /* Ensure justify works if text wraps */
+    width: 100%;
 }
 
 .footer-socials {
