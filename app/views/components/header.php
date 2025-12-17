@@ -8,6 +8,6 @@
 ?>
 <header class="header">
     <div class="header-container">
-        <h1 class="header-title"><?php echo APP_NAME; ?></h1>
+        <img src="/images/logo.png" alt="<?php echo APP_NAME; ?> Logo" class="header-logo">
     </div>
 </header>
