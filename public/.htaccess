@@ -1,0 +1,23 @@
+# Genpedia URL Rewriting Configuration
+# 
+# @package Genpedia
+# @author franzxml
+
+RewriteEngine On
+
+# Allow access to CSS files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/public/css/
+
+# Allow access to JS files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/public/js/
+
+# Allow access to image files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^/public/images/
+
+# Route all other requests to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]

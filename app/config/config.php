@@ -14,4 +14,4 @@ define('DB_PASS', '');
 
 // Application configuration
 define('APP_NAME', 'Genpedia');
-define('BASE_URL', 'http://genpedia.test/');
+define('BASE_URL', '/');
