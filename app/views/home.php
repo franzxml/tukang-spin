@@ -20,6 +20,8 @@
                 <img src="/images/hero.png" alt="Genpedia Hero" class="hero-img">
             </div>
             <div class="hero-content">
+                <h1 class="hero-title">Welcome to Genpedia!</h1>
+                <p class="hero-description">Your Genshin Impact private database.</p>
             </div>
         </section>
     </main>
