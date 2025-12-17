@@ -37,3 +37,8 @@
     outline: none;
     border-color: #000000;
 }
+
+.form-textarea {
+    resize: vertical;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}

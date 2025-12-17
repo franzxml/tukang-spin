@@ -61,6 +61,60 @@
                         </select>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="weaponLevel" class="form-label">Weapon Level</label>
+                        <input type="number" id="weaponLevel" name="weaponLevel" class="form-input" min="1" max="90" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weaponStar" class="form-label">Weapon Star</label>
+                        <select id="weaponStar" name="weaponStar" class="form-input" required>
+                            <option value="">Select Star</option>
+                            <option value="1">1 Star</option>
+                            <option value="2">2 Star</option>
+                            <option value="3">3 Star</option>
+                            <option value="4">4 Star</option>
+                            <option value="5">5 Star</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="refinementRank" class="form-label">Refinement Rank</label>
+                        <select id="refinementRank" name="refinementRank" class="form-input" required>
+                            <option value="">Select Rank</option>
+                            <option value="1">Rank 1</option>
+                            <option value="2">Rank 2</option>
+                            <option value="3">Rank 3</option>
+                            <option value="4">Rank 4</option>
+                            <option value="5">Rank 5</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weaponPassiveName" class="form-label">Weapon Passive Name</label>
+                        <input type="text" id="weaponPassiveName" name="weaponPassiveName" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weaponPassiveDesc" class="form-label">Weapon Passive Description</label>
+                        <textarea id="weaponPassiveDesc" name="weaponPassiveDesc" class="form-input form-textarea" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weaponSummary" class="form-label">Weapon Summary Story</label>
+                        <textarea id="weaponSummary" name="weaponSummary" class="form-input form-textarea" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weaponStory" class="form-label">Weapon Story</label>
+                        <textarea id="weaponStory" name="weaponStory" class="form-input form-textarea" rows="5" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weaponPicture" class="form-label">Weapon Picture (Link)</label>
+                        <input type="url" id="weaponPicture" name="weaponPicture" class="form-input" placeholder="https://example.com/image.png" required>
+                    </div>
+                    
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
