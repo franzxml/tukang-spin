@@ -6,6 +6,7 @@
     <title><?php echo APP_NAME; ?></title>
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/components/header.css">
+    <link rel="stylesheet" href="/css/components/navigation.css">
     <link rel="stylesheet" href="/css/components/home-content.css">
     <link rel="stylesheet" href="/css/components/footer.css">
 </head>
