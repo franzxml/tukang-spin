@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/components/navigation.css">
     <link rel="stylesheet" href="/css/components/weapon-content.css">
     <link rel="stylesheet" href="/css/components/hero-section.css">
+    <link rel="stylesheet" href="/css/components/button.css">
     <link rel="stylesheet" href="/css/components/footer.css">
 </head>
 <body>
@@ -22,6 +23,7 @@
             <div class="hero-content">
                 <h1 class="hero-title">Weapon Database</h1>
                 <p class="hero-description">Explore all weapons in Genshin Impact.</p>
+                <button class="btn btn-primary">Add Weapon</button>
             </div>
         </section>
     </main>
