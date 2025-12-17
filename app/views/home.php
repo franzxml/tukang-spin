@@ -18,5 +18,7 @@
     </main>
 
     <?php include BASE_PATH . '/app/views/components/footer.php'; ?>
+    
+    <script src="/js/components/navigation.js"></script>
 </body>
 </html>

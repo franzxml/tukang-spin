@@ -23,6 +23,7 @@
                 <li class="navigation-item">
                     <a href="/artifact" class="navigation-link <?php echo (isset($currentPage) && $currentPage === 'artifact') ? 'active' : ''; ?>">Artifact</a>
                 </li>
+                <span class="navigation-bar"></span>
             </ul>
         </nav>
     </div>
