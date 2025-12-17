@@ -48,12 +48,21 @@ class App
             
             if (file_exists($controllerPath)) {
                 $this->controller = $controllerName;
+                
+                if (isset($url[1])) {
+                    $this->method = $url[1];
+                }
             }
         }
         
         $this->loadController();
         $controllerInstance = new $this->controller();
-        call_user_func_array([$controllerInstance, $this->method], $this->params);
+        
+        if (method_exists($controllerInstance, $this->method)) {
+            call_user_func_array([$controllerInstance, $this->method], $this->params);
+        } else {
+            call_user_func_array([$controllerInstance, 'index'], $this->params);
+        }
     }
 
     /**

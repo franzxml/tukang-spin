@@ -17,4 +17,14 @@ class WeaponController extends Controller
     {
         $this->view('weapon');
     }
+
+    /**
+     * Display add weapon page
+     * 
+     * @return void
+     */
+    public function add()
+    {
+        $this->view('weapon-add');
+    }
 }

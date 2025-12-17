@@ -1,0 +1,19 @@
+/**
+ * Weapon Add Content Component Styles
+ * 
+ * @package Genpedia
+ * @author franzxml
+ */
+
+.weapon-add-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 128px);
+    padding: 40px 20px;
+    margin-bottom: 64px;
+}
+
+.hero-section-form {
+    max-width: 1200px;
+}

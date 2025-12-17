@@ -23,7 +23,7 @@
             <div class="hero-content">
                 <h1 class="hero-title">Weapon Database</h1>
                 <p class="hero-description">Explore all weapons in Genshin Impact.</p>
-                <button class="btn btn-primary">Add Weapon</button>
+                <a href="/weapon/add" class="btn btn-primary">Add Weapon</a>
             </div>
         </section>
     </main>
