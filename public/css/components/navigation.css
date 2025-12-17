@@ -48,7 +48,14 @@
     transition: width 0.3s ease;
 }
 
-.navigation-link:hover::after,
+.navigation-link:hover::after {
+    width: 100%;
+}
+
 .navigation-link.active::after {
+    width: 100%;
+}
+
+.navigation-link.active:hover::after {
     width: 100%;
 }
