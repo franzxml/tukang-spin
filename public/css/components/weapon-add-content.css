@@ -8,21 +8,13 @@
 .weapon-add-content {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: calc(100vh - 128px);
     padding: 40px 20px;
     margin-bottom: 64px;
 }
 
-.weapon-form-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    width: 100%;
-    max-width: 1400px;
-}
-
-.hero-section-form {
-    max-width: 100%;
-    flex: 1;
+.hero-section-form-single {
+    max-width: 1200px;
+    min-height: auto;
 }

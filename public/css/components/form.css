@@ -5,21 +5,36 @@
  * @author franzxml
  */
 
+.weapon-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 6px;
 }
 
 .form-label {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: #000000;
 }
 
 .form-input {
-    padding: 10px 12px;
+    padding: 8px 12px;
     border: 1px solid #cccccc;
     border-radius: 6px;
     font-size: 14px;
@@ -35,4 +50,9 @@
 .form-textarea {
     resize: vertical;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.btn-full {
+    width: 100%;
+    margin-top: 10px;
 }
