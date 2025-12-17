@@ -16,12 +16,13 @@
 
 .weapon-form-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 40px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
 }
 
 .hero-section-form {
     max-width: 100%;
+    flex: 1;
 }
