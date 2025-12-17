@@ -5,17 +5,11 @@
  * @author franzxml
  */
 
-.weapon-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
-}
-
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-bottom: 15px;
 }
 
 .form-label {

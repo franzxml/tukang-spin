@@ -48,6 +48,13 @@
     margin: 0;
 }
 
+.hero-subtitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0 0 10px 0;
+}
+
 .hero-description {
     font-size: 18px;
     color: #333333;

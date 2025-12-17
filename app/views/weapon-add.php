@@ -17,13 +17,14 @@
     <?php include BASE_PATH . '/app/views/components/header.php'; ?>
     
     <main class="weapon-add-content">
-        <section class="hero-section hero-section-form">
-            <div class="hero-image">
-                <img src="/images/hero3.png" alt="Add Weapon" class="hero-img">
-            </div>
-            <div class="hero-content">
-                <h1 class="hero-title">Add New Weapon</h1>
-                <form class="weapon-form" method="POST" action="/weapon/store">
+        <form class="weapon-form-wrapper" method="POST" action="/weapon/store">
+            <section class="hero-section hero-section-form">
+                <div class="hero-image">
+                    <img src="/images/hero3.png" alt="Add Weapon" class="hero-img">
+                </div>
+                <div class="hero-content">
+                    <h2 class="hero-subtitle">Basic Information</h2>
+                    
                     <div class="form-group">
                         <label for="weaponName" class="form-label">Weapon Name</label>
                         <input type="text" id="weaponName" name="weaponName" class="form-input" required>
@@ -89,6 +90,15 @@
                             <option value="5">Rank 5</option>
                         </select>
                     </div>
+                </div>
+            </section>
+            
+            <section class="hero-section hero-section-form">
+                <div class="hero-image">
+                    <img src="/images/hero4.png" alt="Weapon Details" class="hero-img">
+                </div>
+                <div class="hero-content">
+                    <h2 class="hero-subtitle">Weapon Details</h2>
                     
                     <div class="form-group">
                         <label for="weaponPassiveName" class="form-label">Weapon Passive Name</label>
@@ -116,9 +126,9 @@
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </section>
+                </div>
+            </section>
+        </form>
     </main>
 
     <?php include BASE_PATH . '/app/views/components/footer.php'; ?>
