@@ -16,6 +16,11 @@
     
     <main class="home-content">
         <section class="hero-section">
+            <div class="hero-image">
+                <img src="/images/hero.png" alt="Genpedia Hero" class="hero-img">
+            </div>
+            <div class="hero-content">
+            </div>
         </section>
     </main>
 
