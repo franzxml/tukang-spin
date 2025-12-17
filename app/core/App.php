@@ -42,6 +42,15 @@ class App
      */
     private function routeRequest($url)
     {
+        if ($url && isset($url[0])) {
+            $controllerName = ucfirst($url[0]) . 'Controller';
+            $controllerPath = BASE_PATH . '/app/controllers/' . $controllerName . '.php';
+            
+            if (file_exists($controllerPath)) {
+                $this->controller = $controllerName;
+            }
+        }
+        
         $this->loadController();
         $controllerInstance = new $this->controller();
         call_user_func_array([$controllerInstance, $this->method], $this->params);
