@@ -20,6 +20,7 @@
 
 .navigation-item {
     margin: 0;
+    position: relative;
 }
 
 .navigation-link {
@@ -28,8 +29,25 @@
     font-size: 16px;
     font-weight: 500;
     transition: color 0.3s ease;
+    display: block;
+    padding-bottom: 5px;
 }
 
 .navigation-link:hover {
     color: #666666;
+}
+
+.navigation-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #000000;
+    transition: width 0.3s ease;
+}
+
+.navigation-link:hover::after {
+    width: 100%;
 }
