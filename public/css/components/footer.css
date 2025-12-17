@@ -19,14 +19,17 @@
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
 .footer-text {
     font-size: 14px;
     color: #000000;
     margin: 0;
+    text-align: center;
 }
 
 .footer-social {
