@@ -1,0 +1,15 @@
+/**
+ * Hero Section Component Styles
+ * 
+ * @package Genpedia
+ * @author franzxml
+ */
+
+.hero-section {
+    background-color: #F4F5F6;
+    border-radius: 20px;
+    padding: 60px 40px;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 400px;
+}
