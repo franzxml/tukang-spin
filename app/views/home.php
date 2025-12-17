@@ -14,7 +14,6 @@
     <?php include BASE_PATH . '/app/views/components/header.php'; ?>
     
     <main class="home-content">
-        <h2 class="home-title">Welcome to Genpedia!</h2>
     </main>
 
     <?php include BASE_PATH . '/app/views/components/footer.php'; ?>
