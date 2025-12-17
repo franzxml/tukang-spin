@@ -22,15 +22,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 .hero-img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
 
 .hero-content {
-    flex: 0 0 50%;
+    flex: 0 0 calc(50% - 40px);
 }
