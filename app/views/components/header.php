@@ -12,16 +12,16 @@
         <nav class="navigation">
             <ul class="navigation-list">
                 <li class="navigation-item">
-                    <a href="/" class="navigation-link">Home</a>
+                    <a href="/" class="navigation-link <?php echo (!isset($currentPage) || $currentPage === 'home') ? 'active' : ''; ?>">Home</a>
                 </li>
                 <li class="navigation-item">
-                    <a href="/character" class="navigation-link">Character</a>
+                    <a href="/character" class="navigation-link <?php echo (isset($currentPage) && $currentPage === 'character') ? 'active' : ''; ?>">Character</a>
                 </li>
                 <li class="navigation-item">
-                    <a href="/weapon" class="navigation-link">Weapon</a>
+                    <a href="/weapon" class="navigation-link <?php echo (isset($currentPage) && $currentPage === 'weapon') ? 'active' : ''; ?>">Weapon</a>
                 </li>
                 <li class="navigation-item">
-                    <a href="/artifact" class="navigation-link">Artifact</a>
+                    <a href="/artifact" class="navigation-link <?php echo (isset($currentPage) && $currentPage === 'artifact') ? 'active' : ''; ?>">Artifact</a>
                 </li>
             </ul>
         </nav>
