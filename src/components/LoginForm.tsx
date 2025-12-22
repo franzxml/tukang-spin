@@ -3,7 +3,7 @@
 import { useState, FormEvent } from 'react';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -12,7 +12,7 @@ export default function LoginForm() {
     setIsLoading(true);
 
     // TODO: Implement login logic
-    console.log('Login attempt:', { email, password });
+    console.log('Login attempt:', { username, password });
 
     // Simulate API call
     setTimeout(() => {
@@ -30,17 +30,17 @@ export default function LoginForm() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+              Username
             </label>
             <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-              placeholder="you@example.com"
+              placeholder="username"
             />
           </div>
 
@@ -59,16 +59,9 @@ export default function LoginForm() {
             />
           </div>
 
-          <div className="flex items-center justify-between">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <span className="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
-            <a href="#forgot" className="text-sm text-blue-600 hover:text-blue-700">
-              Forgot password?
+          <div className="flex items-center justify-end">
+            <a href="/forgot-password" className="text-sm text-blue-600 hover:text-blue-700">
+              Lupa password?
             </a>
           </div>
 
@@ -84,7 +77,7 @@ export default function LoginForm() {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Don't have an account?{' '}
-            <a href="#signup" className="text-blue-600 hover:text-blue-700 font-semibold">
+            <a href="/signup" className="text-blue-600 hover:text-blue-700 font-semibold">
               Sign up
             </a>
           </p>
