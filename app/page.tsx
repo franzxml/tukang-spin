@@ -6,22 +6,17 @@ export default function Home() {
   const [isSnapped, setIsSnapped] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
   const [rotation, setRotation] = useState(0);
-  const [nameInput, setNameInput] = useState("Opsi 1\nOpsi 2\nOpsi 3\nOpsi 4");
+  const [nameInput, setNameInput] = useState("");
   const [names, setNames] = useState<string[]>([]);
   const [isSpinning, setIsSpinning] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
 
   const handleStart = () => {
     const parsedNames = nameInput
-      .split("\n")
+      .split(",")
       .map((n) => n.trim())
       .filter((n) => n !== "");
     
-    if (parsedNames.length < 2) {
-      alert("Masukkan minimal 2 nama!");
-      return;
-    }
-
     setNames(parsedNames);
     setIsSnapped(true);
     
@@ -30,8 +25,19 @@ export default function Home() {
     }, 2000);
   };
 
+  const handleUpdateNames = () => {
+    const parsedNames = nameInput
+      .split(",")
+      .map((n) => n.trim())
+      .filter((n) => n !== "");
+    
+    setNames(parsedNames);
+    setWinner(null);
+    setRotation(0);
+  };
+
   const spin = () => {
-    if (isSpinning) return;
+    if (isSpinning || names.length < 2) return;
     
     setIsSpinning(true);
     setWinner(null);
@@ -45,19 +51,13 @@ export default function Home() {
       setIsSpinning(false);
       const actualRotation = totalRotation % 360;
       const segmentAngle = 360 / names.length;
-      // The pointer is at the top (0 deg). 
-      // The wheel rotates clockwise. The segment at the top is the one "hit".
-      // We need to find which segment is at the 0 degree mark.
-      // Index = floor((360 - actualRotation) / segmentAngle)
       const winningIndex = Math.floor(((360 - (actualRotation % 360)) % 360) / segmentAngle);
       setWinner(names[winningIndex]);
     }, 4000);
   };
 
-  const colors = [
-    "#212844", "#3d4b7a", "#5a6eb0", "#7791e6", 
-    "#2a3459", "#46568c", "#6278bf", "#7e9af2"
-  ];
+  // Plain but elegant colors
+  const colors = ["#f8f9fa", "#e9ecef", "#dee2e6", "#f1f3f5"];
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center bg-[#f0e7d5] p-8 text-center overflow-hidden font-mono text-[#212844]">
@@ -73,21 +73,9 @@ export default function Home() {
           <h1 className="mb-6 text-6xl font-bold">
             Tukang <span className="underline decoration-wavy">Spin</span>
           </h1>
-          <p className="max-w-2xl text-xl opacity-80 mb-8">
+          <p className="max-w-2xl text-xl opacity-80 mb-12">
             Alat putar interaktif untuk membuat keputusan acak, memilih nama, atau menentukan hadiah.
           </p>
-
-          <div className="w-full max-w-md mb-8">
-            <label className="block text-left text-sm font-bold uppercase tracking-widest mb-2 opacity-60">
-              Isi Nama (satu per baris)
-            </label>
-            <textarea
-              value={nameInput}
-              onChange={(e) => setNameInput(e.target.value)}
-              className="w-full h-40 p-4 rounded-xl border-4 border-[#212844] bg-white/50 focus:bg-white outline-none transition-all resize-none font-bold"
-              placeholder="Contoh:&#10;Nama 1&#10;Nama 2"
-            />
-          </div>
           
           <button 
             onClick={handleStart}
@@ -103,45 +91,50 @@ export default function Home() {
 
       {/* Spinner Component */}
       {showSpinner && (
-        <div className="appear-smooth flex flex-col items-center w-full max-w-4xl">
-          <div className="relative h-80 w-80 md:h-[500px] md:w-[500px] mb-12">
+        <div className="appear-smooth flex flex-col items-center w-full max-w-4xl mt-8">
+          <div className="relative h-80 w-80 md:h-[500px] md:w-[500px] mb-8">
             {/* The Wheel */}
             <div 
               style={{ transform: `rotate(${rotation}deg)` }}
               className="absolute inset-0 rounded-full border-8 border-[#212844] bg-white transition-transform duration-[4000ms] cubic-bezier(0.15, 0, 0.15, 1) overflow-hidden shadow-2xl"
             >
-              {names.map((name, i) => {
-                const angle = 360 / names.length;
-                return (
-                  <div 
-                    key={i}
-                    className="absolute top-0 left-1/2 h-1/2 w-full origin-bottom -translate-x-1/2"
-                    style={{ 
-                      transform: `rotate(${i * angle}deg)`,
-                      clipPath: names.length > 2 
-                        ? `polygon(50% 100%, ${50 - Math.tan((angle / 2) * Math.PI / 180) * 100}% 0%, ${50 + Math.tan((angle / 2) * Math.PI / 180) * 100}% 0%)`
-                        : names.length === 2 && i === 0 ? "none" : "none",
-                      backgroundColor: colors[i % colors.length]
-                    }}
-                  >
-                    <span 
-                      className="absolute top-12 left-1/2 -translate-x-1/2 font-bold text-[#f0e7d5] text-lg md:text-xl uppercase whitespace-nowrap"
-                      style={{ transform: `rotate(0deg)` }}
+              {names.length >= 2 ? (
+                names.map((name, i) => {
+                  const angle = 360 / names.length;
+                  return (
+                    <div 
+                      key={i}
+                      className="absolute top-0 left-1/2 h-1/2 w-full origin-bottom -translate-x-1/2"
+                      style={{ 
+                        transform: `rotate(${i * angle}deg)`,
+                        clipPath: names.length > 2 
+                          ? `polygon(50% 100%, ${50 - Math.tan((angle / 2) * Math.PI / 180) * 100}% 0%, ${50 + Math.tan((angle / 2) * Math.PI / 180) * 100}% 0%)`
+                          : "none",
+                        backgroundColor: colors[i % colors.length],
+                        borderBottom: "1px solid #21284422"
+                      }}
                     >
-                      {name}
-                    </span>
-                  </div>
-                );
-              })}
+                      <span 
+                        className="absolute top-12 left-1/2 -translate-x-1/2 font-bold text-[#212844] text-lg md:text-xl uppercase whitespace-nowrap px-4"
+                        style={{ transform: `rotate(0deg)` }}
+                      >
+                        {name}
+                      </span>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="h-full w-full bg-[#f8f9fa]" />
+              )}
               
               {/* Special handling for 2 names */}
               {names.length === 2 && (
                 <>
-                  <div className="absolute top-0 left-0 w-full h-1/2 bg-[#212844]">
-                     <span className="absolute bottom-12 left-1/2 -translate-x-1/2 font-bold text-[#f0e7d5] text-xl uppercase">{names[0]}</span>
+                  <div className="absolute top-0 left-0 w-full h-1/2 bg-[#f8f9fa] border-b-2 border-[#21284422]">
+                     <span className="absolute bottom-12 left-1/2 -translate-x-1/2 font-bold text-[#212844] text-xl uppercase">{names[0]}</span>
                   </div>
-                  <div className="absolute bottom-0 left-0 w-full h-1/2 bg-[#3d4b7a]">
-                     <span className="absolute top-12 left-1/2 -translate-x-1/2 font-bold text-[#f0e7d5] text-xl uppercase">{names[1]}</span>
+                  <div className="absolute bottom-0 left-0 w-full h-1/2 bg-[#e9ecef]">
+                     <span className="absolute top-12 left-1/2 -translate-x-1/2 font-bold text-[#212844] text-xl uppercase">{names[1]}</span>
                   </div>
                 </>
               )}
@@ -153,16 +146,22 @@ export default function Home() {
             </div>
 
             {/* Center Button */}
-            <button 
-              onClick={spin}
-              disabled={isSpinning}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 group outline-none disabled:opacity-50"
-            >
-              <span className="absolute inset-0 translate-y-1.5 rounded-full bg-[#212844]/20 transition-transform group-hover:translate-y-1 group-active:translate-y-0"></span>
-              <span className="relative flex h-24 w-24 items-center justify-center rounded-full bg-[#212844] text-[#f0e7d5] font-bold transition-transform group-hover:-translate-y-1 group-active:translate-y-1 tracking-wider shadow-lg">
-                putar
-              </span>
-            </button>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40">
+              <button 
+                onClick={spin}
+                disabled={isSpinning || names.length < 2}
+                className="relative group outline-none disabled:cursor-not-allowed"
+              >
+                <span className="absolute inset-0 translate-y-1.5 rounded-full bg-[#212844]/20 transition-transform group-hover:translate-y-1 group-active:translate-y-0"></span>
+                <span className={`relative flex h-24 w-24 items-center justify-center rounded-full font-bold transition-transform tracking-wider shadow-lg ${
+                  names.length < 2 
+                    ? "bg-[#dee2e6] text-[#212844]/40" 
+                    : "bg-[#212844] text-[#f0e7d5] group-hover:-translate-y-1 group-active:translate-y-1"
+                }`}>
+                  {names.length < 2 ? "isi\ndulu" : "putar"}
+                </span>
+              </button>
+            </div>
           </div>
 
           {/* Winner Display */}
@@ -174,6 +173,24 @@ export default function Home() {
             </div>
           )}
 
+          <div className="w-full max-w-md mt-4 mb-8">
+            <label className="block text-center text-sm font-bold uppercase tracking-widest mb-2 opacity-60">
+              Atur Nama (pisahkan dengan koma)
+            </label>
+            <textarea
+              value={nameInput}
+              onChange={(e) => setNameInput(e.target.value)}
+              className="w-full h-32 p-4 rounded-xl border-4 border-[#212844] bg-white/50 focus:bg-white outline-none transition-all resize-none font-bold text-sm"
+              placeholder="Contoh: Nama 1, Nama 2, Nama 3"
+            />
+            <button 
+              onClick={handleUpdateNames}
+              className="mt-2 w-full rounded-xl bg-[#212844] px-4 py-3 text-sm font-bold uppercase tracking-widest text-[#f0e7d5] hover:bg-[#3d4b7a] transition-colors"
+            >
+              Update Spinner
+            </button>
+          </div>
+
           <button 
             onClick={() => {
               setShowSpinner(false);
@@ -181,9 +198,9 @@ export default function Home() {
               setWinner(null);
               setRotation(0);
             }}
-            className="text-sm font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity"
+            className="text-sm font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-8"
           >
-            ← Kembali & Atur Nama
+            ← Kembali ke Awal
           </button>
         </div>
       )}
