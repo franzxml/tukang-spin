@@ -1,231 +1,77 @@
 "use client";
 
-import { useState } from "react";
+import { useSpinner } from "@/hooks/useSpinner";
+import LandingPage from "@/components/LandingPage";
+import SpinnerWheel from "@/components/SpinnerWheel";
+import Controls from "@/components/Controls";
+import History from "@/components/History";
+import WinnerModal from "@/components/WinnerModal";
 
 export default function Home() {
-  const [isSnapped, setIsSnapped] = useState(false);
-  const [showSpinner, setShowSpinner] = useState(false);
-  const [rotation, setRotation] = useState(0);
-  const [nameInput, setNameInput] = useState("");
-  const [names, setNames] = useState<string[]>([]);
-  const [isSpinning, setIsSpinning] = useState(false);
-  const [winner, setWinner] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [history, setHistory] = useState<string[]>([]);
-
-  const handleStart = () => {
-    const parsedNames = nameInput
-      .split(",")
-      .map((n) => n.trim())
-      .filter((n) => n !== "");
-    
-    setNames(parsedNames);
-    setIsSnapped(true);
-    
-    setTimeout(() => {
-      setShowSpinner(true);
-    }, 2000);
-  };
-
-  const handleUpdateNames = () => {
-    const parsedNames = nameInput
-      .split(",")
-      .map((n) => n.trim())
-      .filter((n) => n !== "");
-    
-    setNames(parsedNames);
-    setWinner(null);
-  };
-
-  const handleRemoveWinner = () => {
-    if (!winner) return;
-    
-    const newNames = names.filter((n) => n !== winner);
-    setNames(newNames);
-    setNameInput(newNames.join(", "));
-    setWinner(null);
-    setShowModal(false);
-  };
-
-  const spin = () => {
-    if (isSpinning || names.length < 2) return;
-    
-    setIsSpinning(true);
-    setWinner(null);
-    setShowModal(false);
-    
-    const extraDegree = Math.floor(Math.random() * 360) + 1800; // 5 full spins + random
-    const totalRotation = rotation + extraDegree;
-    setRotation(totalRotation);
-
-    // Calculate winner after animation
-    setTimeout(() => {
-      setIsSpinning(false);
-      const actualRotation = totalRotation % 360;
-      const segmentAngle = 360 / names.length;
-      const winningIndex = Math.floor(((360 - (actualRotation % 360)) % 360) / segmentAngle);
-      const chosenWinner = names[winningIndex];
-      setWinner(chosenWinner);
-      setHistory((prev) => [chosenWinner, ...prev]);
-      setShowModal(true);
-    }, 4000);
-  };
-
-  // Plain but elegant colors
-  const colors = ["#f8f9fa", "#e9ecef", "#dee2e6", "#f1f3f5"];
+  const {
+    isSnapped,
+    showSpinner,
+    rotation,
+    nameInput,
+    setNameInput,
+    names,
+    isSpinning,
+    winner,
+    setShowModal,
+    history,
+    setHistory,
+    randomCount,
+    setRandomCount,
+    spinRounds,
+    setSpinRounds,
+    currentRound,
+    handleGenerateRandom,
+    handleStart,
+    handleUpdateNames,
+    handleResetSpinner,
+    handleRemoveWinner,
+    spin,
+    resetAll,
+  } = useSpinner();
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center bg-[#f0e7d5] p-8 text-center overflow-hidden font-mono text-[#212844]">
       {/* Landing Page Content */}
       {!showSpinner && (
-        <div 
-          className={`flex flex-col items-center transition-all duration-[2000ms] ease-out ${
-            isSnapped 
-              ? "opacity-0 blur-3xl scale-125 rotate-3 grayscale pointer-events-none" 
-              : "opacity-100 blur-0 scale-100 rotate-0"
-          }`}
-        >
-          <h1 className="mb-6 text-6xl font-bold">
-            Tukang <span className="underline decoration-wavy">Spin</span>
-          </h1>
-          <p className="max-w-2xl text-xl opacity-80 mb-12">
-            Alat putar interaktif untuk membuat keputusan acak, memilih nama, atau menentukan hadiah.
-          </p>
-          
-          <button 
-            onClick={handleStart}
-            className="group relative cursor-pointer outline-none"
-          >
-            <span className="absolute inset-0 translate-y-2 rounded-xl bg-[#212844]/20 transition-transform group-hover:translate-y-1.5 group-active:translate-y-0"></span>
-            <span className="relative block -translate-y-1 rounded-xl bg-[#212844] px-12 py-5 text-2xl font-bold text-[#f0e7d5] transition-transform group-hover:-translate-y-1.5 group-active:translate-y-1">
-              mulai
-            </span>
-          </button>
-        </div>
+        <LandingPage onStart={handleStart} isSnapped={isSnapped} />
       )}
 
       {/* Spinner Component */}
       {showSpinner && (
-        <div className="appear-smooth flex flex-col items-center w-full max-w-4xl mt-8">
-          <div className="relative h-80 w-80 md:h-[500px] md:w-[500px] mb-8 shadow-2xl rounded-full">
-            {/* The Wheel */}
-            <div 
-              style={{ transform: `rotate(${rotation}deg)` }}
-              className="absolute inset-0 rounded-full border-8 border-[#212844] bg-white transition-transform duration-[4000ms] cubic-bezier(0.15, 0, 0.15, 1) overflow-hidden"
-            >
-              {names.length >= 2 ? (
-                names.map((name, i) => {
-                  const angle = 360 / names.length;
-                  return (
-                    <div 
-                      key={i}
-                      className="absolute top-0 left-1/2 h-1/2 w-full origin-bottom -translate-x-1/2"
-                      style={{ 
-                        transform: `rotate(${i * angle}deg)`,
-                        clipPath: names.length > 2 
-                          ? `polygon(50% 100%, ${50 - Math.tan((angle / 2) * Math.PI / 180) * 100}% 0%, ${50 + Math.tan((angle / 2) * Math.PI / 180) * 100}% 0%)`
-                          : "none",
-                        backgroundColor: colors[i % colors.length],
-                        borderBottom: "1px solid #21284422"
-                      }}
-                    >
-                      <span 
-                        className="absolute top-12 left-1/2 -translate-x-1/2 font-bold text-[#212844] text-lg md:text-xl uppercase whitespace-nowrap px-4"
-                        style={{ transform: `rotate(0deg)` }}
-                      >
-                        {name}
-                      </span>
-                    </div>
-                  );
-                })
-              ) : (
-                <div className="h-full w-full bg-[#f8f9fa]" />
-              )}
-              
-              {/* Special handling for 2 names */}
-              {names.length === 2 && (
-                <>
-                  <div className="absolute top-0 left-0 w-full h-1/2 bg-[#f8f9fa] border-b-2 border-[#21284422]">
-                     <span className="absolute bottom-12 left-1/2 -translate-x-1/2 font-bold text-[#212844] text-xl uppercase">{names[0]}</span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 w-full h-1/2 bg-[#e9ecef]">
-                     <span className="absolute top-12 left-1/2 -translate-x-1/2 font-bold text-[#212844] text-xl uppercase">{names[1]}</span>
-                  </div>
-                </>
-              )}
-            </div>
+        <div className="animate-appear-smooth flex flex-col items-center w-full max-w-4xl mt-8">
+          <SpinnerWheel 
+            names={names}
+            rotation={rotation}
+            isSpinning={isSpinning}
+            currentRound={currentRound}
+            spinRounds={spinRounds}
+            onSpin={spin}
+          />
 
-            {/* Pointer */}
-            <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-30 drop-shadow-lg">
-              <div className="w-10 h-10 bg-[#212844] clip-path-triangle rotate-180"></div>
-            </div>
+          <Controls 
+            nameInput={nameInput}
+            onNameInputChange={setNameInput}
+            spinRounds={spinRounds}
+            onSpinRoundsChange={setSpinRounds}
+            randomCount={randomCount}
+            onRandomCountChange={setRandomCount}
+            onGenerateRandom={handleGenerateRandom}
+            onUpdateNames={handleUpdateNames}
+            onResetSpinner={handleResetSpinner}
+          />
 
-            {/* Center Button */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40">
-              <button 
-                onClick={spin}
-                disabled={isSpinning || names.length < 2}
-                className="relative group outline-none disabled:cursor-not-allowed"
-              >
-                <span className="absolute inset-0 translate-y-1.5 rounded-full bg-[#212844]/20 transition-transform group-hover:translate-y-1 group-active:translate-y-0"></span>
-                <span className={`relative flex h-24 w-24 items-center justify-center rounded-full font-bold transition-transform tracking-wider ${
-                  names.length < 2 
-                    ? "bg-[#dee2e6] text-[#212844]/40" 
-                    : "bg-[#212844] text-[#f0e7d5] group-hover:-translate-y-1 group-active:translate-y-1"
-                }`}>
-                  {names.length < 2 ? "isi\ndulu" : "putar"}
-                </span>
-              </button>
-            </div>
-          </div>
-
-          <div className="w-full max-w-md mt-4 mb-8">
-            <label className="block text-center text-sm font-bold uppercase tracking-widest mb-2 opacity-60">
-              Atur Nama (pisahkan dengan koma)
-            </label>
-            <textarea
-              value={nameInput}
-              onChange={(e) => setNameInput(e.target.value)}
-              className="w-full h-32 p-4 rounded-xl border-4 border-[#212844] bg-white/50 focus:bg-white outline-none transition-all resize-none font-bold text-sm"
-              placeholder="Contoh: Nama 1, Nama 2, Nama 3"
-            />
-            <button 
-              onClick={handleUpdateNames}
-              className="mt-2 w-full rounded-xl bg-[#212844] px-4 py-3 text-sm font-bold uppercase tracking-widest text-[#f0e7d5] hover:bg-[#3d4b7a] transition-colors"
-            >
-              Update Spinner
-            </button>
-          </div>
-
-          {/* History Section */}
-          {history.length > 0 && (
-            <div className="w-full max-w-md mb-8 p-6 rounded-xl border-4 border-[#212844] bg-white/30">
-               <h3 className="text-sm font-black uppercase tracking-widest mb-4 opacity-60">Riwayat Terpilih</h3>
-               <div className="flex flex-col gap-2">
-                 {history.map((h, i) => (
-                   <div key={i} className="flex items-center gap-4 bg-white p-3 rounded-lg border-2 border-[#212844] animate-pop-up">
-                      <span className="font-black text-[#212844]/40">#{history.length - i}</span>
-                      <span className="font-bold uppercase flex-1 text-left">{h}</span>
-                   </div>
-                 ))}
-               </div>
-               <button 
-                 onClick={() => setHistory([])}
-                 className="mt-4 text-[10px] font-black uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity"
-               >
-                 Bersihkan Riwayat
-               </button>
-            </div>
-          )}
+          <History 
+            history={history}
+            onClear={() => setHistory([])}
+          />
 
           <button 
-            onClick={() => {
-              setShowSpinner(false);
-              setIsSnapped(false);
-              setWinner(null);
-              setRotation(0);
-              setHistory([]);
-            }}
+            onClick={resetAll}
             className="text-sm font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-8"
           >
             ← Kembali ke Awal
@@ -234,103 +80,11 @@ export default function Home() {
       )}
 
       {/* Popup Modal */}
-      {showModal && winner && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Overlay */}
-          <div 
-            className="absolute inset-0 bg-[#212844]/80 backdrop-blur-md animate-fade-in"
-            onClick={() => setShowModal(false)}
-          ></div>
-          
-          {/* Modal Content */}
-          <div className="relative w-full max-w-md bg-[#f0e7d5] border-8 border-[#212844] p-8 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] animate-pop-up text-center">
-             <div className="absolute -top-16 left-1/2 -translate-x-1/2 text-8xl drop-shadow-2xl">
-                🏆
-             </div>
-             
-             <div className="mt-4 mb-2">
-               <h2 className="text-xs font-black uppercase tracking-[0.3em] text-[#212844]/40">
-                  Selamat Kepada
-               </h2>
-             </div>
-             
-             <div className="mb-10">
-                <h1 className="text-6xl font-black uppercase tracking-tighter text-[#212844] break-words leading-tight">
-                  {winner}
-                </h1>
-             </div>
-             
-             <div className="flex flex-col gap-4">
-                <button 
-                    onClick={() => setShowModal(false)}
-                    className="group relative cursor-pointer outline-none w-full"
-                >
-                    <span className="absolute inset-0 translate-y-1.5 rounded-2xl bg-[#212844]/20 transition-transform group-hover:translate-y-1 group-active:translate-y-0"></span>
-                    <span className="relative block -translate-y-1 rounded-2xl bg-[#212844] px-8 py-4 text-xl font-bold text-[#f0e7d5] transition-transform group-hover:-translate-y-1.5 group-active:translate-y-0.5">
-                      Mantap!
-                    </span>
-                </button>
-
-                <button 
-                    onClick={handleRemoveWinner}
-                    className="group relative cursor-pointer outline-none w-full"
-                >
-                    <span className="absolute inset-0 translate-y-1 rounded-2xl bg-[#212844]/10 transition-transform group-hover:translate-y-0.5 group-active:translate-y-0"></span>
-                    <span className="relative block -translate-y-0.5 rounded-2xl border-2 border-[#212844]/40 bg-[#212844]/10 px-8 py-4 text-sm font-bold text-[#212844] transition-transform group-hover:-translate-y-1 group-active:translate-y-0 uppercase tracking-widest">
-                      Hapus dari Spinner & Tutup
-                    </span>
-                </button>
-             </div>
-          </div>
-        </div>
-      )}
-
-      <style jsx>{`
-        .clip-path-triangle {
-          clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-        
-        .appear-smooth {
-          animation: appear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .animate-fade-in {
-          animation: fadeIn 0.3s ease-out forwards;
-        }
-
-        .animate-pop-up {
-          animation: popUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-
-        @keyframes popUp {
-          from { 
-            opacity: 0;
-            transform: scale(0.8) translateY(20px);
-          }
-          to { 
-            opacity: 1;
-            transform: scale(1) translateY(0);
-          }
-        }
-
-        @keyframes appear {
-          0% {
-            opacity: 0;
-            transform: scale(0.5) rotate(-10deg);
-            filter: blur(10px);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
-            filter: blur(0px);
-          }
-        }
-      `}</style>
+      <WinnerModal 
+        winner={winner}
+        onClose={() => setShowModal(false)}
+        onRemove={handleRemoveWinner}
+      />
     </main>
   );
 }
