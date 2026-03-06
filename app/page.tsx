@@ -10,6 +10,7 @@ export default function Home() {
   const [names, setNames] = useState<string[]>([]);
   const [isSpinning, setIsSpinning] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const handleStart = () => {
     const parsedNames = nameInput
@@ -41,6 +42,7 @@ export default function Home() {
     
     setIsSpinning(true);
     setWinner(null);
+    setShowModal(false);
     
     const extraDegree = Math.floor(Math.random() * 360) + 1800; // 5 full spins + random
     const totalRotation = rotation + extraDegree;
@@ -53,6 +55,7 @@ export default function Home() {
       const segmentAngle = 360 / names.length;
       const winningIndex = Math.floor(((360 - (actualRotation % 360)) % 360) / segmentAngle);
       setWinner(names[winningIndex]);
+      setShowModal(true);
     }, 4000);
   };
 
@@ -164,15 +167,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Winner Display */}
-          {winner && (
-            <div className="animate-bounce mb-8">
-              <h3 className="text-3xl font-black uppercase tracking-widest text-[#212844]">
-                🎉 {winner} 🎉
-              </h3>
-            </div>
-          )}
-
           <div className="w-full max-w-md mt-4 mb-8">
             <label className="block text-center text-sm font-bold uppercase tracking-widest mb-2 opacity-60">
               Atur Nama (pisahkan dengan koma)
@@ -205,6 +199,44 @@ export default function Home() {
         </div>
       )}
 
+      {/* Popup Modal */}
+      {showModal && winner && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Overlay */}
+          <div 
+            className="absolute inset-0 bg-[#212844]/80 backdrop-blur-sm animate-fade-in"
+            onClick={() => setShowModal(false)}
+          ></div>
+          
+          {/* Modal Content */}
+          <div className="relative w-full max-w-md bg-[#f0e7d5] border-8 border-[#212844] p-12 rounded-3xl shadow-[0_20px_0_rgba(0,0,0,0.1)] animate-pop-up">
+             <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-6xl">
+                🏆
+             </div>
+             
+             <h2 className="text-sm font-black uppercase tracking-widest text-[#212844]/60 mb-2">
+                Pemenangnya Adalah:
+             </h2>
+             
+             <div className="mb-8">
+                <h1 className="text-5xl font-black uppercase tracking-tight text-[#212844] break-words">
+                  {winner}
+                </h1>
+             </div>
+             
+             <button 
+                onClick={() => setShowModal(false)}
+                className="group relative cursor-pointer outline-none w-full"
+             >
+                <span className="absolute inset-0 translate-y-2 rounded-xl bg-[#212844]/20 transition-transform group-hover:translate-y-1.5 group-active:translate-y-0"></span>
+                <span className="relative block -translate-y-1 rounded-xl bg-[#212844] px-12 py-4 text-xl font-bold text-[#f0e7d5] transition-transform group-hover:-translate-y-1.5 group-active:translate-y-1">
+                  Mantap!
+                </span>
+             </button>
+          </div>
+        </div>
+      )}
+
       <style jsx>{`
         .clip-path-triangle {
           clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -212,6 +244,30 @@ export default function Home() {
         
         .appear-smooth {
           animation: appear 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .animate-fade-in {
+          animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .animate-pop-up {
+          animation: popUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes popUp {
+          from { 
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+          }
+          to { 
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
         }
 
         @keyframes appear {
