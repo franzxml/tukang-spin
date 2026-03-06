@@ -11,6 +11,7 @@ export default function Home() {
   const [isSpinning, setIsSpinning] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [history, setHistory] = useState<string[]>([]);
 
   const handleStart = () => {
     const parsedNames = nameInput
@@ -34,7 +35,6 @@ export default function Home() {
     
     setNames(parsedNames);
     setWinner(null);
-    setRotation(0);
   };
 
   const handleRemoveWinner = () => {
@@ -45,7 +45,6 @@ export default function Home() {
     setNameInput(newNames.join(", "));
     setWinner(null);
     setShowModal(false);
-    setRotation(0);
   };
 
   const spin = () => {
@@ -65,7 +64,9 @@ export default function Home() {
       const actualRotation = totalRotation % 360;
       const segmentAngle = 360 / names.length;
       const winningIndex = Math.floor(((360 - (actualRotation % 360)) % 360) / segmentAngle);
-      setWinner(names[winningIndex]);
+      const chosenWinner = names[winningIndex];
+      setWinner(chosenWinner);
+      setHistory((prev) => [chosenWinner, ...prev]);
       setShowModal(true);
     }, 4000);
   };
@@ -196,12 +197,34 @@ export default function Home() {
             </button>
           </div>
 
+          {/* History Section */}
+          {history.length > 0 && (
+            <div className="w-full max-w-md mb-8 p-6 rounded-xl border-4 border-[#212844] bg-white/30">
+               <h3 className="text-sm font-black uppercase tracking-widest mb-4 opacity-60">Riwayat Terpilih</h3>
+               <div className="flex flex-col gap-2">
+                 {history.map((h, i) => (
+                   <div key={i} className="flex items-center gap-4 bg-white p-3 rounded-lg border-2 border-[#212844] animate-pop-up">
+                      <span className="font-black text-[#212844]/40">#{history.length - i}</span>
+                      <span className="font-bold uppercase flex-1 text-left">{h}</span>
+                   </div>
+                 ))}
+               </div>
+               <button 
+                 onClick={() => setHistory([])}
+                 className="mt-4 text-[10px] font-black uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity"
+               >
+                 Bersihkan Riwayat
+               </button>
+            </div>
+          )}
+
           <button 
             onClick={() => {
               setShowSpinner(false);
               setIsSnapped(false);
               setWinner(null);
               setRotation(0);
+              setHistory([]);
             }}
             className="text-sm font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-8"
           >
