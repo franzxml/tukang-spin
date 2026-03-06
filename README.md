@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tukang Spin
 
-## Getting Started
+## Deskripsi
+Proyek ini adalah aplikasi *Spinner Wheel* berbasis web yang dirancang untuk mempermudah pengambilan keputusan acak atau penentuan pemenang secara interaktif. Aplikasi ini memungkinkan pengguna untuk memutar roda keberuntungan dengan antarmuka yang bersih, intuitif, dan responsif, serta dilengkapi dengan fitur riwayat pemenang.
 
-First, run the development server:
+## Teknologi
+- Next.js 16 untuk *framework* React dengan performa tinggi
+- React 19 untuk manajemen *state* dan komponen UI
+- Tailwind CSS 4 untuk gaya dan tata letak yang modern
+- TypeScript untuk pengembangan kode yang lebih aman dan terstruktur
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Struktur Folder
+```
+root/
+├── app/
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── Controls.tsx
+│   ├── History.tsx
+│   ├── LandingPage.tsx
+│   ├── SpinnerWheel.tsx
+│   └── WinnerModal.tsx
+├── hooks/
+│   └── useSpinner.ts
+├── public/
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Cara Menjalankan
+1. Unduh atau *clone* proyek
+2. Buka folder proyek
+3. Jalankan `npm install` untuk menginstal dependensi
+4. Jalankan `npm run dev` untuk memulai server pengembangan
+5. Buka `http://localhost:3000` di browser Anda
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Domain
+Website dapat diakses melalui:
+https://tukang-spin.vercel.app/
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Dikembangkan oleh: @franzxml
