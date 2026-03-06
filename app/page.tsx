@@ -37,6 +37,17 @@ export default function Home() {
     setRotation(0);
   };
 
+  const handleRemoveWinner = () => {
+    if (!winner) return;
+    
+    const newNames = names.filter((n) => n !== winner);
+    setNames(newNames);
+    setNameInput(newNames.join(", "));
+    setWinner(null);
+    setShowModal(false);
+    setRotation(0);
+  };
+
   const spin = () => {
     if (isSpinning || names.length < 2) return;
     
@@ -95,11 +106,11 @@ export default function Home() {
       {/* Spinner Component */}
       {showSpinner && (
         <div className="appear-smooth flex flex-col items-center w-full max-w-4xl mt-8">
-          <div className="relative h-80 w-80 md:h-[500px] md:w-[500px] mb-8">
+          <div className="relative h-80 w-80 md:h-[500px] md:w-[500px] mb-8 shadow-2xl rounded-full">
             {/* The Wheel */}
             <div 
               style={{ transform: `rotate(${rotation}deg)` }}
-              className="absolute inset-0 rounded-full border-8 border-[#212844] bg-white transition-transform duration-[4000ms] cubic-bezier(0.15, 0, 0.15, 1) overflow-hidden shadow-2xl"
+              className="absolute inset-0 rounded-full border-8 border-[#212844] bg-white transition-transform duration-[4000ms] cubic-bezier(0.15, 0, 0.15, 1) overflow-hidden"
             >
               {names.length >= 2 ? (
                 names.map((name, i) => {
@@ -156,7 +167,7 @@ export default function Home() {
                 className="relative group outline-none disabled:cursor-not-allowed"
               >
                 <span className="absolute inset-0 translate-y-1.5 rounded-full bg-[#212844]/20 transition-transform group-hover:translate-y-1 group-active:translate-y-0"></span>
-                <span className={`relative flex h-24 w-24 items-center justify-center rounded-full font-bold transition-transform tracking-wider shadow-lg ${
+                <span className={`relative flex h-24 w-24 items-center justify-center rounded-full font-bold transition-transform tracking-wider ${
                   names.length < 2 
                     ? "bg-[#dee2e6] text-[#212844]/40" 
                     : "bg-[#212844] text-[#f0e7d5] group-hover:-translate-y-1 group-active:translate-y-1"
@@ -204,35 +215,49 @@ export default function Home() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           {/* Overlay */}
           <div 
-            className="absolute inset-0 bg-[#212844]/80 backdrop-blur-sm animate-fade-in"
+            className="absolute inset-0 bg-[#212844]/80 backdrop-blur-md animate-fade-in"
             onClick={() => setShowModal(false)}
           ></div>
           
           {/* Modal Content */}
-          <div className="relative w-full max-w-md bg-[#f0e7d5] border-8 border-[#212844] p-12 rounded-3xl shadow-[0_20px_0_rgba(0,0,0,0.1)] animate-pop-up">
-             <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-6xl">
+          <div className="relative w-full max-w-md bg-[#f0e7d5] border-8 border-[#212844] p-8 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] animate-pop-up text-center">
+             <div className="absolute -top-16 left-1/2 -translate-x-1/2 text-8xl drop-shadow-2xl">
                 🏆
              </div>
              
-             <h2 className="text-sm font-black uppercase tracking-widest text-[#212844]/60 mb-2">
-                Pemenangnya Adalah:
-             </h2>
+             <div className="mt-4 mb-2">
+               <h2 className="text-xs font-black uppercase tracking-[0.3em] text-[#212844]/40">
+                  Selamat Kepada
+               </h2>
+             </div>
              
-             <div className="mb-8">
-                <h1 className="text-5xl font-black uppercase tracking-tight text-[#212844] break-words">
+             <div className="mb-10">
+                <h1 className="text-6xl font-black uppercase tracking-tighter text-[#212844] break-words leading-tight">
                   {winner}
                 </h1>
              </div>
              
-             <button 
-                onClick={() => setShowModal(false)}
-                className="group relative cursor-pointer outline-none w-full"
-             >
-                <span className="absolute inset-0 translate-y-2 rounded-xl bg-[#212844]/20 transition-transform group-hover:translate-y-1.5 group-active:translate-y-0"></span>
-                <span className="relative block -translate-y-1 rounded-xl bg-[#212844] px-12 py-4 text-xl font-bold text-[#f0e7d5] transition-transform group-hover:-translate-y-1.5 group-active:translate-y-1">
-                  Mantap!
-                </span>
-             </button>
+             <div className="flex flex-col gap-4">
+                <button 
+                    onClick={() => setShowModal(false)}
+                    className="group relative cursor-pointer outline-none w-full"
+                >
+                    <span className="absolute inset-0 translate-y-1.5 rounded-2xl bg-[#212844]/20 transition-transform group-hover:translate-y-1 group-active:translate-y-0"></span>
+                    <span className="relative block -translate-y-1 rounded-2xl bg-[#212844] px-8 py-4 text-xl font-bold text-[#f0e7d5] transition-transform group-hover:-translate-y-1.5 group-active:translate-y-0.5">
+                      Mantap!
+                    </span>
+                </button>
+
+                <button 
+                    onClick={handleRemoveWinner}
+                    className="group relative cursor-pointer outline-none w-full"
+                >
+                    <span className="absolute inset-0 translate-y-1 rounded-2xl bg-[#212844]/10 transition-transform group-hover:translate-y-0.5 group-active:translate-y-0"></span>
+                    <span className="relative block -translate-y-0.5 rounded-2xl border-2 border-[#212844]/40 bg-[#212844]/10 px-8 py-4 text-sm font-bold text-[#212844] transition-transform group-hover:-translate-y-1 group-active:translate-y-0 uppercase tracking-widest">
+                      Hapus dari Spinner & Tutup
+                    </span>
+                </button>
+             </div>
           </div>
         </div>
       )}
